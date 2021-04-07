@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS university
 (
   universityID INT NOT NULL,
   universityName VARCHAR(255) NOT NULL,
-  PRIMARY KEY (universityID),
+  PRIMARY KEY (universityID)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

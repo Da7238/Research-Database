@@ -13,16 +13,16 @@ CREATE TABLE public (
   InterestId VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
   PRIMARY KEY (publicID)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 DROP TABLE IF EXISTS topic;
 CREATE TABLE topic (
   topicID INT NOT NULL AUTO_INCREMENT,
-  topicDescribtion VARCHAR(255) NOT NULL,
+  topicDescribtion VARCHAR(255),
   topicTag VARCHAR(20) NOT NULL,
   PRIMARY KEY (topicID)
-)  ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS student;
 CREATE TABLE student (
@@ -53,7 +53,33 @@ CREATE TABLE faculty (
   FOREIGN KEY (topicID) REFERENCES topic(topicID)
             ON DELETE CASCADE
             ON UPDATE CASCADE
-)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS author;
+CREATE TABLE author (
+	authorID INT NOT NULL AUTO_INCREMENT,
+    firstName VARCHAR(100) NOT NULL,
+    lastName VARCHAR(100) NOT NULL,
+    articlesPublished INT,
+    PRIMARY KEY (authorID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS article;
+CREATE TABLE article (
+	articleID INT NOT NULL AUTO_INCREMENT,
+    topicID INT NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    authorID INT NOT NULL,
+    articleDescription VARCHAR(255),
+    publishDate DATE,
+    PRIMARY KEY (articleID),
+    FOREIGN KEY (topicID) REFERENCES topic(topicID)
+			ON DELETE CASCADE
+            ON UPDATE CASCADE,
+	FOREIGN KEY (authorID) REFERENCES author(authorID)
+			ON DELETE CASCADE
+            ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS department;
 CREATE TABLE department (
@@ -63,9 +89,18 @@ CREATE TABLE department (
   universityID VARCHAR(10) NOT NULL,
   PRIMARY KEY (departmentID),
   FOREIGN KEY (facultyID) REFERENCES faculty(facultyID)
-			      ON DELETE CASCADE
+			ON DELETE CASCADE
             ON UPDATE CASCADE
-)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
-
+DROP TABLE IF EXISTS major;
+CREATE TABLE major (
+	majorID INT NOT NULL AUTO_INCREMENT,
+    studentID INT NOT NULL,
+    majorName VARCHAR(100) NOT NULL,
+    majorDescription VARCHAR(255),
+    PRIMARY KEY (majorID),
+    FOREIGN KEY (studentID) REFERENCES student(studentID)
+			ON DELETE CASCADE
+            ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

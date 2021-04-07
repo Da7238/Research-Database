@@ -57,10 +57,14 @@ CREATE TABLE faculty (
 
 DROP TABLE IF EXISTS department;
 CREATE TABLE department (
-  departmentID INT NOT NULL,
+  departmentID INT NOT NULL AUTO_INCREMENT,
+  facultyID INT NOT NULL,
   departmentName VARCHAR(255) NOT NULL,
   universityID VARCHAR(10) NOT NULL,
-  PRIMARY KEY (departmentID)
+  PRIMARY KEY (departmentID),
+  FOREIGN KEY (facultyID) REFERENCES faculty(facultyID)
+			      ON DELETE CASCADE
+            ON UPDATE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

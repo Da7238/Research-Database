@@ -4,8 +4,7 @@ CREATE DATABASE Faculty_Research;
 USE Faculty_Research;
 
 DROP TABLE IF EXISTS public;
-CREATE TABLE IF NOT EXISTS public
-(
+CREATE TABLE public (
   publicID INT NOT NULL AUTO_INCREMENT,
   firstName VARCHAR(255) NOT NULL,
   lastName VARCHAR(255) NOT NULL,
@@ -18,8 +17,7 @@ CREATE TABLE IF NOT EXISTS public
 
 
 DROP TABLE IF EXISTS topic;
-CREATE TABLE IF NOT EXISTS topic
-(
+CREATE TABLE topic (
   topicID INT NOT NULL AUTO_INCREMENT,
   topicDescribtion VARCHAR(255) NOT NULL,
   topicTag VARCHAR(20) NOT NULL,
@@ -27,25 +25,26 @@ CREATE TABLE IF NOT EXISTS topic
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS student;
-CREATE TABLE IF NOT EXISTS student
-(
+CREATE TABLE student (
   studentID INT NOT NULL AUTO_INCREMENT,
-  name VARCHAR(255) NOT NULL,
+  publicID INT NOT NULL,
+  studentName VARCHAR(255) NOT NULL,
   interestID VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
   PRIMARY KEY (studentID),
-  FOREIGN KEY (publicID) REFERENCES user(publicID)
+  FOREIGN KEY (publicID) REFERENCES public(publicID)
             ON DELETE CASCADE
             ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS faculty;
-CREATE TABLE IF NOT EXISTS faculty
-(
+CREATE TABLE faculty (
   facultyID INT NOT NULL AUTO_INCREMENT,
+  facultyName VARCHAR(255),
   department VARCHAR(255) NOT NULL,
   abstract VARCHAR(255) NOT NULL,
   publicID INT NOT NULL,
+  topicID INT NOT NULL,
   subjectID INT NOT NULL,
   PRIMARY KEY (facultyID),
   FOREIGN KEY (publicID) REFERENCES public(publicID)
@@ -57,23 +56,9 @@ CREATE TABLE IF NOT EXISTS faculty
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS department;
-CREATE TABLE IF NOT EXISTS department
-(
+CREATE TABLE department (
   departmentID INT NOT NULL,
   departmentName VARCHAR(255) NOT NULL,
   universityID VARCHAR(10) NOT NULL,
-  PRIMARY KEY (departmentID),
-    FOREIGN KEY (universityID) REFERENCES university(universityID)
-            ON DELETE CASCADE
-            ON UPDATE CASCADE
+  PRIMARY KEY (departmentID)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-DROP TABLE IF EXISTS university;
-CREATE TABLE IF NOT EXISTS university
-(
-  universityID INT NOT NULL,
-  universityName VARCHAR(255) NOT NULL,
-  PRIMARY KEY (universityID)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-

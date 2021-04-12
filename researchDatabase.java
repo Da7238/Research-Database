@@ -9,10 +9,9 @@ public class researchDatabase {
 
     final String DEFAULT_DRIVER = "com.mysql.cj.jdbc.Driver";
 
-    public researchDatabase() {
-
-    }
-
+    /**
+     * Connects top the database
+     */
     public boolean connect() {
         conn = null;
         String userName = "root";
@@ -37,6 +36,38 @@ public class researchDatabase {
         return (conn != null);
     } // end of connect()
 
+    public void searchName() {
+
+    }
+
+    public void searchInterest() {
+
+    }
+
+    public void searchMajor() {
+
+    }
+
+    public void searchArticle() {
+
+    }
+
+    public void searchAuthor() {
+
+    }
+
+    public void insertEntry() {
+
+    }
+
+    public void updateEntry() {
+
+    }
+
+    public void deleteEntry() {
+
+    }
+
     public void close() {
         try {
             rs.close();
@@ -47,4 +78,10 @@ public class researchDatabase {
             System.out.println("ERROR MESSAGE ->" + sqle);
         } // end of catch
     } // end of close
-} // end of MYSQLDatabase
+
+    public static void main(String[] args) {
+        researchDatabase someObject = new researchDatabase();
+        someObject.connect();
+
+    }
+} // end of researchDatabase

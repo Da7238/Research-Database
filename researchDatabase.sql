@@ -34,7 +34,10 @@ CREATE TABLE student (
   PRIMARY KEY (studentID),
   FOREIGN KEY (publicID) REFERENCES public(publicID)
             ON DELETE CASCADE
-            ON UPDATE CASCADE
+            ON UPDATE CASCADE,
+  FOREIGN KEY (interestID) REFERENCES interest(interestID)
+            ON DELETE CASCADE
+	    ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS faculty;
@@ -104,3 +107,10 @@ CREATE TABLE major (
 			ON DELETE CASCADE
             ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS interest;
+CREATE TABLE interest (
+    interestID INT NOT NULL,
+    interestName VARCHAR(255) NOT NULL,
+    PRIMARY KEY (interestID)
+)   ENGINE=InnoDB DEFAULT CHARSET=utf8;

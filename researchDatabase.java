@@ -1,3 +1,9 @@
+// Research Database Project
+// Darlene Ardila
+// Colton Bailiff
+// Weijie Chen
+// Ben Donahue
+
 import java.sql.*;
 
 public class researchDatabase {
@@ -35,35 +41,35 @@ public class researchDatabase {
         } // end of catch
         return (conn != null);
     } // end of connect()
-
+// Darlene 
     public void searchName() {
 
     }
-
+// Darlene
     public void searchInterest() {
 
     }
-
+// Ben
     public void searchMajor() {
 
     }
-
+// Ben
     public void searchArticle() {
 
     }
-
+// Weijie
     public void searchAuthor() {
 
     }
-
+// Weijie
     public void insertEntry() {
 
     }
-
+// Colton
     public void updateEntry() {
 
     }
-
+// Colton
     public void deleteEntry() {
 
     }

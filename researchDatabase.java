@@ -1,4 +1,4 @@
-// Research Database Project
+// Research Database Project 2021 ISTE 330
 // Darlene Ardila
 // Colton Bailiff
 // Weijie Chen

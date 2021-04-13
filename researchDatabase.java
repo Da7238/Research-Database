@@ -11,7 +11,7 @@ public class researchDatabase {
     private Connection conn;
     private Statement stmt;
     private ResultSet rs;
-    // private String sql;
+    private String sql;
 
     final String DEFAULT_DRIVER = "com.mysql.cj.jdbc.Driver";
 
@@ -65,14 +65,54 @@ public class researchDatabase {
     public void insertEntry() {
 
     }
-// Colton
+    
+// Colton (Not finished yet, need some more discussion regarding on what to update)
     public void updateEntry() {
-
-    }
+       int numberRows = 0;
+       int id = 0; // articleID
+       String inputTitle = ""; // temporary variable
+       String inputDesc = ""; // temporary variable
+       
+       // Attempt to create a statement and execute
+       try {
+            stmt = conn.createStatement();
+            
+            // Check if user left input(s) empty. If that is the case, it will replace with Untitled and/or No Description
+            if (inputTitle == null || inputTitle == "") {
+               sql = "UPDATE article SET title = 'Untitled', articleDescription = '" + inputDesc + "' WHERE articleID = " + id + ";";
+            }
+            if (inputDesc == null || inputDesc == "") {
+               sql = "UPDATE article SET title = '" + inputTitle + "', articleDescription = 'No Description' WHERE articleID = " + id + ";";
+            }
+            else {
+               sql = "UPDATE article SET title = '" + inputTitle + "', articleDescription = '" + inputDesc + "' WHERE articleID = " + id + ";";
+            }
+            
+            numberRows = stmt.executeUpdate(sql);
+            // Add some kind of notification informing something got updated successfully
+         }
+         catch (SQLException sqle) {
+            System.out.println("Error SQLException in deleteEntry | Error message: " + sqle);
+         } // end of catch
+    } // end of updateEntry
+    
 // Colton
     public void deleteEntry() {
-
-    }
+       int numberRows = 0;
+       String input = ""; // temporary variable
+       
+       // Attempt to create a statement and execute
+       try {
+            stmt = conn.createStatement();
+      
+            sql = "DELETE FROM article WHERE title = '%" + input + "%';"; // uses wildcard to find & delete article's title based on user's input without having to type exact title (might consider using id only)
+            numberRows = stmt.executeUpdate(sql);
+            // Add some kind of notification informing something is deleted successfully
+         }
+         catch (SQLException sqle) {
+            System.out.println("Error SQLException in deleteEntry | Error message: " + sqle);
+         } // end of catch
+    } // end of deleteEntry
 
     public void close() {
         try {

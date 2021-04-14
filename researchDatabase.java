@@ -50,13 +50,63 @@ public class researchDatabase {
 
     }
 // Ben
-    public void searchMajor() {
-
-    }
+    public void searchMajor(String major) {
+        String searchResult = ""; //string containing query results
+        String student = ""; //string containing a single student's information that matched the search
+        int numberRows = 0; //number of results for search found
+        String sql = ""; //string to contain sql statement
+        
+        try {
+            //create and execute query
+            stmt = conn.createStatement();
+            sql = "select s.studentName, m.majorName, s.email from student s join major m on (s.studentID = m.studentID) where m.majorName like %" + major + "%"; 
+            rs = stmt.executeQuery(sql); 
+            searchResult += "Student\tMajor\tEmail\n";
+            
+            //retrieve result set data to put in string
+            while(rs.next()) {
+                student = "| " + rs.getString(1) + "\t| " + rs.getString(2) + "\t| " + rs.getString(3) + "\t|\n";
+                searchResult += student; 
+            }//end of while          
+        }//end of try
+        
+        catch (SQLException sqle) {
+            System.out.println("Error SQLException in searchMajor | Error message: " + sqle);
+        } // end of catch
+        
+        //get number of results and print the final search result
+        searchResult += "\n" + numberRows + " results."; 
+        System.out.println(searchResult); 
+    }//end of searchMajor
 // Ben
     public void searchArticle() {
-
-    }
+        String searchResult = ""; //string containing query results
+        String articleResult = ""; //string containing a single article's information that matched the search
+        int numberRows = 0; //number of results for search found
+        String sql = ""; //string to contain sql statement
+        
+        try {
+            //create and execute query
+            stmt = conn.createStatement();
+            sql = "select a.title, a.author, t.topicTag, a.description from article a join topic t on (a.topicID = t.topicID) where a.title like %" + article + "%";
+            rs = stmt.executeQuery(sql); 
+            searchResult += "Title\tAuthor\tTopic\tDescription\n";
+            
+            //retrieve result set data to put in string
+            while(rs.next()) {
+                articleResult = "| " + rs.getString(1) + "\t| " + rs.getString(2) + "\t| " + rs.getString(3) + "\t| " + rs.getString(4) + "\t|\n";
+                searchResult += articleResult; 
+            }//end of while
+        }//end of try
+        
+        catch (SQLException sqle) {
+            System.out.println("Error SQLException in searchArticle | Error message: " + sqle);
+        } // end of catch
+        
+        //get number of results and print the final search result
+        searchResult += "\n" + numberRows + " results.";
+        System.out.println(searchResult); 
+    }//end of searchArticle
 // Weijie
     public void searchAuthor() {
 

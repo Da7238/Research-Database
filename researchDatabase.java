@@ -117,11 +117,9 @@ public class researchDatabase {
     }
     
 // Colton (Not finished yet, need some more discussion regarding on what to update)
-    public void updateEntry() {
+    public void updateEntry(String inputTitle, String inputDesc) {
        int numberRows = 0;
-       int id = 0; // articleID
-       String inputTitle = ""; // temporary variable
-       String inputDesc = ""; // temporary variable
+       int id = 0; // articleID (need to pass from somewhere that is currently viewing a article or something)
        
        // Attempt to create a statement and execute
        try {
@@ -139,7 +137,7 @@ public class researchDatabase {
             }
             
             numberRows = stmt.executeUpdate(sql);
-            // Add some kind of notification informing something got updated successfully
+            System.out.println(numberRows + " row(s) updated.");
          }
          catch (SQLException sqle) {
             System.out.println("Error SQLException in deleteEntry | Error message: " + sqle);
@@ -147,17 +145,16 @@ public class researchDatabase {
     } // end of updateEntry
     
 // Colton
-    public void deleteEntry() {
+    public void deleteEntry(String inputTitle) {
        int numberRows = 0;
-       String input = ""; // temporary variable
        
        // Attempt to create a statement and execute
        try {
             stmt = conn.createStatement();
       
-            sql = "DELETE FROM article WHERE title = '%" + input + "%';"; // uses wildcard to find & delete article's title based on user's input without having to type exact title (might consider using id only)
+            sql = "DELETE FROM article WHERE title LIKE '%" + inputTitle + "%';"; // uses wildcard to find & delete article's title based on user's input without having to type exact title (might consider using id only)
             numberRows = stmt.executeUpdate(sql);
-            // Add some kind of notification informing something is deleted successfully
+            System.out.println(numberRows + " row(s) deleted.");
          }
          catch (SQLException sqle) {
             System.out.println("Error SQLException in deleteEntry | Error message: " + sqle);

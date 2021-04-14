@@ -79,7 +79,7 @@ public class researchDatabase {
         System.out.println(searchResult); 
     }//end of searchMajor
 // Ben
-    public void searchArticle() {
+    public void searchArticle(String article) {
         String searchResult = ""; //string containing query results
         String articleResult = ""; //string containing a single article's information that matched the search
         int numberRows = 0; //number of results for search found

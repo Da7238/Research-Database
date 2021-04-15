@@ -76,7 +76,7 @@ CREATE TABLE faculty (
   publicID INT NOT NULL,
   topicID INT NOT NULL,
   subjectID INT NOT NULL,
-  interestID VARCHAR (255),
+  interestID INT NOT NULL,
   PRIMARY KEY (facultyID),
   FOREIGN KEY (publicID) REFERENCES public(publicID)
             ON DELETE CASCADE
@@ -86,7 +86,7 @@ CREATE TABLE faculty (
             ON UPDATE CASCADE,
   FOREIGN KEY (interestID) REFERENCES interest(interestID)
             ON DELETE CASCADE
-	          ON UPDATE CASCADE
+			ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO faculty(facultyID, facultyName, department, abstract, publicID, topicID, subjectID, interestID) VALUES (1, 'jimm', 'IS', 'aofdjaeoei', 1, 1, 1, 1);
@@ -147,4 +147,4 @@ CREATE TABLE major (
             ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO major(majorID, studentID, majorName, majorDescription) VALUES (1, 1, 'math', 'do math');
+

@@ -75,7 +75,6 @@ CREATE TABLE faculty (
   abstract VARCHAR(255) NOT NULL,
   publicID INT NOT NULL,
   topicID INT NOT NULL,
-  subjectID INT NOT NULL,
   PRIMARY KEY (facultyID),
   FOREIGN KEY (publicID) REFERENCES public(publicID)
             ON DELETE CASCADE
@@ -85,7 +84,7 @@ CREATE TABLE faculty (
             ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO faculty(facultyID, facultyName, department, abstract, publicID, topicID, subjectID) VALUES (1, 'jimm', 'IS', 'aofdjaeoei', 1, 1, 1);
+INSERT INTO faculty(facultyID, facultyName, department, abstract, publicID, topicID) VALUES (1, 'jimm', 'IS', 'aofdjaeoei', 1, 1);
 
 DROP TABLE IF EXISTS author;
 CREATE TABLE author (
@@ -122,14 +121,13 @@ CREATE TABLE department (
   departmentID INT NOT NULL AUTO_INCREMENT,
   facultyID INT NOT NULL,
   departmentName VARCHAR(255) NOT NULL,
-  universityID VARCHAR(10) NOT NULL,
   PRIMARY KEY (departmentID),
   FOREIGN KEY (facultyID) REFERENCES faculty(facultyID)
 			      ON DELETE CASCADE
             ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO department(departmentID, facultyID, departmentName, universityID) VALUES (1, 1, 'math', 1);
+INSERT INTO department(departmentID, facultyID, departmentName) VALUES (1, 1, 'math');
 
 DROP TABLE IF EXISTS major;
 CREATE TABLE major (

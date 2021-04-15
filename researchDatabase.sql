@@ -10,18 +10,33 @@ CREATE DATABASE researchDatabase;
 
 USE researchDatabase;
 
-DROP TABLE IF EXISTS public;
+DROP TABLE IF EXISTS interest;
+CREATE TABLE interest (
+    interestID INT NOT NULL AUTO_INCREMENT,
+    interestName VARCHAR(255) NOT NULL,
+    PRIMARY KEY (interestID)
+)   ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO interest(interestID, interestName) VALUES (1, 'php');
+INSERT INTO interest(interestID, interestName) VALUES (2, 'java');
+commit;
+
 CREATE TABLE public (
   publicID INT NOT NULL AUTO_INCREMENT,
   firstName VARCHAR(255) NOT NULL,
   lastName VARCHAR(255) NOT NULL,
   userName VARCHAR(255) NOT NULL,
   pubEmail VARCHAR(255) NOT NULL,
-  InterestId VARCHAR(255) NOT NULL,
+  interestId INT NOT NULL,
   password VARCHAR(255) NOT NULL,
-  PRIMARY KEY (publicID)
+  PRIMARY KEY (publicID),
+  FOREIGN KEY (interestID) REFERENCES interest(interestID)
+            ON DELETE CASCADE
+			ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO public(publicID, firstName, lastName, userName, pubEmail, interestID, password) VALUES (1, 'pubF', 'pubL', 'pubU', 'pubE', 1, 'dsa123');
+INSERT INTO public(publicID, firstName, lastName, userName, pubEmail, interestID, password) VALUES (2, 'pubF2', 'pubL2', 'pubU2', 'pubE2', 2, 'dsa123');
 
 DROP TABLE IF EXISTS topic;
 CREATE TABLE topic (
@@ -31,12 +46,15 @@ CREATE TABLE topic (
   PRIMARY KEY (topicID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO topic(topicID, topicDescribtion, topicTag) VALUES (1, 'javaresearch', 'ja');
+INSERT INTO topic(topicID, topicDescribtion, topicTag) VALUES (2, 'phpresearch', 'php');
+
 DROP TABLE IF EXISTS student;
 CREATE TABLE student (
   studentID INT NOT NULL AUTO_INCREMENT,
   publicID INT NOT NULL,
   studentName VARCHAR(255) NOT NULL,
-  interestID VARCHAR(255) NOT NULL,
+  interestId INT NOT NULL,
   email VARCHAR(255) NOT NULL,
   PRIMARY KEY (studentID),
   FOREIGN KEY (publicID) REFERENCES public(publicID)
@@ -44,8 +62,10 @@ CREATE TABLE student (
             ON UPDATE CASCADE,
   FOREIGN KEY (interestID) REFERENCES interest(interestID)
             ON DELETE CASCADE
-	          ON UPDATE CASCADE
+			ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO student(studentID, publicID, studentName, interestId, email) VALUES (1, 2, 'jimm', 2, '123.edu');
 
 DROP TABLE IF EXISTS faculty;
 CREATE TABLE faculty (
@@ -69,6 +89,8 @@ CREATE TABLE faculty (
 	          ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO faculty(facultyID, facultyName, department, abstract, publicID, topicID, subjectID, interestID) VALUES (1, 'jimm', 'IS', 'aofdjaeoei', 1, 1, 1, 1);
+
 DROP TABLE IF EXISTS author;
 CREATE TABLE author (
 	  authorID INT NOT NULL AUTO_INCREMENT,
@@ -77,6 +99,8 @@ CREATE TABLE author (
     articlesPublished INT,
     PRIMARY KEY (authorID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO author(authorID, firstName, lastName, articlesPublished) VALUES (1, 'kevin', 'll', '2');
 
 DROP TABLE IF EXISTS article;
 CREATE TABLE article (
@@ -95,6 +119,8 @@ CREATE TABLE article (
             ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO article(articleID, topicID, title, authorID, articleDescription, publishDate) VALUES (1, 1, 'food', 1, 'foodw', '1991-01-01');
+
 DROP TABLE IF EXISTS department;
 CREATE TABLE department (
   departmentID INT NOT NULL AUTO_INCREMENT,
@@ -106,6 +132,8 @@ CREATE TABLE department (
 			      ON DELETE CASCADE
             ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO department(departmentID, facultyID, departmentName, universityID) VALUES (1, 1, 'math', 1);
 
 DROP TABLE IF EXISTS major;
 CREATE TABLE major (
@@ -119,9 +147,4 @@ CREATE TABLE major (
             ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS interest;
-CREATE TABLE interest (
-    interestID INT NOT NULL,
-    interestName VARCHAR(255) NOT NULL,
-    PRIMARY KEY (interestID)
-)   ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO major(majorID, studentID, majorName, majorDescription) VALUES (1, 1, 'math', 'do math');

@@ -112,9 +112,29 @@ public class researchDatabase {
 
     }
 // Weijie
-    public void insertEntry() {
+   public int insertFaculty(String ID, String facultyName,String department,String abstrac,String zip) {
+   
+       int result = 0;
+       int primaryKey = Integer.parseInt(ID);
+       try {
+           PreparedStatement stmt2;
 
-    }
+	   	   stmt2 = conn.prepareStatement("INSERT INTO faculty(facultyID,facultyName, Department, abstract)  VALUES (?,?,?,?)");
+	   	   stmt2.setInt(1,primaryKey);
+	         stmt2.setString(2,facultyName);
+            stmt2.setString(3,department);
+            stmt2.setString(4,abstrac);
+            
+            result = stmt2.executeUpdate();     // Performs the update command
+            }// end of try
+        catch(Exception e)
+         {
+			 System.out.println("Error whlie trying to insert command.");
+			 System.out.println("Error message is --> "+e);
+		}//end of catch
+       return (result); // return the result to presentation layer
+   }// end of method to add a passenger
+
     
 // Colton (Not finished yet, need some more discussion regarding on what to update)
     public void updateEntry(String inputTitle, String inputDesc) {

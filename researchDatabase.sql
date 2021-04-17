@@ -45,18 +45,22 @@ CREATE TABLE topic (
   PRIMARY KEY (topicID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO topic(topicID, topicDescribtion, topicTag) VALUES (1, 'javaresearch', 'ja');
-INSERT INTO topic(topicID, topicDescribtion, topicTag) VALUES (2, 'phpresearch', 'php');
+INSERT INTO topic(topicID, topicDescribtion, topicTag) VALUES (1, 'Java research', 'java');
+INSERT INTO topic(topicID, topicDescribtion, topicTag) VALUES (2, 'PHP research', 'php');
 
 DROP TABLE IF EXISTS student;
 CREATE TABLE student (
   studentID INT NOT NULL AUTO_INCREMENT,
-  publicID INT NOT NULL,
+  publicID INT NOT NULL, -- FK
   studentName VARCHAR(255) NOT NULL,
-  interestId INT NOT NULL,
+  interestID INT NOT NULL, -- FK
+  majorID INT NOT NULL, -- FK
   email VARCHAR(255) NOT NULL,
   PRIMARY KEY (studentID),
   FOREIGN KEY (publicID) REFERENCES public(publicID)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE,
+  FOREIGN KEY (majorID) REFERENCES major(majorID)
             ON DELETE CASCADE
             ON UPDATE CASCADE,
   FOREIGN KEY (interestID) REFERENCES interest(interestID)
@@ -64,12 +68,13 @@ CREATE TABLE student (
 			ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO student(studentID, publicID, studentName, interestId, email) VALUES (1, 2, 'jimm', 2, '123.edu');
+INSERT INTO student(studentID, publicID, studentName, interestID, email) VALUES (1, 2, 'Kevin', 2, '123.edu');
 
 DROP TABLE IF EXISTS faculty;
 CREATE TABLE faculty (
   facultyID INT NOT NULL AUTO_INCREMENT,
   facultyName VARCHAR(255),
+  email VARCHAR(255) NOT NULL,
   department VARCHAR(255) NOT NULL,
   abstract VARCHAR(255) NOT NULL,
   publicID INT NOT NULL,
@@ -83,7 +88,7 @@ CREATE TABLE faculty (
             ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO faculty(facultyID, facultyName, department, abstract, publicID, topicID) VALUES (1, 'jimm', 'IS', 'aofdjaeoei', 1, 1);
+INSERT INTO faculty(facultyID, facultyName, email, department, abstract, publicID, topicID) VALUES (1, 'Jim', 'jimmy@rit.edu', 'Golisano', 'Web Development',  1, 1);
 
 DROP TABLE IF EXISTS author;
 CREATE TABLE author (
@@ -93,7 +98,11 @@ CREATE TABLE author (
     PRIMARY KEY (authorID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
 INSERT INTO author(authorID, authorName, articlesPublished) VALUES (1, 'kevin', '2');
+
+INSERT INTO author(authorID, authorName, articlesPublished) VALUES (1, 'Jim', '2');
+
 
 DROP TABLE IF EXISTS article;
 CREATE TABLE article (
@@ -112,7 +121,7 @@ CREATE TABLE article (
             ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO article(articleID, topicID, title, authorID, articleDescription, publishDate) VALUES (1, 1, 'food', 1, 'foodw', '1991-01-01');
+INSERT INTO article(articleID, topicID, title, authorID, articleDescription, publishDate) VALUES (1, 1, 'How to make a website', 1, 'Tips and tricks on how to make a good website.', '1991-01-01');
 
 DROP TABLE IF EXISTS department;
 CREATE TABLE department (
@@ -125,11 +134,11 @@ CREATE TABLE department (
             ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO department(departmentID, facultyID, departmentName) VALUES (1, 1, 'math');
+INSERT INTO department(departmentID, facultyID, departmentName) VALUES (1, 1, 'Golisano');
 
 DROP TABLE IF EXISTS major;
 CREATE TABLE major (
-	majorID INT NOT NULL AUTO_INCREMENT,
+	  majorID INT NOT NULL AUTO_INCREMENT,
     studentID INT NOT NULL,
     majorName VARCHAR(100) NOT NULL,
     majorDescription VARCHAR(255),
@@ -139,4 +148,4 @@ CREATE TABLE major (
             ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO major(majorID, studentID, majorName, majorDescription) VALUES (1, 1,'math', '1+1');
+INSERT INTO major(majorID, studentID, majorName, majorDescription) VALUES (1, 1, 'Mathematics', 'Learning how to solve math problems.');

@@ -1,0 +1,7 @@
+-- Sign in -- 
+Enter whether you are a student or a faculty member as "student" or "faculty" and press enter.
+    If you receive an error, re-enter whether you are a student or faculty member.
+
+Enter the email that is associated with your account as "example@example.com" and press enter.
+Enter the password that is associated with your account and press enter. 
+    If you receive an error, re-enter your email and password.  

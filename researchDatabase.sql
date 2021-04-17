@@ -62,15 +62,11 @@ INSERT INTO major(majorID, majorName, majorDescription) VALUES (2, 'Computer Sci
 DROP TABLE IF EXISTS student;
 CREATE TABLE student (
   studentID INT NOT NULL AUTO_INCREMENT,
-  publicID INT NOT NULL, -- FK
   studentName VARCHAR(255) NOT NULL,
   interestID INT, -- FK
   majorID INT NOT NULL, -- FK
   email VARCHAR(255) NOT NULL,
   PRIMARY KEY (studentID),
-  FOREIGN KEY (publicID) REFERENCES public(publicID)
-            ON DELETE CASCADE
-            ON UPDATE CASCADE,
   FOREIGN KEY (majorID) REFERENCES major(majorID)
             ON DELETE CASCADE
             ON UPDATE CASCADE,
@@ -79,8 +75,8 @@ CREATE TABLE student (
 			ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO student(studentID, publicID, majorID, studentName, interestID, email) VALUES (1, 3, 1, 'Kevin', 1, 'kevin@gmail.com');
-INSERT INTO student(studentID, publicID, majorID, studentName, interestID, email) VALUES (1, 4, 2, 'Emily', 2, 'emily@gmail.com');
+INSERT INTO student(studentID, majorID, studentName, interestID, email) VALUES (1, 1, 'Kevin', 1, 'kevin@gmail.com');
+INSERT INTO student(studentID, majorID, studentName, interestID, email) VALUES (2, 2, 'Emily', 2, 'emily@gmail.com');
 
 DROP TABLE IF EXISTS faculty;
 CREATE TABLE faculty (
@@ -89,18 +85,14 @@ CREATE TABLE faculty (
   email VARCHAR(255) NOT NULL,
   departmentID VARCHAR(255),
   abstract VARCHAR(255),
-  publicID INT NOT NULL,
   topicID INT NOT NULL,
   PRIMARY KEY (facultyID),
-  FOREIGN KEY (publicID) REFERENCES public(publicID)
-            ON DELETE CASCADE
-            ON UPDATE CASCADE,
   FOREIGN KEY (topicID) REFERENCES topic(topicID)
             ON DELETE CASCADE
             ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO faculty(facultyID, facultyName, email, departmentID, abstract, publicID, topicID) VALUES (1, 'Jim', 'jimmy@rit.edu', 1, 'Web Development',  1, 1);
+INSERT INTO faculty(facultyID, facultyName, email, departmentID, abstract, topicID) VALUES (1, 'Jim', 'jimmy@rit.edu', 1, 'Web Development', 1);
 
 DROP TABLE IF EXISTS department;
 CREATE TABLE department (

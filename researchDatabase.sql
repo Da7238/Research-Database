@@ -23,8 +23,7 @@ commit;
 
 CREATE TABLE public (
   publicID INT NOT NULL AUTO_INCREMENT,
-  firstName VARCHAR(255) NOT NULL,
-  lastName VARCHAR(255) NOT NULL,
+  publicName VARCHAR(255) NOT NULL,
   userName VARCHAR(255) NOT NULL,
   pubEmail VARCHAR(255) NOT NULL,
   interestId INT NOT NULL,
@@ -35,8 +34,8 @@ CREATE TABLE public (
 			ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO public(publicID, firstName, lastName, userName, pubEmail, interestID, password) VALUES (1, 'pubF', 'pubL', 'pubU', 'pubE', 1, 'dsa123');
-INSERT INTO public(publicID, firstName, lastName, userName, pubEmail, interestID, password) VALUES (2, 'pubF2', 'pubL2', 'pubU2', 'pubE2', 2, 'dsa123');
+INSERT INTO public(publicID, publicName, userName, pubEmail, interestID, password) VALUES (1, 'publicName', 'pubU', 'pubE', 1, 'dsa123');
+INSERT INTO public(publicID, publicName, userName, pubEmail, interestID, password) VALUES (2, 'publicName', 'pubU2', 'pubE2', 2, 'dsa123');
 
 DROP TABLE IF EXISTS topic;
 CREATE TABLE topic (
@@ -88,14 +87,13 @@ INSERT INTO faculty(facultyID, facultyName, department, abstract, publicID, topi
 
 DROP TABLE IF EXISTS author;
 CREATE TABLE author (
-	  authorID INT NOT NULL AUTO_INCREMENT,
-    firstName VARCHAR(100) NOT NULL,
-    lastName VARCHAR(100) NOT NULL,
+	authorID INT NOT NULL AUTO_INCREMENT,
+    authorName VARCHAR(100) NOT NULL,
     articlesPublished INT,
     PRIMARY KEY (authorID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO author(authorID, firstName, lastName, articlesPublished) VALUES (1, 'kevin', 'll', '2');
+INSERT INTO author(authorID, authorName, articlesPublished) VALUES (1, 'kevin', '2');
 
 DROP TABLE IF EXISTS article;
 CREATE TABLE article (

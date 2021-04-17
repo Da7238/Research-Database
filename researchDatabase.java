@@ -108,9 +108,36 @@ public class researchDatabase {
         System.out.println(searchResult); 
     }//end of searchArticle
 // Weijie
-    public void searchAuthor() {
+    public void searchAuthor(String author) {
+        String searchResult = ""; // string containing query results
+        String author = ""; // string containing a single article's information that matched the search
+        int numberRows = 0; // number of results for search found
+        String sql = ""; // string to contain sql statement
 
+        try {
+            // create and execute query
+            stmt = conn.createStatement();
+            sql = "select a.authorName, a.articlePublished art.title FROM author a JOIN article art ON (a.authorID = art.authorID) where a.author like %"
+                    + author + "%";
+            rs = stmt.executeQuery(sql);
+            searchResult += "Author\tArticlesPublished\tTitle\n";
+
+            // retrieve result set data to put in string
+            while (rs.next()) {
+                articleResult = "| " + rs.getString(1) + "\t| " + rs.getString(2) + "\t| " + rs.getString(4) + "\t|\n";
+                searchResult += author;
+            } // end of while
+        } // end of try
+
+        catch (SQLException sqle) {
+            System.out.println("Error SQLException in searchArticle | Error message: " + sqle);
+        } // end of catch
+
+        // get number of results and print the final search result
+        searchResult += "\n" + numberRows + " results.";
+        System.out.println(searchResult);
     }
+
 // Weijie
    public int insertFaculty(String ID, String facultyName,String department,String abstrac,String zip) {
    

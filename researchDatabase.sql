@@ -21,6 +21,19 @@ INSERT INTO interest(interestID, interestName) VALUES (1, 'php');
 INSERT INTO interest(interestID, interestName) VALUES (2, 'java');
 commit;
 
+DROP TABLE IF EXISTS department;
+CREATE TABLE department (
+  departmentID INT NOT NULL AUTO_INCREMENT,
+  facultyID INT NOT NULL,
+  departmentName VARCHAR(255) NOT NULL,
+  PRIMARY KEY (departmentID),
+  FOREIGN KEY (facultyID) REFERENCES faculty(facultyID)
+			      ON DELETE CASCADE
+            ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO department(departmentID, facultyID, departmentName) VALUES (1, 1, 'Golisano');
+
 DROP TABLE IF EXISTS public;
 CREATE TABLE public (
   publicID INT NOT NULL AUTO_INCREMENT,
@@ -105,12 +118,22 @@ CREATE TABLE faculty (
 
 INSERT INTO faculty(facultyID, facultyName, email, department, abstract, publicID, topicID) VALUES (1, 'Jim', 'jimmy@rit.edu', 'Golisano', 'Web Development',  1, 1);
 
-DROP TABLE IF EXISTS accounts;
-CREATE TABLE accounts (
+DROP TABLE IF EXISTS student_accounts;
+CREATE TABLE student_accounts (
     email VARCHAR(255) NOT NULL,
-    accountPassword VARCHAR(12) NOT NULL, 
+    accountPassword VARCHAR(20) NOT NULL, 
     PRIMARY KEY (email), 
     FOREIGN KEY (email) REFERENCES student(email)
+         ON DELETE CASCADE,
+         ON UPDATE CASCADE
+)   ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS faculty_accounts;
+CREATE TABLE accounts (
+    email VARCHAR(255) NOT NULL,
+    accountPassword VARCHAR(20) NOT NULL, 
+    PRIMARY KEY (email), 
+    FOREIGN KEY (email) REFERENCES faculty(email)
          ON DELETE CASCADE,
          ON UPDATE CASCADE
 )   ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -143,16 +166,3 @@ CREATE TABLE article (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO article(articleID, topicID, title, authorID, articleDescription, publishDate) VALUES (1, 1, 'How to make a website', 1, 'Tips and tricks on how to make a good website.', '1991-01-01');
-
-DROP TABLE IF EXISTS department;
-CREATE TABLE department (
-  departmentID INT NOT NULL AUTO_INCREMENT,
-  facultyID INT NOT NULL,
-  departmentName VARCHAR(255) NOT NULL,
-  PRIMARY KEY (departmentID),
-  FOREIGN KEY (facultyID) REFERENCES faculty(facultyID)
-			      ON DELETE CASCADE
-            ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-INSERT INTO department(departmentID, facultyID, departmentName) VALUES (1, 1, 'Golisano');

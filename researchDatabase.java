@@ -5,6 +5,7 @@
 // Ben Donahue
 
 import java.sql.*;
+import java.util.Scanner;
 
 public class researchDatabase {
 
@@ -15,7 +16,7 @@ public class researchDatabase {
 
     final String DEFAULT_DRIVER = "com.mysql.cj.jdbc.Driver";
 
-    /**
+    /*
      * Connects to the research database
      */
     public boolean connect() {
@@ -42,19 +43,69 @@ public class researchDatabase {
         return (conn != null);
     } // end of connect()
 
+    // TODO: Methods to potentially add: searchFacultyName searchFacultyAbstract
+    // searchDepartment
+
     /**
-     * TODO: Methods to potentially add: searchFacultyName searchFacultyAbstract
-     * searchDepartment
+     * @param email    - email entered by a student user
+     * @param password - password entered by a user Purpose: Gets login information
+     *                 from a student to login. Counts rows of search query, and
+     *                 returns that to determine whether the login was a success.
+     */
+    public int login_student(String email, String password) {
+        String sql = ""; // string user to store sql query
+        int numberRows = 0; // int used to store the number of results for the email password combo. If 0,
+                            // login is invalid
+
+        try {
+            stmt = conn.createStatement();
+
+            // check if the student information is in the database
+            sql = "select * from student_accounts where email = '" + email + "' and password = '" + password + "'";
+            rs = stmt.executeQuery(sql);
+            rs.last();
+            numberRows = rs.getRow();
+        } // end of try
+
+        catch (SQLException sqle) {
+            System.out.println("Error SQLException in login | Error message: " + sqle);
+        } // end of catch
+
+        return (numberRows);
+    }// end of method login_student()
+
+    /**
+     * @param email    - email entered by a faculty user
+     * @param password - password entered by a user Gets login information from a
+     *                 faculty to login Counts rows of search query, and returns
+     *                 that to determine whether the login was a success.
+     */
+    public int login_faculty(String email, String password) {
+        String sql = ""; // string used to store sql query
+        int numberRows = 0; // int used to store the number of results for the email password combo. If 0,
+                            // login is invalid
+
+        try {
+            stmt = conn.createStatement();
+
+            // check if the faculty information is in the database
+            sql = "select * from faculty_accounts where email = '" + email + "' and password = '" + password + "'";
+            rs = stmt.executeQuery(sql);
+            rs.last();
+            numberRows = rs.getRow();
+        } // end of try
+
+        catch (SQLException sqle) {
+            System.out.println("Error SQLException in login | Error message: " + sqle);
+        } // end of catch
+
+        return (numberRows);
+    }// end of method login_faculty
+
+    /**
+     * Searches the database for a student based on the inputed name
      * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * // TODO: Darlene /** Searches the database for a student based on the inputed
-     * name
-     * 
-     * @param - name a student's name
+     * @param name - a student's name
      */
     public void searchStudentName(String name) {
         String searchResult = ""; // string containing query results
@@ -84,10 +135,8 @@ public class researchDatabase {
         // get number of results and print the final search result
         searchResult += "\n" + numberRows + " results.";
         System.out.println(searchResult);
+    } // end of searchStudentName()
 
-    }
-
-    // TODO: Darlene
     /**
      * Searches the database for a student based on the inputed interest
      * 
@@ -122,9 +171,7 @@ public class researchDatabase {
         searchResult += "\n" + numberRows + " results.";
         System.out.println(searchResult);
 
-    }
-
-    // TODO: Ben
+    } // end of searchStudentInterest()
 
     /**
      * Searches the database for a student based on the inputed major
@@ -159,15 +206,13 @@ public class researchDatabase {
         // get number of results and print the final search result
         searchResult += "\n" + numberRows + " results.";
         System.out.println(searchResult);
-    }// end of searchMajor
+    }// end of searchMajor()
 
-    // TODO: Ben
     /**
      * Searches the database for an article based on the inputed title
      * 
      * @param article - the article that has been inputed by the user
      */
-
     public void searchArticle(String article) {
         String searchResult = ""; // string containing query results
         String articleResult = ""; // string containing a single article's information that matched the search
@@ -197,9 +242,7 @@ public class researchDatabase {
         // get number of results and print the final search result
         searchResult += "\n" + numberRows + " results.";
         System.out.println(searchResult);
-    }// end of searchArticle
-
-    // TODO: Weijie
+    }// end of searchArticle()
 
     /**
      * Searches the database for an article based on the author
@@ -234,10 +277,7 @@ public class researchDatabase {
         // get number of results and print the final search result
         searchResult += "\n" + numberRows + " results.";
         System.out.println(searchResult);
-
-    }
-
-    // TODO: Weijie
+    } // end of searchAuthor()
 
     /**
      * Searches for an article based on the inputed author
@@ -271,10 +311,7 @@ public class researchDatabase {
             System.out.println("Error message is --> " + e);
         } // end of catch
         return (result); // return the result to presentation layer
-    }// end of method to add a passenger
-
-    // TODO: Colton (Not finished yet, need some more discussion regarding on what
-    // to update)
+    }// end of insertFaculty()
 
     /**
      * Updates the fields of an article
@@ -310,9 +347,7 @@ public class researchDatabase {
         } catch (SQLException sqle) {
             System.out.println("Error SQLException in deleteEntry | Error message: " + sqle);
         } // end of catch
-    } // end of updateEntry
-
-    // TODO: Colton
+    } // end of updateEntry()
 
     /**
      * Deletes an article based on the title name
@@ -336,8 +371,11 @@ public class researchDatabase {
         } catch (SQLException sqle) {
             System.out.println("Error SQLException in deleteEntry | Error message: " + sqle);
         } // end of catch
-    } // end of deleteEntry
+    } // end of deleteEntry()
 
+    /**
+     * Closes all connections to the database
+     */
     public void close() {
         try {
             rs.close();
@@ -352,5 +390,57 @@ public class researchDatabase {
     public static void main(String[] args) {
         researchDatabase someObject = new researchDatabase();
         someObject.connect();
-    }
+        String userType = ""; // string used to store whether it's a student or faculty member
+        String email = ""; // string used to store the email a user tries to log in with
+        String password = ""; // string used to store the password a user tries to log in with
+        int loginResult = 0; // int used to determine log in success, based on number of results from search
+                             // query. 0 if it fails, 1 if it succeeeds.
+
+        Scanner scanner = new Scanner(System.in);
+
+        someObject.connect();
+
+        // determine if it's student or faculty member
+        System.out.println("Enter user type (student/faculty)");
+        userType = scanner.nextLine();
+
+        // error handling
+        while (userType != "student" || userType != "faculty") {
+            System.out.println("Invalid user type!");
+            System.out.println("Enter user type (student/faculty)");
+            userType = scanner.nextLine();
+        } // end of while
+
+        // get login information from user
+        System.out.println("Enter email: ");
+        email = scanner.nextLine();
+        System.out.println("Enter password: ");
+        password = scanner.nextLine();
+
+        // login depending on whether it is a student or faculty
+        if (userType == "student") {
+            loginResult = someObject.login_student(email, password);
+        } // end of if
+        else if (userType == "faculty") {
+            loginResult = someObject.login_faculty(email, password);
+        } // end of else if
+
+        // if the resultset returns an empty selection, the user information was
+        // incorrect
+        while (loginResult == 0) {
+            System.out.println("Invalid login information!");
+            System.out.println("Enter email: ");
+            email = scanner.nextLine();
+            System.out.println("Enter password: ");
+            password = scanner.nextLine();
+            if (userType == "student") {
+                loginResult = someObject.login_student(email, password);
+            } // end of if
+            else if (userType == "faculty") {
+                loginResult = someObject.login_faculty(email, password);
+            } // end of else if
+        } // end of while
+
+        scanner.close(); // closes the scanner
+    } // end of main
 } // end of researchDatabase

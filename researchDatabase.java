@@ -107,10 +107,11 @@ public class researchDatabase {
         searchResult += "\n" + numberRows + " results.";
         System.out.println(searchResult); 
     }//end of searchArticle
+    
 // Weijie
-    public void searchAuthor(String author) {
+      public void searchAuthor(String author) {
         String searchResult = ""; // string containing query results
-        String author = ""; // string containing a single article's information that matched the search
+        String authorResult = ""; // string containing a single article's information that matched the search
         int numberRows = 0; // number of results for search found
         String sql = ""; // string to contain sql statement
 
@@ -124,8 +125,8 @@ public class researchDatabase {
 
             // retrieve result set data to put in string
             while (rs.next()) {
-                articleResult = "| " + rs.getString(1) + "\t| " + rs.getString(2) + "\t| " + rs.getString(4) + "\t|\n";
-                searchResult += author;
+                authorResult = "| " + rs.getString(1) + "\t| " + rs.getString(2) + "\t| " + rs.getString(4) + "\t|\n";
+                searchResult += authorResult;
             } // end of while
         } // end of try
 
@@ -138,29 +139,90 @@ public class researchDatabase {
         System.out.println(searchResult);
     }
 
-// Weijie
-   public int insertFaculty(String ID, String facultyName,String department,String abstrac,String zip) {
-   
-       int result = 0;
-       int primaryKey = Integer.parseInt(ID);
-       try {
-           PreparedStatement stmt2;
 
-	   	   stmt2 = conn.prepareStatement("INSERT INTO faculty(facultyID,facultyName, Department, abstract)  VALUES (?,?,?,?)");
-	   	   stmt2.setInt(1,primaryKey);
-	         stmt2.setString(2,facultyName);
-            stmt2.setString(3,department);
-            stmt2.setString(4,abstrac);
-            
-            result = stmt2.executeUpdate();     // Performs the update command
-            }// end of try
-        catch(Exception e)
-         {
-			 System.out.println("Error whlie trying to insert command.");
-			 System.out.println("Error message is --> "+e);
-		}//end of catch
-       return (result); // return the result to presentation layer
-   }// end of method to add a passenger
+// Weij1ie
+ 
+    // TODO: Weijie
+
+    /**
+     * Searches for an article based on the inputed author
+     * 
+     * @param ID          - a faculty ID
+     * @param facultyName - the name of a faculty member
+     * @param department  - the department of a faculty member
+     * @param abstrac     - the abstract of a faculty's research
+     * @param email       - the email of a faculty member
+     * @return
+     */
+    public int insertFaculty(String facultyID, String facultyName, String department, String abstrac, String email) {
+
+        int result = 0;
+        int primaryKey = Integer.parseInt(facultyID);
+        try {
+            PreparedStatement stmt2;
+
+            stmt2 = conn.prepareStatement(
+                    "INSERT INTO faculty(facultyID, facultyName, department, abstract)  VALUES (?,?,?,?,?)");
+            stmt2.setInt(1, primaryKey);
+            stmt2.setString(2, facultyName);
+            stmt2.setString(3, department);
+            stmt2.setString(4, abstrac);
+            stmt2.setString(5, email);
+
+            result = stmt2.executeUpdate();
+        } // end of try
+        catch (Exception e) {
+            System.out.println("Error whlie trying to insert a faculty member.");
+            System.out.println("Error message is --> " + e);
+        } // end of catch
+        return (result); // return the result to presentation layer
+    }// end of method
+    
+   public int insertpublic(String publicID, String publicName, String userName, String pubEmail, String interestId, String password)
+   {            
+        int result = 0;
+        int primaryKey = Integer.parseInt(publicID);
+        
+        try {
+        PreparedStatement stmt;
+
+         stmt = conn.prepareStatement("INSERT INTO contact (publicID, publicName, userName, pubEmail, interestId, password) VALUES (?, ?, ?, ?, ?, ?)");
+         stmt.setInt(1, primaryKey);
+         stmt.setString(2, publicName);
+         stmt.setString(3, userName);
+         stmt.setString(4, pubEmail);
+         stmt.setString(5, interestId);
+         stmt.setString(6, password);
+      
+         result = stmt.executeUpdate();
+      
+      } catch (Exception ex) {
+         System.out.println("unable to insert");
+         System.out.println(ex.getMessage());
+      } return (result); // return the result to presentation layer
+    }
+   
+      public int insertstudent(String studentID, String studentName, String interestId, String email)
+   {            
+        int result = 0;
+        int primaryKey = Integer.parseInt(studentID);
+        
+        try {
+        PreparedStatement stmt;
+
+         stmt = conn.prepareStatement("INSERT INTO contact (studentID, studentName, interestId, email) VALUES (?, ?, ?, ?)");
+         stmt.setInt(1, primaryKey);
+         stmt.setString(2, studentName);
+         stmt.setString(3, interestId);
+         stmt.setString(4, email);
+      
+         result = stmt.executeUpdate();
+      
+      } catch (Exception ex) {
+         System.out.println("unable to insert");
+         System.out.println(ex.getMessage());
+      } return (result); // return the result to presentation layer
+    }
 
     
 // Colton (Not finished yet, need some more discussion regarding on what to update)

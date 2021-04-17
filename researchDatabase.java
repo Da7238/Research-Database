@@ -1,4 +1,4 @@
-// Research Database Project 2021 ISTE 330
+// Research Database Project |  2021 | ISTE 330
 // Darlene Ardila
 // Colton Bailiff
 // Weijie Chen
@@ -43,8 +43,111 @@ public class researchDatabase {
         return (conn != null);
     } // end of connect()
 
-    // TODO: Methods to potentially add: searchFacultyName searchFacultyAbstract
-    // searchDepartment
+    // TODO: Darlene
+    /**
+     * Searches the database for a faculty member based on the entered name
+     * 
+     * @param name - a faculty member's name
+     */
+    public void searchFacultyName(String name) {
+        String searchResult = ""; // string containing query results
+        String faculty = ""; // string containing a single student's information that matched the search
+        int numberRows = 0; // number of results for search found
+        String sql = ""; // string to contain sql statement
+
+        try {
+            // create and execute query
+            stmt = conn.createStatement();
+            sql = "SELECT facultyName, email, department, abstract FROM faculty WHERE facultyName LIKE %" + name + "%";
+            rs = stmt.executeQuery(sql);
+            searchResult += "Faculty Member\tEmail\tDepartment\tAbstract\n";
+
+            // retrieve result set data to put in string
+            while (rs.next()) {
+                faculty = "| " + rs.getString(1) + "\t| " + rs.getString(2) + "\t| " + rs.getString(3) + "\t| "
+                        + rs.getString(4) + "\t|\n";
+                searchResult += faculty;
+            } // end of while
+        } // end of try
+
+        catch (SQLException sqle) {
+            System.out.println("Error SQLException in searchStudentName | Error message: " + sqle);
+        } // end of catch
+
+        // get number of results and print the final search result
+        searchResult += "\n" + numberRows + " results.";
+        System.out.println(searchResult);
+    } // end of searchFacultyName()
+
+    // TODO: Darlene
+    /**
+     * Searches the database for a faculty member based on the entered abstract
+     * 
+     * @param facultyAbstract - a faculty member's abstract
+     */
+    public void searchFacultyAbstract(String facultyAbstract) {
+        String searchResult = ""; // string containing query results
+        String faculty = ""; // string containing a single student's information that matched the search
+        int numberRows = 0; // number of results for search found
+        String sql = ""; // string to contain sql statement
+
+        try {
+            // create and execute query
+            stmt = conn.createStatement();
+            sql = "SELECT facultyName, email, department, abstract FROM faculty WHERE abstract LIKE %" + facultyAbstract
+                    + "%";
+            rs = stmt.executeQuery(sql);
+            searchResult += "Faculty Member\tEmail\tDepartment\tAbstract\n";
+
+            // retrieve result set data to put in string
+            while (rs.next()) {
+                faculty = "| " + rs.getString(1) + "\t| " + rs.getString(2) + "\t| " + rs.getString(3) + "\t| "
+                        + rs.getString(4) + "\t|\n";
+                searchResult += faculty;
+            } // end of while
+        } // end of try
+
+        catch (SQLException sqle) {
+            System.out.println("Error SQLException in searchStudentName | Error message: " + sqle);
+        } // end of catch
+
+        // get number of results and print the final search result
+        searchResult += "\n" + numberRows + " results.";
+        System.out.println(searchResult);
+    } // end of searchFacultyAbstract()
+
+    // TODO: Weijie
+    /**
+     * Searches the database for a faculty member based on the entered department
+     * 
+     * @param department
+     */
+    public void searchDepartment(String department) {
+        // Print out facultyName, email, department, abstract, and topicTag
+
+    } // end of searchDepartment
+
+    // TODO: Weijie
+    /**
+     * Searches the database for a student based on the entered email
+     * 
+     * @param email
+     */
+    public void searchStudentEmail(String email) {
+        // Print out studentName, major, email, and interest
+
+    } // end of searchStudentEmail()
+
+    // TODO: Weijie
+    /**
+     * Searches the database for a faculty member based on the entered email
+     * 
+     * @param email - email entered by a student
+     */
+    public void searchFacultyEmail(String email) {
+        // Print out facultyName, email, department, abstract, and topicTag
+
+    } // end of searchFacultyEmail()
 
     /**
      * @param email    - email entered by a student user
@@ -103,7 +206,7 @@ public class researchDatabase {
     }// end of method login_faculty
 
     /**
-     * Searches the database for a student based on the inputed name
+     * Searches the database for a student based on the entered name
      * 
      * @param name - a student's name
      */
@@ -138,7 +241,7 @@ public class researchDatabase {
     } // end of searchStudentName()
 
     /**
-     * Searches the database for a student based on the inputed interest
+     * Searches the database for a student based on the entered interest
      * 
      * @param - interest a student's interest
      */
@@ -174,7 +277,7 @@ public class researchDatabase {
     } // end of searchStudentInterest()
 
     /**
-     * Searches the database for a student based on the inputed major
+     * Searches the database for a student based on the entered major
      * 
      * @param major - a student's major
      */
@@ -209,9 +312,9 @@ public class researchDatabase {
     }// end of searchMajor()
 
     /**
-     * Searches the database for an article based on the inputed title
+     * Searches the database for an article based on the entered title
      * 
-     * @param article - the article that has been inputed by the user
+     * @param article - the article that has been entered by the user
      */
     public void searchArticle(String article) {
         String searchResult = ""; // string containing query results
@@ -280,7 +383,7 @@ public class researchDatabase {
     } // end of searchAuthor()
 
     /**
-     * Searches for an article based on the inputed author
+     * Searches for an article based on the entered author
      * 
      * @param facultyID   - a faculty ID
      * @param facultyName - the name of a faculty member
@@ -290,7 +393,6 @@ public class researchDatabase {
      * @return
      */
     public int insertFaculty(String facultyID, String facultyName, String department, String abstrac, String email) {
-
         int result = 0;
         int primaryKey = Integer.parseInt(facultyID);
         try {
@@ -372,6 +474,44 @@ public class researchDatabase {
             System.out.println("Error SQLException in deleteEntry | Error message: " + sqle);
         } // end of catch
     } // end of deleteEntry()
+
+    /**
+     * Prints out options for a faculty member searching a student
+     */
+    public void faculty_menu() {
+        System.out.println("==== Options ====");
+        System.out.println("1. Search students by name\n" + "2. Search students by major\n"
+                + "3. Search students by interest\n" + "4. Update user information" + "5. Search article by major\n"
+                + "6. Update user information\n");
+    } // end of faculty_menu()
+
+    /**
+     * Prints out an options menu for a student searching for a faculty member
+     */
+    public void student_menu() {
+        System.out.println("==== Options ====");
+        System.out.println(
+                "1. Search article by title\n" + "2. Search article by abstract\n" + "3. Search article by author(s)\n"
+                        + "4. Search article by intererst\n" + "5. Search article by major\n");
+    } // end of student_menu()
+
+    /**
+     * 
+     * @param choice
+     * @return
+     */
+    public int student_choice(int choice) {
+        // switch statement called based on choice from student menu
+    }
+
+    /**
+     * 
+     * @param choice
+     * @return
+     */
+    public int facultychoice(int choice) {
+        // switch statement called based on choice from faculty_menu
+    }
 
     /**
      * Closes all connections to the database

@@ -81,7 +81,7 @@ CREATE TABLE student (
   studentID INT NOT NULL AUTO_INCREMENT,
   publicID INT NOT NULL, -- FK
   studentName VARCHAR(255) NOT NULL,
-  interestID INT NOT NULL, -- FK
+  interestID INT, -- FK
   majorID INT NOT NULL, -- FK
   email VARCHAR(255) NOT NULL,
   PRIMARY KEY (studentID),
@@ -103,8 +103,8 @@ CREATE TABLE faculty (
   facultyID INT NOT NULL AUTO_INCREMENT,
   facultyName VARCHAR(255),
   email VARCHAR(255) NOT NULL,
-  department VARCHAR(255) NOT NULL,
-  abstract VARCHAR(255) NOT NULL,
+  departmentID VARCHAR(255),
+  abstract VARCHAR(255),
   publicID INT NOT NULL,
   topicID INT NOT NULL,
   PRIMARY KEY (facultyID),
@@ -116,7 +116,7 @@ CREATE TABLE faculty (
             ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO faculty(facultyID, facultyName, email, department, abstract, publicID, topicID) VALUES (1, 'Jim', 'jimmy@rit.edu', 'Golisano', 'Web Development',  1, 1);
+INSERT INTO faculty(facultyID, facultyName, email, departmentID, abstract, publicID, topicID) VALUES (1, 'Jim', 'jimmy@rit.edu', 1, 'Web Development',  1, 1);
 
 DROP TABLE IF EXISTS student_accounts;
 CREATE TABLE student_accounts (

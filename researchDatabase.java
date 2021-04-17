@@ -116,7 +116,7 @@ public class researchDatabase {
         System.out.println(searchResult);
     } // end of searchFacultyAbstract()
 
-       // TODO: Weijie
+    // TODO: Weijie
     /**
      * Searches the database for a faculty member based on the entered department
      * 
@@ -128,15 +128,15 @@ public class researchDatabase {
         String department = ""; // string containing department's information that matched the search
         int numberRows = 0; // number of results for search found
         String sql = ""; // string to contain sql statement
-      
-         try{
+
+        try {
             stmt = conn.createStatement();
-            sql = "select f.facultyName, f.email, d.department, f.abstract, t.topicTag FROM faculty f JOIN department d ON (f.facultyID = d.facultyID) JOIN topic t ON (f.topicID = t.topicID) where d.department like %" + departmentName
-                    + "%";
+            sql = "select f.facultyName, f.email, d.department, f.abstract, t.topicTag FROM faculty f JOIN department d ON (f.facultyID = d.facultyID) JOIN topic t ON (f.topicID = t.topicID) where d.department like %"
+                    + departmentName + "%";
             rs = stmt.executeQuery(sql);
             searchResult += "Faculty Member\tEmail\tDepartment\tAbstract\ttopicTag\n";
-        // retrieve result set data to put in string
-         while (rs.next()) {
+            // retrieve result set data to put in string
+            while (rs.next()) {
                 department = "| " + rs.getString(1) + "\t| " + rs.getString(2) + "\t| " + rs.getString(3) + "\t| "
                         + rs.getString(4) + "\t| " + rs.getString(5) + "\t|\n";
                 searchResult += department;
@@ -150,9 +150,7 @@ public class researchDatabase {
         // get number of results and print the final search result
         searchResult += "\n" + numberRows + " results.";
         System.out.println(searchResult);
-         }
-      
-     // end of searchDepartment
+    } // end of searchDepartment
 
     // TODO: Weijie
     /**
@@ -166,15 +164,15 @@ public class researchDatabase {
         String email = ""; // string containing department's information that matched the search
         int numberRows = 0; // number of results for search found
         String sql = ""; // string to contain sql statement
-      
-         try{
+
+        try {
             stmt = conn.createStatement();
-            sql = "select s.studentName, m.major, e.email, i.interestName FROM student s JOIN major m ON (a.majorID = m.majorID) JOIN interest i ON (s.interestID = i.interestID) where s.email like %" + email  
-            + "%";
+            sql = "select s.studentName, m.major, e.email, i.interestName FROM student s JOIN major m ON (a.majorID = m.majorID) JOIN interest i ON (s.interestID = i.interestID) where s.email like %"
+                    + email + "%";
             rs = stmt.executeQuery(sql);
             searchResult += "Student Name\tMajor\tEmail\tinterestName\n";
-        // retrieve result set data to put in string
-         while (rs.next()) {
+            // retrieve result set data to put in string
+            while (rs.next()) {
                 email = "| " + rs.getString(1) + "\t| " + rs.getString(2) + "\t| " + rs.getString(3) + "\t| "
                         + rs.getString(4) + "\t|\n";
                 searchResult += email;
@@ -188,9 +186,7 @@ public class researchDatabase {
         // get number of results and print the final search result
         searchResult += "\n" + numberRows + " results.";
         System.out.println(searchResult);
-        }
-         
- // end of searchStudentEmail()
+    } // end of searchStudentEmail()
 
     // TODO: Weijie
     /**
@@ -201,21 +197,21 @@ public class researchDatabase {
     public void searchFacultyEmail(String email) {
         // Print out facultyName, email, department, abstract, and topicTag
         String searchResult = ""; // string containing query results
-        String email = ""; // string containing department's information that matched the search
+        String emailString = ""; // string containing department's information that matched the search
         int numberRows = 0; // number of results for search found
         String sql = ""; // string to contain sql statement
-      
-         try{
+
+        try {
             stmt = conn.createStatement();
-            sql = "select f.facultyName, f.email, d.department, f.abstract, t.topicTag FROM faculty f JOIN department d ON (f.facultyID = d.facultyID) JOIN topic t ON (f.topicID = t.topicID) where f.email like %" + email
-                    + "%";
+            sql = "select f.facultyName, f.email, d.department, f.abstract, t.topicTag FROM faculty f JOIN department d ON (f.facultyID = d.facultyID) JOIN topic t ON (f.topicID = t.topicID) where f.email like %"
+                    + email + "%";
             rs = stmt.executeQuery(sql);
             searchResult += "Faculty Member\tEmail\tDepartment\tAbstract\ttopicTag\n";
-        // retrieve result set data to put in string
-         while (rs.next()) {
-                email = "| " + rs.getString(1) + "\t| " + rs.getString(2) + "\t| " + rs.getString(3) + "\t| "
+            // retrieve result set data to put in string
+            while (rs.next()) {
+                emailString = "| " + rs.getString(1) + "\t| " + rs.getString(2) + "\t| " + rs.getString(3) + "\t| "
                         + rs.getString(4) + "\t| " + rs.getString(5) + "\t|\n";
-                searchResult += email;
+                searchResult += emailString;
             } // end of while
         } // end of try
 
@@ -226,8 +222,6 @@ public class researchDatabase {
         // get number of results and print the final search result
         searchResult += "\n" + numberRows + " results.";
         System.out.println(searchResult);
-         }
-      
     }
 
     /**
@@ -557,42 +551,143 @@ public class researchDatabase {
     } // end of deleteEntry()
 
     /**
-     * Prints out options for a faculty member searching a student
-     */
-    public void faculty_menu() {
-        System.out.println("==== Options ====");
-        System.out.println("1. Search students by name\n" + "2. Search students by major\n"
-                + "3. Search students by interest\n" + "4. Update user information" + "5. Search article by major\n"
-                + "6. Update user information\n");
-    } // end of faculty_menu()
-
-    /**
-     * Prints out an options menu for a student searching for a faculty member
+     * Prints out option menu for students
      */
     public void student_menu() {
         System.out.println("==== Options ====");
         System.out.println(
                 "1. Search article by title\n" + "2. Search article by abstract\n" + "3. Search article by author(s)\n"
-                        + "4. Search article by intererst\n" + "5. Search article by major\n");
+                        + "4. Search article by intererst\n" + "5. Search faculty by name\n"
+                        + "6. Search faculty by department\n" + "7. Search faculty by email\n" + "8. Quit\n");
     } // end of student_menu()
 
     /**
      * 
-     * @param choice
-     * @return
+     * @param choice - determine which option a student chose
      */
-    public int student_choice(int choice) {
-        // switch statement called based on choice from student menu
-    }
+    public void student_choice(int choice) {
+        String keyword = "";
+
+        switch (choice) {
+        case 1: // search article title
+            System.out.println("Enter article title keywords: ");
+            keyword = scanner.nextLine();
+            searchArticle(keyword);
+            break;
+        case 2: // search article abstracts
+            System.out.println("Enter abstract keywords: ");
+            keyword = scanner.nextLine();
+            searchFacultyAbstract(keyword);
+            break;
+        case 3: // search author
+            System.out.println("Enter author: ");
+            keyword = scanner.nextLine();
+            searchAuthor(keyword);
+            break;
+        case 4: // search interests
+            System.out.println("Enter interests: ");
+            keyword = scanner.nextLine();
+            searchStudentInterest(keyword);
+            break;
+        case 5: // search faculty
+            System.out.println("Enter faculty name: ");
+            keyword = scanner.nextLine();
+            searchFacultyName(keyword);
+            break;
+        case 6: // search faculty department
+            System.out.println("Enter faculty department: ");
+            keyword = scanner.nextLine();
+            searchDepartment(keyword);
+            break;
+        case 7: // search faculty email
+            System.out.println("Enter faculty email: ");
+            keyword = scanner.nextLine();
+            searchFacultyEmail(keyword);
+            break;
+
+        default:
+            System.out.println("Invalid choice!");
+        }// end of switch
+    }// end of student choice
 
     /**
-     * 
-     * @param choice
-     * @return
+     * Prints out options for a faculty member
      */
-    public int facultychoice(int choice) {
-        // switch statement called based on choice from faculty_menu
-    }
+    public void faculty_menu() {
+        System.out.println("==== Options ====");
+        System.out.println(
+                "1. Search students by name\n" + "2. Search students by major\n" + "3. Search students by interest\n"
+                        + "4. Search students by email\n" + "5. Insert a new faculty member\n"
+                        + "6. Update article entry\n" + "7. Delete article entry\n" + "8. Quit\n");
+    } // end of faculty_menu()
+
+    /**
+     * Enter faculty options - choose which action to perform
+     * 
+     * @param choice - determine which option a faculty member chose
+     */
+    public void faculty_choice(int choice) {
+        // separate strings are needed because multiple faculty options have multiple
+        // parameters
+        String title = "";
+        String facultyAbstract = "";
+        String ID = "";
+        String name = "";
+        String department = "";
+        String email = "";
+        String interest = "";
+        String major = "";
+
+        switch (choice) {
+        case 1: // student name
+            System.out.println("Enter student name: ");
+            name = scanner.nextLine();
+            searchStudentName(name);
+            break;
+        case 2: // student major
+            System.out.println("Enter student major: ");
+            major = scanner.nextLine();
+            searchStudentName(major);
+            break;
+        case 3: // student interests
+            System.out.println("Enter student interests: ");
+            interest = scanner.nextLine();
+            searchStudentInterest(interest);
+            break;
+        case 4: // student email
+            System.out.println("Enter student email: ");
+            email = scanner.nextLine();
+            searchStudentEmail(email);
+            break;
+        case 5: // insert faculty
+            System.out.println("Enter faculty ID: ");
+            ID = scanner.nextLine();
+            System.out.println("Enter faculty name: ");
+            name = scanner.nextLine();
+            System.out.println("Enter faculty department: ");
+            department = scanner.nextLine();
+            System.out.println("Enter faculty abstract: ");
+            facultyAbstract = scanner.nextLine();
+            System.out.println("Enter faculty email: ");
+            email = scanner.nextLine();
+            insertFaculty(ID, name, department, facultyAbstract, email);
+            break;
+        case 6: // update entry
+            System.out.println("Enter title: ");
+            title = scanner.nextLine();
+            System.out.println("Enter abstract: ");
+            facultyAbstract = scanner.nextLine();
+            updateEntry(title, facultyAbstract);
+            break;
+        case 7: // delete entry
+            System.out.println("Enter title: ");
+            title = scanner.nextLine();
+            deleteEntry(title);
+            break;
+        default:
+            System.out.println("Invalid choice!");
+        }// end of switch
+    }// end of method faculty_choice
 
     /**
      * Closes all connections to the database
@@ -662,6 +757,31 @@ public class researchDatabase {
             } // end of else if
         } // end of while
 
+        // =============================== end of login information
+        // ================================
+        String input_choice = ""; // used to determine user's choice
+        int choice = 0;
+
+        // open student options for interacting with the database
+        if (userType == "student") {
+            while (choice != 8) {
+                someObject.student_menu();
+                System.out.println("Enter choice: ");
+                input_choice = scanner.nextLine();
+                choice = Integer.parseInt(input_choice);
+                someObject.student_choice(choice);
+            }
+        }
+        // open faculty options for interacting with the database
+        else if (userType == "faculty") {
+            while (choice != 8) {
+                someObject.faculty_menu();
+                System.out.println("Enter choice: ");
+                input_choice = scanner.nextLine();
+                choice = Integer.parseInt(input_choice);
+                someObject.faculty_choice(choice);
+            }
+        }
         scanner.close(); // closes the scanner
     } // end of main
 } // end of researchDatabase

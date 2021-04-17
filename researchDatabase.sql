@@ -45,8 +45,8 @@ CREATE TABLE topic (
   PRIMARY KEY (topicID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO topic(topicID, topicDescribtion, topicTag) VALUES (1, 'Java research', 'java');
-INSERT INTO topic(topicID, topicDescribtion, topicTag) VALUES (2, 'PHP research', 'php');
+INSERT INTO topic(topicID, topicDescribtion, topicTag) VALUES (1, 'PHP research', 'php');
+INSERT INTO topic(topicID, topicDescribtion, topicTag) VALUES (2, 'Java research', 'java');
 
 DROP TABLE IF EXISTS major;
 CREATE TABLE major (
@@ -57,6 +57,7 @@ CREATE TABLE major (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO major(majorID, majorName, majorDescription) VALUES (1, 'Mathematics', 'Learning how to solve math problems.');
+INSERT INTO major(majorID, majorName, majorDescription) VALUES (2, 'Computer Science', 'Learning how to code in multiple languages.');
 
 DROP TABLE IF EXISTS student;
 CREATE TABLE student (
@@ -78,7 +79,8 @@ CREATE TABLE student (
 			ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO student(studentID, publicID, majorID, studentName, interestID, email) VALUES (1, 2, 1, 'Kevin', 2, 'kevin@gmail.com');
+INSERT INTO student(studentID, publicID, majorID, studentName, interestID, email) VALUES (1, 3, 1, 'Kevin', 1, 'kevin@gmail.com');
+INSERT INTO student(studentID, publicID, majorID, studentName, interestID, email) VALUES (1, 4, 2, 'Emily', 2, 'emily@gmail.com');
 
 DROP TABLE IF EXISTS faculty;
 CREATE TABLE faculty (
@@ -115,21 +117,23 @@ INSERT INTO department(departmentID, facultyID, departmentName) VALUES (1, 1, 'G
 
 DROP TABLE IF EXISTS student_accounts;
 CREATE TABLE student_accounts (
+    studentID INT NOT NULL AUTO_INCREMENT,
     email VARCHAR(255) NOT NULL,
     accountPassword VARCHAR(20) NOT NULL, 
-    PRIMARY KEY (email), 
+    PRIMARY KEY (studentID), 
     FOREIGN KEY (email) REFERENCES student(email)
          ON DELETE CASCADE
          ON UPDATE CASCADE
 )   ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS faculty_accounts;
-CREATE TABLE accounts (
+CREATE TABLE faculty_accounts (
+    facultyID INT NOT NULL AUTO_INCREMENT, 
     email VARCHAR(255) NOT NULL,
     accountPassword VARCHAR(20) NOT NULL, 
-    PRIMARY KEY (email), 
+    PRIMARY KEY (facultyID), 
     FOREIGN KEY (email) REFERENCES faculty(email)
-         ON DELETE CASCADE,
+         ON DELETE CASCADE
          ON UPDATE CASCADE
 )   ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

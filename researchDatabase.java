@@ -116,16 +116,43 @@ public class researchDatabase {
         System.out.println(searchResult);
     } // end of searchFacultyAbstract()
 
-    // TODO: Weijie
+       // TODO: Weijie
     /**
      * Searches the database for a faculty member based on the entered department
      * 
      * @param department
      */
-    public void searchDepartment(String department) {
+    public void searchDepartment(String departmentName) {
         // Print out facultyName, email, department, abstract, and topicTag
+        String searchResult = ""; // string containing query results
+        String department = ""; // string containing department's information that matched the search
+        int numberRows = 0; // number of results for search found
+        String sql = ""; // string to contain sql statement
+      
+         try{
+            stmt = conn.createStatement();
+            sql = "select f.facultyName, f.email, d.department, f.abstract, t.topicTag FROM faculty f JOIN department d ON (f.facultyID = d.facultyID) JOIN topic t ON (f.topicID = t.topicID) where d.department like %" + departmentName
+                    + "%";
+            rs = stmt.executeQuery(sql);
+            searchResult += "Faculty Member\tEmail\tDepartment\tAbstract\ttopicTag\n";
+        // retrieve result set data to put in string
+         while (rs.next()) {
+                department = "| " + rs.getString(1) + "\t| " + rs.getString(2) + "\t| " + rs.getString(3) + "\t| "
+                        + rs.getString(4) + "\t| " + rs.getString(5) + "\t|\n";
+                searchResult += department;
+            } // end of while
+        } // end of try
 
-    } // end of searchDepartment
+        catch (SQLException sqle) {
+            System.out.println("Error SQLException in searchDepartmentName | Error message: " + sqle);
+        } // end of catch
+
+        // get number of results and print the final search result
+        searchResult += "\n" + numberRows + " results.";
+        System.out.println(searchResult);
+         }
+      
+     // end of searchDepartment
 
     // TODO: Weijie
     /**
@@ -133,10 +160,37 @@ public class researchDatabase {
      * 
      * @param email
      */
-    public void searchStudentEmail(String email) {
+    public void searchStudentEmail(String studentEmail) {
         // Print out studentName, major, email, and interest
+        String searchResult = ""; // string containing query results
+        String email = ""; // string containing department's information that matched the search
+        int numberRows = 0; // number of results for search found
+        String sql = ""; // string to contain sql statement
+      
+         try{
+            stmt = conn.createStatement();
+            sql = "select s.studentName, m.major, e.email, i.interestName FROM student s JOIN major m ON (a.majorID = m.majorID) JOIN interest i ON (s.interestID = i.interestID) where s.email like %" + email  
+            + "%";
+            rs = stmt.executeQuery(sql);
+            searchResult += "Student Name\tMajor\tEmail\tinterestName\n";
+        // retrieve result set data to put in string
+         while (rs.next()) {
+                email = "| " + rs.getString(1) + "\t| " + rs.getString(2) + "\t| " + rs.getString(3) + "\t| "
+                        + rs.getString(4) + "\t|\n";
+                searchResult += email;
+            } // end of while
+        } // end of try
 
-    } // end of searchStudentEmail()
+        catch (SQLException sqle) {
+            System.out.println("Error SQLException in searchStudentEmail | Error message: " + sqle);
+        } // end of catch
+
+        // get number of results and print the final search result
+        searchResult += "\n" + numberRows + " results.";
+        System.out.println(searchResult);
+        }
+         
+ // end of searchStudentEmail()
 
     // TODO: Weijie
     /**
@@ -146,8 +200,35 @@ public class researchDatabase {
      */
     public void searchFacultyEmail(String email) {
         // Print out facultyName, email, department, abstract, and topicTag
+        String searchResult = ""; // string containing query results
+        String email = ""; // string containing department's information that matched the search
+        int numberRows = 0; // number of results for search found
+        String sql = ""; // string to contain sql statement
+      
+         try{
+            stmt = conn.createStatement();
+            sql = "select f.facultyName, f.email, d.department, f.abstract, t.topicTag FROM faculty f JOIN department d ON (f.facultyID = d.facultyID) JOIN topic t ON (f.topicID = t.topicID) where f.email like %" + email
+                    + "%";
+            rs = stmt.executeQuery(sql);
+            searchResult += "Faculty Member\tEmail\tDepartment\tAbstract\ttopicTag\n";
+        // retrieve result set data to put in string
+         while (rs.next()) {
+                email = "| " + rs.getString(1) + "\t| " + rs.getString(2) + "\t| " + rs.getString(3) + "\t| "
+                        + rs.getString(4) + "\t| " + rs.getString(5) + "\t|\n";
+                searchResult += email;
+            } // end of while
+        } // end of try
 
-    } // end of searchFacultyEmail()
+        catch (SQLException sqle) {
+            System.out.println("Error SQLException in searchFacultyEmail | Error message: " + sqle);
+        } // end of catch
+
+        // get number of results and print the final search result
+        searchResult += "\n" + numberRows + " results.";
+        System.out.println(searchResult);
+         }
+      
+    }
 
     /**
      * @param email    - email entered by a student user

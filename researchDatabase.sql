@@ -35,8 +35,8 @@ CREATE TABLE public (
 			ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO public(publicID, publicName, userName, pubEmail, interestID, password) VALUES (1, 'publicName', 'pubU', 'pubE', 1, 'dsa123');
-INSERT INTO public(publicID, publicName, userName, pubEmail, interestID, password) VALUES (2, 'publicName', 'pubU2', 'pubE2', 2, 'dsa123');
+INSERT INTO public(publicID, publicName, userName, pubEmail, interestID, password) VALUES (1, 'pubF', 'pubL', 'pubU', 'pubE', 1, 'dsa123');
+INSERT INTO public(publicID, publicName, userName, pubEmail, interestID, password) VALUES (2, 'pubF2', 'pubL2', 'pubU2', 'pubE2', 2, 'dsa123');
 
 DROP TABLE IF EXISTS topic;
 CREATE TABLE topic (
@@ -51,37 +51,39 @@ INSERT INTO topic(topicID, topicDescribtion, topicTag) VALUES (2, 'PHP research'
 
 DROP TABLE IF EXISTS major;
 CREATE TABLE major (
-	majorID INT NOT NULL AUTO_INCREMENT,
+	  majorID INT NOT NULL AUTO_INCREMENT,
+    studentID INT NOT NULL,
     majorName VARCHAR(100) NOT NULL,
     majorDescription VARCHAR(255),
-    PRIMARY KEY (majorID)
+    PRIMARY KEY (majorID),
+    FOREIGN KEY (studentID) REFERENCES student(studentID)
+			      ON DELETE CASCADE
+            ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO major(majorID, majorName, majorDescription) VALUES (1, 'Mathematics', 'Learning how to solve math problems.');
+INSERT INTO major(majorID, studentID, majorName, majorDescription) VALUES (1, 1, 'Mathematics', 'Learning how to solve math problems.');
 
 DROP TABLE IF EXISTS student;
 CREATE TABLE student (
   studentID INT NOT NULL AUTO_INCREMENT,
   publicID INT NOT NULL, -- FK
-  majorID INT NOT NULL, -- FK
   studentName VARCHAR(255) NOT NULL,
   interestID INT NOT NULL, -- FK
+  majorID INT NOT NULL, -- FK
   email VARCHAR(255) NOT NULL,
   PRIMARY KEY (studentID),
   FOREIGN KEY (publicID) REFERENCES public(publicID)
             ON DELETE CASCADE
             ON UPDATE CASCADE,
-  FOREIGN KEY (interestID) REFERENCES interest(interestID)
-            ON DELETE CASCADE
-			ON UPDATE CASCADE,
   FOREIGN KEY (majorID) REFERENCES major(majorID)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE,
+  FOREIGN KEY (interestID) REFERENCES interest(interestID)
             ON DELETE CASCADE
 			ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
-
-INSERT INTO student(studentID, publicID, majorID, studentName, interestID, email) VALUES (1, 1, 1, 'Kevin', 1, '123.edu');
+INSERT INTO student(studentID, publicID, majorID, studentName, interestID, email) VALUES (1, 2,, 1 'Kevin', 2, '123.edu');
 
 DROP TABLE IF EXISTS faculty;
 CREATE TABLE faculty (
@@ -103,22 +105,25 @@ CREATE TABLE faculty (
 
 INSERT INTO faculty(facultyID, facultyName, email, department, abstract, publicID, topicID) VALUES (1, 'Jim', 'jimmy@rit.edu', 'Golisano', 'Web Development',  1, 1);
 
-
+DROP TABLE IF EXISTS accounts;
+CREATE TABLE accounts (
+    email VARCHAR(255) NOT NULL,
+    accountPassword VARCHAR(12) NOT NULL, 
+    PRIMARY KEY (email), 
+    FOREIGN KEY (email) REFERENCES student(email)
+         ON DELETE CASCADE,
+         ON UPDATE CASCADE
+)   ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS author;
 CREATE TABLE author (
-	authorID INT NOT NULL AUTO_INCREMENT,
+	  authorID INT NOT NULL AUTO_INCREMENT,
     authorName VARCHAR(100) NOT NULL,
     articlesPublished INT,
     PRIMARY KEY (authorID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
-INSERT INTO author(authorID, authorName, articlesPublished) VALUES (1, 'kevin', '2');
-INSERT INTO author(authorID, authorName, articlesPublished) VALUES (2, 'Jim', '2');
-
-
-
+INSERT INTO author(authorID, authorName, articlesPublished) VALUES (1, 'Jim', 'Habermas', '2');
 
 DROP TABLE IF EXISTS article;
 CREATE TABLE article (
@@ -139,7 +144,6 @@ CREATE TABLE article (
 
 INSERT INTO article(articleID, topicID, title, authorID, articleDescription, publishDate) VALUES (1, 1, 'How to make a website', 1, 'Tips and tricks on how to make a good website.', '1991-01-01');
 
-
 DROP TABLE IF EXISTS department;
 CREATE TABLE department (
   departmentID INT NOT NULL AUTO_INCREMENT,
@@ -152,4 +156,3 @@ CREATE TABLE department (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO department(departmentID, facultyID, departmentName) VALUES (1, 1, 'Golisano');
-

@@ -21,6 +21,7 @@ INSERT INTO interest(interestID, interestName) VALUES (1, 'php');
 INSERT INTO interest(interestID, interestName) VALUES (2, 'java');
 commit;
 
+DROP TABLE IF EXISTS public;
 CREATE TABLE public (
   publicID INT NOT NULL AUTO_INCREMENT,
   publicName VARCHAR(255) NOT NULL,
@@ -48,27 +49,39 @@ CREATE TABLE topic (
 INSERT INTO topic(topicID, topicDescribtion, topicTag) VALUES (1, 'Java research', 'java');
 INSERT INTO topic(topicID, topicDescribtion, topicTag) VALUES (2, 'PHP research', 'php');
 
+DROP TABLE IF EXISTS major;
+CREATE TABLE major (
+	majorID INT NOT NULL AUTO_INCREMENT,
+    majorName VARCHAR(100) NOT NULL,
+    majorDescription VARCHAR(255),
+    PRIMARY KEY (majorID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO major(majorID, majorName, majorDescription) VALUES (1, 'Mathematics', 'Learning how to solve math problems.');
+
 DROP TABLE IF EXISTS student;
 CREATE TABLE student (
   studentID INT NOT NULL AUTO_INCREMENT,
   publicID INT NOT NULL, -- FK
+  majorID INT NOT NULL, -- FK
   studentName VARCHAR(255) NOT NULL,
   interestID INT NOT NULL, -- FK
-  majorID INT NOT NULL, -- FK
   email VARCHAR(255) NOT NULL,
   PRIMARY KEY (studentID),
   FOREIGN KEY (publicID) REFERENCES public(publicID)
             ON DELETE CASCADE
             ON UPDATE CASCADE,
-  FOREIGN KEY (majorID) REFERENCES major(majorID)
-            ON DELETE CASCADE
-            ON UPDATE CASCADE,
   FOREIGN KEY (interestID) REFERENCES interest(interestID)
+            ON DELETE CASCADE
+			ON UPDATE CASCADE,
+  FOREIGN KEY (majorID) REFERENCES major(majorID)
             ON DELETE CASCADE
 			ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO student(studentID, publicID, studentName, interestID, email) VALUES (1, 2, 'Kevin', 2, '123.edu');
+
+
+INSERT INTO student(studentID, publicID, majorID, studentName, interestID, email) VALUES (1, 1, 1, 'Kevin', 1, '123.edu');
 
 DROP TABLE IF EXISTS faculty;
 CREATE TABLE faculty (
@@ -90,6 +103,8 @@ CREATE TABLE faculty (
 
 INSERT INTO faculty(facultyID, facultyName, email, department, abstract, publicID, topicID) VALUES (1, 'Jim', 'jimmy@rit.edu', 'Golisano', 'Web Development',  1, 1);
 
+
+
 DROP TABLE IF EXISTS author;
 CREATE TABLE author (
 	authorID INT NOT NULL AUTO_INCREMENT,
@@ -100,8 +115,9 @@ CREATE TABLE author (
 
 
 INSERT INTO author(authorID, authorName, articlesPublished) VALUES (1, 'kevin', '2');
+INSERT INTO author(authorID, authorName, articlesPublished) VALUES (2, 'Jim', '2');
 
-INSERT INTO author(authorID, authorName, articlesPublished) VALUES (1, 'Jim', '2');
+
 
 
 DROP TABLE IF EXISTS article;
@@ -123,6 +139,7 @@ CREATE TABLE article (
 
 INSERT INTO article(articleID, topicID, title, authorID, articleDescription, publishDate) VALUES (1, 1, 'How to make a website', 1, 'Tips and tricks on how to make a good website.', '1991-01-01');
 
+
 DROP TABLE IF EXISTS department;
 CREATE TABLE department (
   departmentID INT NOT NULL AUTO_INCREMENT,
@@ -136,16 +153,3 @@ CREATE TABLE department (
 
 INSERT INTO department(departmentID, facultyID, departmentName) VALUES (1, 1, 'Golisano');
 
-DROP TABLE IF EXISTS major;
-CREATE TABLE major (
-	  majorID INT NOT NULL AUTO_INCREMENT,
-    studentID INT NOT NULL,
-    majorName VARCHAR(100) NOT NULL,
-    majorDescription VARCHAR(255),
-    PRIMARY KEY (majorID),
-    FOREIGN KEY (studentID) REFERENCES student(studentID)
-			      ON DELETE CASCADE
-            ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-INSERT INTO major(majorID, studentID, majorName, majorDescription) VALUES (1, 1, 'Mathematics', 'Learning how to solve math problems.');

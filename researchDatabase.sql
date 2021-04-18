@@ -96,7 +96,7 @@ CREATE TABLE faculty (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO faculty(facultyID, facultyName, email, departmentID, abstract, topicID) VALUES (1, 'Jim', 'jimmy@rit.edu', 1, 'Web Development', 1);
-INSERT INTO faculty(facultyID, facultyName, email, departmentID, abstract, topicID) VALUES (2, 'Faculty', 'faculty@rit.edu', 1, 'Web Development', 1);
+INSERT INTO faculty(facultyID, facultyName, email, departmentID, abstract, topicID) VALUES (2, 'Faculty', 'faculty@gmail.com', 1, 'Web Development', 1);
 
 DROP TABLE IF EXISTS department;
 CREATE TABLE department (
@@ -134,7 +134,7 @@ CREATE TABLE faculty_accounts (
          ON UPDATE CASCADE
 )   ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO faculty_accounts(facultyID, email, accountPassword) VALUES (3, "faculty@gmail.com", "faculty");
+INSERT INTO faculty_accounts(facultyID, email, accountPassword) VALUES (2, "faculty@gmail.com", "faculty");
 
 DROP TABLE IF EXISTS author;
 CREATE TABLE author (

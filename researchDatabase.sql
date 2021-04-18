@@ -111,6 +111,7 @@ CREATE TABLE department (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO department(departmentID, facultyID, departmentName) VALUES (1, 1, 'Golisano');
+INSERT INTO department(departmentID, facultyID, departmentName) VALUES (2, 2, 'Gosnell');
 
 DROP TABLE IF EXISTS student_accounts;
 CREATE TABLE student_accounts (
@@ -122,6 +123,8 @@ CREATE TABLE student_accounts (
          ON DELETE CASCADE
          ON UPDATE CASCADE
 )   ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO student_accounts(studentID, email, accountPassword) VALUES (1, "kevin@gmail.com", "kevin");
+INSERT INTO student_accounts(studentID, email, accountPassword) VALUES (2, "emily@gmail.com", "emily");
 INSERT INTO student_accounts(studentID, email, accountPassword) VALUES (2, "student@gmail.com", "student");
 
 DROP TABLE IF EXISTS faculty_accounts;
@@ -135,6 +138,7 @@ CREATE TABLE faculty_accounts (
          ON UPDATE CASCADE
 )   ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO faculty_accounts(facultyID, email, accountPassword) VALUES (1, "jimmy@rit.edu", "jimmy");
 INSERT INTO faculty_accounts(facultyID, email, accountPassword) VALUES (2, "faculty@gmail.com", "faculty");
 
 DROP TABLE IF EXISTS author;
@@ -146,6 +150,7 @@ CREATE TABLE author (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO author(authorID, authorName, articlesPublished) VALUES (1, 'Jim Habermas', '2');
+INSERT INTO author(authorID, authorName, articlesPublished) VALUES (2, 'Nobody Nowhere', '1');
 
 DROP TABLE IF EXISTS article;
 CREATE TABLE article (
@@ -165,3 +170,5 @@ CREATE TABLE article (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO article(articleID, topicID, title, authorID, articleDescription, publishDate) VALUES (1, 1, 'How to make a website', 1, 'Tips and tricks on how to make a good website.', '1991-01-01');
+INSERT INTO article(articleID, topicID, title, authorID, articleDescription, publishDate) VALUES (2, 2, 'How to be a good coder', 2, 'Tips and tricks on how to write good code.', '1992-02-02');
+INSERT INTO article(articleID, topicID, title, authorID, articleDescription, publishDate) VALUES (3, 2, 'How to be a better coder', 1, 'Tips and tricks on how to write better code.', '1993-03-03');

@@ -66,6 +66,7 @@ CREATE TABLE student (
   interestID INT, -- FK
   majorID INT NOT NULL, -- FK
   email VARCHAR(255) NOT NULL,
+  UNIQUE(email),
   PRIMARY KEY (studentID),
   FOREIGN KEY (majorID) REFERENCES major(majorID)
             ON DELETE CASCADE
@@ -86,6 +87,7 @@ CREATE TABLE faculty (
   departmentID VARCHAR(255),
   abstract VARCHAR(255),
   topicID INT NOT NULL,
+  UNIQUE(email),
   PRIMARY KEY (facultyID),
   FOREIGN KEY (topicID) REFERENCES topic(topicID)
             ON DELETE CASCADE
@@ -137,7 +139,7 @@ CREATE TABLE author (
     PRIMARY KEY (authorID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO author(authorID, authorName, articlesPublished) VALUES (1, 'Jim', 'Habermas', '2');
+INSERT INTO author(authorID, authorName, articlesPublished) VALUES (1, 'Jim Habermas', '2');
 
 DROP TABLE IF EXISTS article;
 CREATE TABLE article (

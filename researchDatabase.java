@@ -59,7 +59,7 @@ public class researchDatabase {
             // create and execute query
             stmt = conn.createStatement();
             sql = "SELECT facultyName, email, d.departmentName, abstract FROM faculty f join department d on (f.departmentID = d.departmentID) WHERE facultyName LIKE %"
-             + name + "%";
+                    + name + "%";
             rs = stmt.executeQuery(sql);
             searchResult += "Faculty Member\tEmail\tDepartment\tAbstract\n";
 
@@ -96,7 +96,7 @@ public class researchDatabase {
             // create and execute query
             stmt = conn.createStatement();
             sql = "SELECT facultyName, email, d.departmentName, abstract FROM faculty f join department d on (f.departmentID = d.departmentID)  WHERE abstract LIKE %"
-             + facultyAbstract + "%";
+                    + facultyAbstract + "%";
             rs = stmt.executeQuery(sql);
             searchResult += "Faculty Member\tEmail\tDepartment\tAbstract\n";
 
@@ -169,7 +169,7 @@ public class researchDatabase {
         try {
             stmt = conn.createStatement();
             sql = "SELECT s.studentName, m.majorName, s.email, i.interestName FROM student s JOIN major m ON (s.majorID = m.majorID) JOIN interest i ON (s.interestID = i.interestID) where s.email like %"
-            + email + "%";
+                    + email + "%";
             rs = stmt.executeQuery(sql);
             searchResult += "Student Name\tMajor\tEmail\tinterestName\n";
             // retrieve result set data to put in string
@@ -337,7 +337,8 @@ public class researchDatabase {
 
             // retrieve result set data to put in string
             while (rs.next()) {
-                student = "| " + rs.getString(1) + "\t| " + rs.getString(2) + "\t| " + rs.getString(3) + "\t| " + rs.getString(4) + "\t|\n";
+                student = "| " + rs.getString(1) + "\t| " + rs.getString(2) + "\t| " + rs.getString(3) + "\t| "
+                        + rs.getString(4) + "\t|\n";
                 searchResult += student;
             } // end of while
         } // end of try
@@ -417,7 +418,7 @@ public class researchDatabase {
         catch (SQLException sqle) {
             System.out.println("Error SQLException in searchArticle | Error message: " + sqle);
         } // end of catch
-        
+
         // get number of results and print the final search result
         searchResult += "\n" + numberRows + " results.";
         System.out.println(searchResult);
@@ -567,6 +568,7 @@ public class researchDatabase {
      * @param choice - determine which option a student chose
      */
     public void student_choice(int choice) {
+        Scanner scanner = new Scanner(System.in);
         String keyword = "";
 
         switch (choice) {
@@ -609,6 +611,7 @@ public class researchDatabase {
         default:
             System.out.println("Invalid choice!");
         }// end of switch
+        scanner.close();
     }// end of student choice
 
     /**
@@ -630,6 +633,7 @@ public class researchDatabase {
     public void faculty_choice(int choice) {
         // separate strings are needed because multiple faculty options have multiple
         // parameters
+        Scanner scanner = new Scanner(System.in);
         String title = "";
         String facultyAbstract = "";
         String ID = "";
@@ -688,6 +692,7 @@ public class researchDatabase {
         default:
             System.out.println("Invalid choice!");
         }// end of switch
+        scanner.close();
     }// end of method faculty_choice
 
     /**
@@ -722,7 +727,7 @@ public class researchDatabase {
         userType = scanner.nextLine();
 
         // error handling
-        while (userType != "student" || userType != "faculty") {
+        if (userType != "student" || userType != "faculty") {
             System.out.println("Invalid user type!");
             System.out.println("Enter user type (student/faculty)");
             userType = scanner.nextLine();

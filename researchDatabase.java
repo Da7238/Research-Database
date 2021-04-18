@@ -58,7 +58,8 @@ public class researchDatabase {
         try {
             // create and execute query
             stmt = conn.createStatement();
-            sql = "SELECT facultyName, email, department, abstract FROM faculty WHERE facultyName LIKE %" + name + "%";
+            sql = "SELECT facultyName, email, d.departmentName, abstract FROM faculty f join department d on (f.departmentID = d.departmentID) WHERE facultyName LIKE %"
+             + name + "%";
             rs = stmt.executeQuery(sql);
             searchResult += "Faculty Member\tEmail\tDepartment\tAbstract\n";
 
@@ -94,8 +95,8 @@ public class researchDatabase {
         try {
             // create and execute query
             stmt = conn.createStatement();
-            sql = "SELECT facultyName, email, department, abstract FROM faculty WHERE abstract LIKE %" + facultyAbstract
-                    + "%";
+            sql = "SELECT facultyName, email, d.departmentName, abstract FROM faculty f join department d on (f.departmentID = d.departmentID)  WHERE abstract LIKE %"
+             + facultyAbstract + "%";
             rs = stmt.executeQuery(sql);
             searchResult += "Faculty Member\tEmail\tDepartment\tAbstract\n";
 
@@ -131,7 +132,7 @@ public class researchDatabase {
 
         try {
             stmt = conn.createStatement();
-            sql = "select f.facultyName, f.email, d.department, f.abstract, t.topicTag FROM faculty f JOIN department d ON (f.facultyID = d.facultyID) JOIN topic t ON (f.topicID = t.topicID) where d.department like %"
+            sql = "select f.facultyName, f.email, d.departmentName, f.abstract, t.topicTag FROM faculty f JOIN department d on (f.departmentID = d.departmentID) JOIN topic t ON (f.topicID = t.topicID) where d.departmentName like %"
                     + departmentName + "%";
             rs = stmt.executeQuery(sql);
             searchResult += "Faculty Member\tEmail\tDepartment\tAbstract\ttopicTag\n";
@@ -167,8 +168,8 @@ public class researchDatabase {
 
         try {
             stmt = conn.createStatement();
-            sql = "select s.studentName, m.major, e.email, i.interestName FROM student s JOIN major m ON (a.majorID = m.majorID) JOIN interest i ON (s.interestID = i.interestID) where s.email like %"
-                    + email + "%";
+            sql = "SELECT s.studentName, m.majorName, s.email, i.interestName FROM student s JOIN major m ON (s.majorID = m.majorID) JOIN interest i ON (s.interestID = i.interestID) where s.email like %"
+            + email + "%";
             rs = stmt.executeQuery(sql);
             searchResult += "Student Name\tMajor\tEmail\tinterestName\n";
             // retrieve result set data to put in string
@@ -203,7 +204,7 @@ public class researchDatabase {
 
         try {
             stmt = conn.createStatement();
-            sql = "select f.facultyName, f.email, d.department, f.abstract, t.topicTag FROM faculty f JOIN department d ON (f.facultyID = d.facultyID) JOIN topic t ON (f.topicID = t.topicID) where f.email like %"
+            sql = "SELECT f.facultyName, f.email, d.departmentName, f.abstract, t.topicTag from faculty f join department d on (f.departmentID = d.departmentID) JOIN topic t ON (f.topicID = t.topicID) where f.email like %"
                     + email + "%";
             rs = stmt.executeQuery(sql);
             searchResult += "Faculty Member\tEmail\tDepartment\tAbstract\ttopicTag\n";
@@ -294,7 +295,7 @@ public class researchDatabase {
         try {
             // create and execute query
             stmt = conn.createStatement();
-            sql = "SELECT s.studentName, m.majorName, s.email FROM student s JOIN major m ON (s.studentID = m.studentID) WHERE s.studentName LIKE %"
+            sql = "SELECT s.studentName, m.majorName, s.email FROM student s JOIN major m ON (s.majorID = m.majorID) WHERE s.studentName LIKE %"
                     + name + "%";
             rs = stmt.executeQuery(sql);
             searchResult += "Student\tMajor\tEmail\n";
@@ -329,14 +330,14 @@ public class researchDatabase {
         try {
             // create and execute query
             stmt = conn.createStatement();
-            sql = "SELECT s.studentName, m.majorName, s.email FROM student s JOIN major m ON (s.studentID = m.studentID) JOIN interest i ON (s.interestID = i.interestID) WHERE i.interestID LIKE %"
+            sql = "SELECT s.studentName, m.majorName, s.email, i.interestName FROM student s JOIN major m ON (s.majorID = m.majorID) JOIN interest i ON (s.interestID = i.interestID) WHERE i.interestName LIKE %"
                     + interest + "%";
             rs = stmt.executeQuery(sql);
-            searchResult += "Student\tMajor\tEmail\n";
+            searchResult += "Student\tMajor\tEmail\tInterest\n";
 
             // retrieve result set data to put in string
             while (rs.next()) {
-                student = "| " + rs.getString(1) + "\t| " + rs.getString(2) + "\t| " + rs.getString(3) + "\t|\n";
+                student = "| " + rs.getString(1) + "\t| " + rs.getString(2) + "\t| " + rs.getString(3) + "\t| " + rs.getString(4) + "\t|\n";
                 searchResult += student;
             } // end of while
         } // end of try
@@ -365,7 +366,7 @@ public class researchDatabase {
         try {
             // create and execute query
             stmt = conn.createStatement();
-            sql = "select s.studentName, m.majorName, s.email from student s join major m on (s.studentID = m.studentID) where m.majorName like %"
+            sql = "select s.studentName, m.majorName, s.email from student s join major m on (s.majorID = m.majorID) where m.majorName like %"
                     + major + "%";
             rs = stmt.executeQuery(sql);
             searchResult += "Student\tMajor\tEmail\n";
@@ -400,10 +401,10 @@ public class researchDatabase {
         try {
             // create and execute query
             stmt = conn.createStatement();
-            sql = "select a.title, a.author, t.topicTag, a.description from article a join topic t on (a.topicID = t.topicID) where a.title like %"
+            sql = "select a.title, t.topicTag, a.articleDescription, aw.authorName from article a join topic t on (a.topicID = t.topicID) join author aw on (a.authorID = aw.authorID) where title like %"
                     + article + "%";
             rs = stmt.executeQuery(sql);
-            searchResult += "Title\tAuthor\tTopic\tDescription\n";
+            searchResult += "Title\tTopic\tDescription\tAuthor\n";
 
             // retrieve result set data to put in string
             while (rs.next()) {
@@ -416,7 +417,7 @@ public class researchDatabase {
         catch (SQLException sqle) {
             System.out.println("Error SQLException in searchArticle | Error message: " + sqle);
         } // end of catch
-
+        
         // get number of results and print the final search result
         searchResult += "\n" + numberRows + " results.";
         System.out.println(searchResult);
@@ -436,7 +437,7 @@ public class researchDatabase {
         try {
             // create and execute query
             stmt = conn.createStatement();
-            sql = "select a.authorName, a.articlePublished art.title FROM author a JOIN article art ON (a.authorID = art.authorID) where a.author like %"
+            sql = "select a.authorName, a.articlesPublished, art.title FROM author a JOIN article art ON (a.authorID = art.authorID) where a.authorName like %"
                     + author + "%";
             rs = stmt.executeQuery(sql);
             searchResult += "Author\tArticlesPublished\tTitle\n";

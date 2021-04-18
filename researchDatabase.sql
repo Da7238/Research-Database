@@ -36,6 +36,7 @@ CREATE TABLE public (
 
 INSERT INTO public(publicID, publicName, userName, pubEmail, interestID) VALUES (1, 'SaraP', 'UserSara', 'sarapublic@gmail.com', 1);
 INSERT INTO public(publicID, publicName, userName, pubEmail, interestID) VALUES (2, 'BillP', 'UserSara', 'billpublic@gmail.com', 2);
+INSERT INTO public(publicID, publicName, userName, pubEmail, interestID) VALUES (3, 'Student', 'UserStudent', 'student@gmail.com', 2);
 
 DROP TABLE IF EXISTS topic;
 CREATE TABLE topic (

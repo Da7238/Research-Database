@@ -4,4 +4,23 @@ Enter whether you are a student or a faculty member as "student" or "faculty" an
 
 Enter the email that is associated with your account as "example@example.com" and press enter.
 Enter the password that is associated with your account and press enter. 
-    If you receive an error, re-enter your email and password.  
+    If you receive an error, re-enter your email and password. 
+
+Student Sign in:
+1. Enter student
+2. Enter "student@gmail.com" when prompted for an email
+3. Enter "student" when prompted for a password
+4. 
+
+Faculty Sign in:
+1. Enter faculty
+2. Enter "faculty@gmail.com" when prompted for an email
+3. Enter "faculty" when prompted for a password
+4. Now a menu with options will be displayed
+    Option1: Enter "How to make a website"
+    Option2: Enter "Web Development"
+    Option3: Enter "Jim Habermas"
+    Option4: Enter "Web Development"
+    Option5: Enter "Jim"
+    Option6: "Golisano"
+    Option7: "jimmy@rit.edu"

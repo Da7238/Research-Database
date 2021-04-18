@@ -78,6 +78,7 @@ CREATE TABLE student (
 
 INSERT INTO student(studentID, majorID, studentName, interestID, email) VALUES (1, 1, 'Kevin', 1, 'kevin@gmail.com');
 INSERT INTO student(studentID, majorID, studentName, interestID, email) VALUES (2, 2, 'Emily', 2, 'emily@gmail.com');
+INSERT INTO student(studentID, majorID, studentName, interestID, email) VALUES (3, 2, 'Student', 2, 'student@gmail.com');
 
 DROP TABLE IF EXISTS faculty;
 CREATE TABLE faculty (
@@ -95,6 +96,7 @@ CREATE TABLE faculty (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO faculty(facultyID, facultyName, email, departmentID, abstract, topicID) VALUES (1, 'Jim', 'jimmy@rit.edu', 1, 'Web Development', 1);
+INSERT INTO faculty(facultyID, facultyName, email, departmentID, abstract, topicID) VALUES (2, 'Faculty', 'faculty@rit.edu', 1, 'Web Development', 1);
 
 DROP TABLE IF EXISTS department;
 CREATE TABLE department (
@@ -119,6 +121,7 @@ CREATE TABLE student_accounts (
          ON DELETE CASCADE
          ON UPDATE CASCADE
 )   ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO student_accounts(studentID, email, accountPassword) VALUES (2, "student@gmail.com", "student");
 
 DROP TABLE IF EXISTS faculty_accounts;
 CREATE TABLE faculty_accounts (
@@ -130,6 +133,8 @@ CREATE TABLE faculty_accounts (
          ON DELETE CASCADE
          ON UPDATE CASCADE
 )   ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO faculty_accounts(facultyID, email, accountPassword) VALUES (3, "faculty@gmail.com", "faculty");
 
 DROP TABLE IF EXISTS author;
 CREATE TABLE author (

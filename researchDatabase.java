@@ -58,8 +58,8 @@ public class researchDatabase {
         try {
             // create and execute query
             stmt = conn.createStatement();
-            sql = "SELECT facultyName, email, d.departmentName, abstract FROM faculty f join department d on (f.departmentID = d.departmentID) WHERE facultyName LIKE %"
-                    + name + "%";
+            sql = "SELECT facultyName, email, d.departmentName, abstract FROM faculty f join department d on (f.departmentID = d.departmentID) WHERE f.facultyName LIKE '%"
+                    + name + "%'";
             rs = stmt.executeQuery(sql);
             searchResult += "Faculty Member\tEmail\tDepartment\tAbstract\n";
 
@@ -95,8 +95,8 @@ public class researchDatabase {
         try {
             // create and execute query
             stmt = conn.createStatement();
-            sql = "SELECT facultyName, email, d.departmentName, abstract FROM faculty f join department d on (f.departmentID = d.departmentID)  WHERE abstract LIKE %"
-                    + facultyAbstract + "%";
+            sql = "SELECT facultyName, email, d.departmentName, abstract FROM faculty f join department d on (f.departmentID = d.departmentID)  WHERE abstract LIKE '%"
+                    + facultyAbstract + "%'";
             rs = stmt.executeQuery(sql);
             searchResult += "Faculty Member\tEmail\tDepartment\tAbstract\n";
 
@@ -132,8 +132,8 @@ public class researchDatabase {
 
         try {
             stmt = conn.createStatement();
-            sql = "select f.facultyName, f.email, d.departmentName, f.abstract, t.topicTag FROM faculty f JOIN department d on (f.departmentID = d.departmentID) JOIN topic t ON (f.topicID = t.topicID) where d.departmentName like %"
-                    + departmentName + "%";
+            sql = "select f.facultyName, f.email, d.departmentName, f.abstract, t.topicTag FROM faculty f JOIN department d on (f.departmentID = d.departmentID) JOIN topic t ON (f.topicID = t.topicID) where d.departmentName LIKE '%"
+                    + departmentName + "%'";
             rs = stmt.executeQuery(sql);
             searchResult += "Faculty Member\tEmail\tDepartment\tAbstract\ttopicTag\n";
             // retrieve result set data to put in string
@@ -168,8 +168,8 @@ public class researchDatabase {
 
         try {
             stmt = conn.createStatement();
-            sql = "SELECT s.studentName, m.majorName, s.email, i.interestName FROM student s JOIN major m ON (s.majorID = m.majorID) JOIN interest i ON (s.interestID = i.interestID) where s.email like %"
-                    + email + "%";
+            sql = "SELECT s.studentName, m.majorName, s.email, i.interestName FROM student s JOIN major m ON (s.majorID = m.majorID) JOIN interest i ON (s.interestID = i.interestID) where s.email LIKE '%"
+                    + email + "%'";
             rs = stmt.executeQuery(sql);
             searchResult += "Student Name\tMajor\tEmail\tinterestName\n";
             // retrieve result set data to put in string
@@ -204,8 +204,8 @@ public class researchDatabase {
 
         try {
             stmt = conn.createStatement();
-            sql = "SELECT f.facultyName, f.email, d.departmentName, f.abstract, t.topicTag from faculty f join department d on (f.departmentID = d.departmentID) JOIN topic t ON (f.topicID = t.topicID) where f.email like %"
-                    + email + "%";
+            sql = "SELECT f.facultyName, f.email, d.departmentName, f.abstract, t.topicTag from faculty f join department d on (f.departmentID = d.departmentID) JOIN topic t ON (f.topicID = t.topicID) where f.email LIKE '%"
+                    + email + "%'";
             rs = stmt.executeQuery(sql);
             searchResult += "Faculty Member\tEmail\tDepartment\tAbstract\ttopicTag\n";
             // retrieve result set data to put in string
@@ -240,9 +240,10 @@ public class researchDatabase {
             stmt = conn.createStatement();
 
             // check if the student information is in the database
-            sql = "select * from student_accounts where email = '" + email + "' and password = '" + password + "'";
+            sql = "SELECT * FROM student_accounts WHERE email=\"" + email + "\" AND accountPassword=\"" + password
+                    + "\"";
             rs = stmt.executeQuery(sql);
-            rs.last();
+            rs.next();
             numberRows = rs.getRow();
         } // end of try
 
@@ -268,9 +269,10 @@ public class researchDatabase {
             stmt = conn.createStatement();
 
             // check if the faculty information is in the database
-            sql = "select * from faculty_accounts where email = '" + email + "' and password = '" + password + "'";
+            sql = "SELECT * FROM faculty_accounts WHERE email=\"" + email + "\" AND accountPassword=\"" + password
+                    + "\"";
             rs = stmt.executeQuery(sql);
-            rs.last();
+            rs.next();
             numberRows = rs.getRow();
         } // end of try
 
@@ -295,8 +297,8 @@ public class researchDatabase {
         try {
             // create and execute query
             stmt = conn.createStatement();
-            sql = "SELECT s.studentName, m.majorName, s.email FROM student s JOIN major m ON (s.majorID = m.majorID) WHERE s.studentName LIKE %"
-                    + name + "%";
+            sql = "SELECT s.studentName, m.majorName, s.email FROM student s JOIN major m ON (s.majorID = m.majorID) WHERE s.studentName LIKE '%"
+                    + name + "%'";
             rs = stmt.executeQuery(sql);
             searchResult += "Student\tMajor\tEmail\n";
 
@@ -330,8 +332,8 @@ public class researchDatabase {
         try {
             // create and execute query
             stmt = conn.createStatement();
-            sql = "SELECT s.studentName, m.majorName, s.email, i.interestName FROM student s JOIN major m ON (s.majorID = m.majorID) JOIN interest i ON (s.interestID = i.interestID) WHERE i.interestName LIKE %"
-                    + interest + "%";
+            sql = "SELECT s.studentName, m.majorName, s.email, i.interestName FROM student s JOIN major m ON (s.majorID = m.majorID) JOIN interest i ON (s.interestID = i.interestID) WHERE i.interestName LIKE '%"
+                    + interest + "%'";
             rs = stmt.executeQuery(sql);
             searchResult += "Student\tMajor\tEmail\tInterest\n";
 
@@ -367,8 +369,8 @@ public class researchDatabase {
         try {
             // create and execute query
             stmt = conn.createStatement();
-            sql = "select s.studentName, m.majorName, s.email from student s join major m on (s.majorID = m.majorID) where m.majorName like %"
-                    + major + "%";
+            sql = "select s.studentName, m.majorName, s.email from student s join major m on (s.majorID = m.majorID) where m.majorName LIKE '%"
+                    + major + "%'";
             rs = stmt.executeQuery(sql);
             searchResult += "Student\tMajor\tEmail\n";
 
@@ -402,8 +404,8 @@ public class researchDatabase {
         try {
             // create and execute query
             stmt = conn.createStatement();
-            sql = "select a.title, t.topicTag, a.articleDescription, aw.authorName from article a join topic t on (a.topicID = t.topicID) join author aw on (a.authorID = aw.authorID) where title like %"
-                    + article + "%";
+            sql = "select a.title, t.topicTag, a.articleDescription, aw.authorName from article a join topic t on (a.topicID = t.topicID) join author aw on (a.authorID = aw.authorID) where title LIKE '%"
+                    + article + "%'";
             rs = stmt.executeQuery(sql);
             searchResult += "Title\tTopic\tDescription\tAuthor\n";
 
@@ -438,8 +440,8 @@ public class researchDatabase {
         try {
             // create and execute query
             stmt = conn.createStatement();
-            sql = "select a.authorName, a.articlesPublished, art.title FROM author a JOIN article art ON (a.authorID = art.authorID) where a.authorName like %"
-                    + author + "%";
+            sql = "select a.authorName, a.articlesPublished, art.title FROM author a JOIN article art ON (a.authorID = art.authorID) where a.authorName LIKE '%"
+                    + author + "%'";
             rs = stmt.executeQuery(sql);
             searchResult += "Author\tArticlesPublished\tTitle\n";
 
@@ -567,8 +569,7 @@ public class researchDatabase {
      * 
      * @param choice - determine which option a student chose
      */
-    public void student_choice(int choice) {
-        Scanner scanner = new Scanner(System.in);
+    public void student_choice(int choice, Scanner scanner) {
         String keyword = "";
 
         switch (choice) {
@@ -611,7 +612,6 @@ public class researchDatabase {
         default:
             System.out.println("Invalid choice!");
         }// end of switch
-        scanner.close();
     }// end of student choice
 
     /**
@@ -630,10 +630,9 @@ public class researchDatabase {
      * 
      * @param choice - determine which option a faculty member chose
      */
-    public void faculty_choice(int choice) {
+    public void faculty_choice(int choice, Scanner scanner) {
         // separate strings are needed because multiple faculty options have multiple
         // parameters
-        Scanner scanner = new Scanner(System.in);
         String title = "";
         String facultyAbstract = "";
         String ID = "";
@@ -692,7 +691,6 @@ public class researchDatabase {
         default:
             System.out.println("Invalid choice!");
         }// end of switch
-        scanner.close();
     }// end of method faculty_choice
 
     /**
@@ -727,7 +725,7 @@ public class researchDatabase {
         userType = scanner.nextLine();
 
         // error handling
-        if (userType != "student" || userType != "faculty") {
+        while (!userType.equals("student") && !userType.equals("faculty")) {
             System.out.println("Invalid user type!");
             System.out.println("Enter user type (student/faculty)");
             userType = scanner.nextLine();
@@ -740,10 +738,10 @@ public class researchDatabase {
         password = scanner.nextLine();
 
         // login depending on whether it is a student or faculty
-        if (userType == "student") {
+        if (userType.equals("student")) {
             loginResult = someObject.login_student(email, password);
         } // end of if
-        else if (userType == "faculty") {
+        else {
             loginResult = someObject.login_faculty(email, password);
         } // end of else if
 
@@ -769,23 +767,23 @@ public class researchDatabase {
         int choice = 0;
 
         // open student options for interacting with the database
-        if (userType == "student") {
+        if (userType.equals("student")) {
             while (choice != 8) {
                 someObject.student_menu();
                 System.out.println("Enter choice: ");
                 input_choice = scanner.nextLine();
                 choice = Integer.parseInt(input_choice);
-                someObject.student_choice(choice);
+                someObject.student_choice(choice, scanner);
             }
         }
         // open faculty options for interacting with the database
-        else if (userType == "faculty") {
+        else if (userType.equals("faculty")) {
             while (choice != 8) {
                 someObject.faculty_menu();
                 System.out.println("Enter choice: ");
                 input_choice = scanner.nextLine();
                 choice = Integer.parseInt(input_choice);
-                someObject.faculty_choice(choice);
+                someObject.faculty_choice(choice, scanner);
             }
         }
         scanner.close(); // closes the scanner

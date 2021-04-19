@@ -11,19 +11,18 @@ public class presentation {
    // Use a external java file to perform backend tasks
    researchDatabase db = new researchDatabase();
    
-   // TO BE ASSIGNED
+   // GUI Private Variables
+   // TextField
+   // TextArea
+   // Label
+   // Search bar
+   // Drop list
+   
+   // ALL GROUP MEMBERS ARE ASSIGNED TO EDIT THIS METHOD
    // Constructor
    public presentation() {
-      //db.connect(); // Connect to the database
-      
-      // GUI Variables
-      // TextField
-      // TextArea
-      // Label
-      // Search bar
-      // Drop list
-      
       // Login page
+      //db.connect(); // Connect to the database
    }
    
    // ALL GROUP MEMBERS ARE ASSIGNED TO EDIT THIS METHOD

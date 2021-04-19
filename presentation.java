@@ -23,13 +23,25 @@ public class presentation {
       // Search bar
       // Drop list
       
-      // Main menu page
+      // Login page
    }
    
    // ALL GROUP MEMBERS ARE ASSIGNED TO EDIT THIS METHOD
    // Button pressed events
    public void handle(ActionEvent evt) {
       // Use switch here for each buttons
+   }
+   
+   // TO BE ASSIGNED
+   // Main menu for student after login
+   public void studentMenu() {
+   
+   }
+   
+   // TO BE ASSIGNED
+   // Main menu for faculty after login
+   public void facultyMenu() {
+   
    }
    
    // TO BE ASSIGNED
@@ -53,12 +65,6 @@ public class presentation {
    // TO BE ASSIGNED
    // Add a faculty
    public void addFacultyPage() {
-   
-   }
-   
-   // TO BE ASSIGNED
-   // View author information page
-   public void authorInfoPage() {
    
    }
 

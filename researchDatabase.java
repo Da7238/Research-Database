@@ -43,7 +43,6 @@ public class researchDatabase {
         return (conn != null);
     } // end of connect()
 
-    // TODO: Darlene
     /**
      * Searches the database for a faculty member based on the entered name
      * 
@@ -80,7 +79,6 @@ public class researchDatabase {
         System.out.println(searchResult);
     } // end of searchFacultyName()
 
-    // TODO: Darlene
     /**
      * Searches the database for a faculty member based on the entered abstract
      * 
@@ -117,7 +115,6 @@ public class researchDatabase {
         System.out.println(searchResult);
     } // end of searchFacultyAbstract()
 
-    // TODO: Weijie
     /**
      * Searches the database for a faculty member based on the entered department
      * 
@@ -153,7 +150,6 @@ public class researchDatabase {
         System.out.println(searchResult);
     } // end of searchDepartment
 
-    // TODO: Weijie
     /**
      * Searches the database for a student based on the entered email
      * 
@@ -189,7 +185,6 @@ public class researchDatabase {
         System.out.println(searchResult);
     } // end of searchStudentEmail()
 
-    // TODO: Weijie
     /**
      * Searches the database for a faculty member based on the entered email
      * 

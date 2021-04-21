@@ -13,6 +13,7 @@ public class researchDatabase {
     private Statement stmt;
     private ResultSet rs;
     private String sql;
+    private Scanner scanner;
 
     final String DEFAULT_DRIVER = "com.mysql.cj.jdbc.Driver";
 
@@ -687,6 +688,41 @@ public class researchDatabase {
             System.out.println("Invalid choice!");
         }// end of switch
     }// end of method faculty_choice
+    /*
+     * public void signIn(Scanner scanner) { String userType = ""; // string used to
+     * store whether it's a student or faculty member String email = ""; // string
+     * used to store the email a user tries to log in with String password = ""; //
+     * string used to store the password a user tries to log in with int loginResult
+     * = 0; // int used to determine log in success, based on number of results from
+     * search // query. 0 if it fails, 1 if it succeeeds. connect();
+     * 
+     * // determine if it's student or faculty member
+     * System.out.println("Enter user type (student/faculty)"); userType =
+     * scanner.nextLine();
+     * 
+     * // error handling while (!userType.equals("student") &&
+     * !userType.equals("faculty")) { System.out.println("Invalid user type!");
+     * System.out.println("Enter user type (student/faculty)"); userType =
+     * scanner.nextLine(); } // end of while
+     * 
+     * // get login information from user System.out.println("Enter email: "); email
+     * = scanner.nextLine(); System.out.println("Enter password: "); password =
+     * scanner.nextLine();
+     * 
+     * // login depending on whether it is a student or faculty if
+     * (userType.equals("student")) { loginResult = login_student(email, password);
+     * } // end of if else { loginResult = login_faculty(email, password); } // end
+     * of else if
+     * 
+     * // if the resultset returns an empty selection, the user information was //
+     * incorrect while (loginResult == 0) {
+     * System.out.println("Invalid login information!");
+     * System.out.println("Enter email: "); email = scanner.nextLine();
+     * System.out.println("Enter password: "); password = scanner.nextLine(); if
+     * (userType == "student") { loginResult = login_student(email, password); } //
+     * end of if else if (userType == "faculty") { loginResult =
+     * login_faculty(email, password); } // end of else if } // end of while }
+     */
 
     /**
      * Closes all connections to the database

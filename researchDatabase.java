@@ -443,7 +443,7 @@ public class researchDatabase {
 
             // retrieve result set data to put in string
             while (rs.next()) {
-                authorResult = "| " + rs.getString(1) + "\t| " + rs.getString(2) + "\t| " + rs.getString(4) + "\t|\n";
+                authorResult = "| " + rs.getString(1) + "\t| " + rs.getString(2) + "\t| " + rs.getString(3) + "\t|\n";
                 searchResult += authorResult;
             } // end of while
         } // end of try
@@ -458,7 +458,7 @@ public class researchDatabase {
     } // end of searchAuthor()
 
     /**
-     * Searches for an article based on the entered author
+     * Inserts a faculty member into the database
      * 
      * @param facultyID   - a faculty ID
      * @param facultyName - the name of a faculty member
@@ -555,10 +555,9 @@ public class researchDatabase {
      */
     public void student_menu() {
         System.out.println("==== Options ====");
-        System.out.println(
-                "1. Search article by title\n" + "2. Search article by abstract\n" + "3. Search article by author(s)\n"
-                        + "4. Search article by intererst\n" + "5. Search faculty by name\n"
-                        + "6. Search faculty by department\n" + "7. Search faculty by email\n" + "8. Quit\n");
+        System.out.println("1. Search article by title\n" + "2. Search article by abstract\n"
+                + "3. Search article by author(s)\n" + "4. Search faculty by name\n"
+                + "5. Search faculty by department\n" + "6. Search faculty by email\n" + "7. Quit\n");
     } // end of student_menu()
 
     /**
@@ -584,27 +583,27 @@ public class researchDatabase {
             keyword = scanner.nextLine();
             searchAuthor(keyword);
             break;
-        case 4: // search interests
-            System.out.println("Enter interests: ");
-            keyword = scanner.nextLine();
-            searchStudentInterest(keyword);
-            break;
-        case 5: // search faculty
+        /*
+         * case 4: // search interests System.out.println("Enter interests: "); keyword
+         * = scanner.nextLine(); searchStudentInterest(keyword); break;
+         */
+        case 4: // search faculty
             System.out.println("Enter faculty name: ");
             keyword = scanner.nextLine();
             searchFacultyName(keyword);
             break;
-        case 6: // search faculty department
+        case 5: // search faculty department
             System.out.println("Enter faculty department: ");
             keyword = scanner.nextLine();
             searchDepartment(keyword);
             break;
-        case 7: // search faculty email
+        case 6: // search faculty email
             System.out.println("Enter faculty email: ");
             keyword = scanner.nextLine();
             searchFacultyEmail(keyword);
             break;
-
+        case 7: // close database
+            close();
         default:
             System.out.println("Invalid choice!");
         }// end of switch
@@ -647,7 +646,7 @@ public class researchDatabase {
         case 2: // student major
             System.out.println("Enter student major: ");
             major = scanner.nextLine();
-            searchStudentName(major);
+            searchMajor(major);
             break;
         case 3: // student interests
             System.out.println("Enter student interests: ");
@@ -684,6 +683,8 @@ public class researchDatabase {
             title = scanner.nextLine();
             deleteEntry(title);
             break;
+        case 8: // close database
+            close();
         default:
             System.out.println("Invalid choice!");
         }// end of switch

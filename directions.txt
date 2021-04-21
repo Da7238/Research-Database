@@ -12,7 +12,6 @@ Student Sign in:
     Option1: Enter "How to make a website"
     Option2: Enter "Web Development"
     Option3: Enter "Jim Habermas"
-    Option4: Enter "Web Development"
     Option5: Enter "Jim"
     Option6: "Golisano"
     Option7: "jimmy@rit.edu"

@@ -102,7 +102,7 @@ public class presentation extends Application implements EventHandler<ActionEven
       titleLabel = new Label("Login");
       titleLabel.setMinHeight(80);
       titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 30px;");
-      
+      // 2
       // Re-align the Label text to the center right.      
       gridPane.setHalignment(emailLabel, HPos.RIGHT);
       gridPane.setHalignment(passwordLabel, HPos.RIGHT);
@@ -285,7 +285,7 @@ public class presentation extends Application implements EventHandler<ActionEven
    String facultyDeleteEntry = facutlyText6.getText();
    String facultyUpdateTitle = facutlyText7.getText();
    
-   String facultydelte = db.deleteEntry(facultyText6);
+   String facultyDeleteEntry = db.deleteEntry(facultyText6);
    }
    
    // Launch the program

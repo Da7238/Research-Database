@@ -299,6 +299,8 @@ public class presentation extends Application implements EventHandler<ActionEven
 
 // -------------------------------------------
 
+// -------------------------------------------
+
    // TO BE ASSIGNED
    // Main menu for student after login
    public void studentMenu() {

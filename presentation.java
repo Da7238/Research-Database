@@ -63,6 +63,19 @@ public class presentation extends Application implements EventHandler<ActionEven
    private TextField searchTF5;
    private TextField searchTF6;
    private TextField searchTF7;
+   
+   private Button articleSearch;
+   private Button aAbstractSearch;
+   private Button authorSearch;
+   private Button emailSearch;
+   private Button nameSearch;
+   private Button fAbstractSearch;
+   private Button departmentSearch;
+   
+   private Button studentSearch;
+   private Button majorSearch;
+   private Button interestSearch;
+   //private Button emailSearch;
 
    private Button searchBtn;
    private Button insertBtn;
@@ -87,6 +100,9 @@ public class presentation extends Application implements EventHandler<ActionEven
       
       // Button label
       loginBtn = new Button("Login");
+      loginBtn.setOnAction(value -> {
+         login();
+      });
       
       // Create a new grid
       gridPane = new GridPane();
@@ -106,11 +122,11 @@ public class presentation extends Application implements EventHandler<ActionEven
       gridPane.setAlignment(Pos.CENTER);
       
       // Render window
-      scene = new Scene(root, 500, 350);
+      scene = new Scene(root, 600, 450);
       stage.setScene(scene);
       
       // Add button behaviors
-      loginBtn.setOnAction(this);
+      //loginBtn.setOnAction(this);
       
       stage.show();
    }
@@ -139,42 +155,69 @@ public class presentation extends Application implements EventHandler<ActionEven
       searchTF6 = new TextField();
       searchTF7 = new TextField();
       
-      // Button label
-      searchBtn = new Button("Search");
+      // Button labels
+      articleSearch = new Button("Search");
+      aAbstractSearch = new Button("Search");
+      authorSearch = new Button("Search");
+      emailSearch = new Button("Search");
+      nameSearch = new Button("Search");
+      fAbstractSearch = new Button("Search");
+      departmentSearch = new Button("Search");
+
       
       // Create a new grid
       gridPane = new GridPane();
       
       // Re-align the Label text to the center right.      
       gridPane.setHalignment(labelSearch1, HPos.LEFT);
-      gridPane.setHalignment(labelSearch2, HPos.RIGHT);
+      gridPane.setHalignment(labelSearch2, HPos.LEFT);
       gridPane.setHalignment(labelSearch3, HPos.LEFT);
-      gridPane.setHalignment(labelSearch4, HPos.RIGHT);
+      gridPane.setHalignment(labelSearch4, HPos.LEFT);
       gridPane.setHalignment(labelSearch5, HPos.LEFT);
-      gridPane.setHalignment(labelSearch6, HPos.RIGHT);
+      gridPane.setHalignment(labelSearch6, HPos.LEFT);
       gridPane.setHalignment(labelSearch7, HPos.LEFT);
       
       // Render a grid panel
-      gridPane.addRow(0, labelSearch1, searchTF1);
-      gridPane.addRow(1, labelSearch2, searchTF2);
-      gridPane.addRow(2, labelSearch3, searchTF3);
-      gridPane.addRow(3, labelSearch4, searchTF4);
-      gridPane.addRow(4, labelSearch5, searchTF5);
-      gridPane.addRow(5, labelSearch6, searchTF6);
-      gridPane.addRow(6, labelSearch7, searchTF7);
+      gridPane.addRow(0, labelSearch1, searchTF1, articleSearch);
+      gridPane.addRow(1, labelSearch2, searchTF2, aAbstractSearch);
+      gridPane.addRow(2, labelSearch3, searchTF3, authorSearch);
+      gridPane.addRow(3, labelSearch4, searchTF4, emailSearch);
+      gridPane.addRow(4, labelSearch5, searchTF5, nameSearch);
+      gridPane.addRow(5, labelSearch6, searchTF6, fAbstractSearch);
+      gridPane.addRow(6, labelSearch7, searchTF7, departmentSearch);
       
-      rootStudentMenu.getChildren().addAll(titleLabel, gridPane, searchBtn);
+      rootStudentMenu.getChildren().addAll(titleLabel, gridPane);
       
       // Finally, put everything at center
       rootStudentMenu.setAlignment(Pos.CENTER);
       gridPane.setAlignment(Pos.CENTER);
       
       // Render a new window page
-      studentScene = new Scene(rootStudentMenu, 500, 350);
+      studentScene = new Scene(rootStudentMenu, 600, 450);
       stage.setScene(studentScene);
       
+      
       // Add button behaviors
-      searchBtn.setOnAction(this);
+      articleSearch.setOnAction(e -> {
+         String result = db.searchArticle(searchTF1.getText());
+         });
+      aAbstractSearch.setOnAction(e -> {
+         });
+      authorSearch.setOnAction(e -> {
+         String result = db.searchAuthor(searchTF3.getText());
+          });
+      emailSearch.setOnAction(e -> {
+         String result = db.searchFacultyEmail(searchTF4.getText());
+         });
+      nameSearch.setOnAction(e -> {
+         String result = db.searchFacultyName(searchTF5.getText());
+         });
+      fAbstractSearch.setOnAction(e -> {
+         String result = db.searchFacultyAbstract(searchTF6.getText());
+         });
+      departmentSearch.setOnAction(e -> {
+         String result = db.searchDepartment(searchTF7.getText());
+         });
    }
    
    // Faculty Main Menu
@@ -201,8 +244,12 @@ public class presentation extends Application implements EventHandler<ActionEven
       searchTF6 = new TextField();
       searchTF7 = new TextField();
       
-      // Button label
-      searchBtn = new Button("Search Student");
+      // Button labels
+      studentSearch = new Button("Search");
+      majorSearch = new Button("Search");
+      interestSearch = new Button("Search");
+      //emailSearch = new Button("Search");
+
       insertBtn = new Button("Insert");
       deleteBtn = new Button("Delete");
       updateBtn = new Button("Update");
@@ -213,23 +260,23 @@ public class presentation extends Application implements EventHandler<ActionEven
       
       // Re-align the Label text to the center right.      
       gridPane.setHalignment(labelSearch1, HPos.LEFT);
-      gridPane.setHalignment(labelSearch2, HPos.RIGHT);
+      gridPane.setHalignment(labelSearch2, HPos.LEFT);
       gridPane.setHalignment(labelSearch3, HPos.LEFT);
-      gridPane.setHalignment(labelSearch4, HPos.RIGHT);
+      gridPane.setHalignment(labelSearch4, HPos.LEFT);
       gridPane.setHalignment(facultyInsert, HPos.LEFT);
-      gridPane.setHalignment(facultyDeleteEntry, HPos.RIGHT);
+      gridPane.setHalignment(facultyDeleteEntry, HPos.LEFT);
       gridPane.setHalignment(facultyUpdateTitle, HPos.LEFT);
       
       // Render a grid panel
-      gridPane.addRow(0, labelSearch1, searchTF1);
-      gridPane.addRow(1, labelSearch2, searchTF2);
-      gridPane.addRow(2, labelSearch3, searchTF3);
-      gridPane.addRow(3, labelSearch4, searchTF4);
+      gridPane.addRow(0, labelSearch1, searchTF1, studentSearch);
+      //gridPane.addRow(1, labelSearch2, searchTF2, majorSearch);
+      gridPane.addRow(2, labelSearch3, searchTF3, interestSearch);
+      gridPane.addRow(3, labelSearch4, searchTF4, emailSearch);
       gridPane.addRow(4, facultyInsert, searchTF5);
       gridPane.addRow(5, facultyDeleteEntry, searchTF6);
       gridPane.addRow(6, facultyUpdateTitle, searchTF7);
       
-      flowPane.getChildren().addAll(searchBtn, insertBtn, deleteBtn);
+      flowPane.getChildren().addAll(insertBtn, deleteBtn);
       rootFacultyMenu.getChildren().addAll(titleLabel, gridPane, flowPane);
       
       // Finally, put everything at center
@@ -238,10 +285,23 @@ public class presentation extends Application implements EventHandler<ActionEven
       flowPane.setAlignment(Pos.CENTER);
       
       // Render a new window page
-      facultyScene = new Scene(rootFacultyMenu, 500, 350);
+      facultyScene = new Scene(rootFacultyMenu, 600, 450);
       stage.setScene(facultyScene);
       
       // Add button behaviors
+      studentSearch.setOnAction(e -> {
+         String result = db.searchStudentName(searchTF1.getText());
+      });
+      majorSearch.setOnAction(e -> {
+         String result = db.searchMajor(searchTF2.getText());
+      });
+      interestSearch.setOnAction(e -> {
+         String result = db.searchStudentInterest(searchTF3.getText());
+      });
+      emailSearch.setOnAction(e -> {
+         String result = db.searchStudentEmail(searchTF4.getText());
+      });
+      
       searchBtn.setOnAction(this);
       insertBtn.setOnAction(this);
       updateBtn.setOnAction(this);
@@ -255,9 +315,6 @@ public class presentation extends Application implements EventHandler<ActionEven
       
       // Switch to handle button actions and execute a method
       switch(btn.getText()) {
-         case "Login":
-            login();
-            break;
          case "Search":
             studentSearch();
             break;
@@ -297,15 +354,17 @@ public class presentation extends Application implements EventHandler<ActionEven
       }
    }
    
+
    // Student Search functionality
    public void studentSearch() {
-   String studentSearch1 = searchTF1.getText();
-   String studentSearch2 = searchTF2.getText();
-   String studentSearch3 = searchTF3.getText();
-   String studentSearch4 = searchTF4.getText();
-   String studentSearch5 = searchTF5.getText();
-   String studentSearch6 = searchTF6.getText();
-   String studentSearch7 = searchTF7.getText();
+      String studentSearch1 = searchTF1.getText();
+      /*String studentSearch2 = searchTF2.getText();
+      String studentSearch3 = searchTF3.getText();
+      String studentSearch4 = searchTF4.getText();
+      String studentSearch5 = searchTF5.getText();
+      String studentSearch6 = searchTF6.getText();
+      String studentSearch7 = searchTF7.getText();*/
+      String searchArticle = db.searchArticle(studentSearch1);
    
    //String searchArticle = db.searchArticle(studentSearch1);
    }

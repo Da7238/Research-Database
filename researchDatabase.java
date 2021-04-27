@@ -23,7 +23,7 @@ public class researchDatabase {
     public boolean connect() {
         conn = null;
         String userName = "root";
-        String password = "!Lamar32";
+        String password = "student";
         String url = "jdbc:mysql://localhost/researchDatabase";
 
         try {
@@ -49,10 +49,9 @@ public class researchDatabase {
      * 
      * @param name - a faculty member's name
      */
-    public void searchFacultyName(String name) {
+    public String searchFacultyName(String name) {
         String searchResult = ""; // string containing query results
         String faculty = ""; // string containing a single student's information that matched the search
-        int numberRows = 0; // number of results for search found
         String sql = ""; // string to contain sql statement
 
         try {
@@ -74,10 +73,9 @@ public class researchDatabase {
         catch (SQLException sqle) {
             System.out.println("Error SQLException in searchStudentName | Error message: " + sqle);
         } // end of catch
-
-        // get number of results and print the final search result
-        searchResult += "\n" + numberRows + " results.";
+          // print the final search result
         System.out.println(searchResult);
+        return searchResult;
     } // end of searchFacultyName()
 
     /**
@@ -85,10 +83,9 @@ public class researchDatabase {
      * 
      * @param facultyAbstract - a faculty member's abstract
      */
-    public void searchFacultyAbstract(String facultyAbstract) {
+    public String searchFacultyAbstract(String facultyAbstract) {
         String searchResult = ""; // string containing query results
         String faculty = ""; // string containing a single student's information that matched the search
-        int numberRows = 0; // number of results for search found
         String sql = ""; // string to contain sql statement
 
         try {
@@ -111,9 +108,9 @@ public class researchDatabase {
             System.out.println("Error SQLException in searchStudentName | Error message: " + sqle);
         } // end of catch
 
-        // get number of results and print the final search result
-        searchResult += "\n" + numberRows + " results.";
+        // print the final search result
         System.out.println(searchResult);
+        return searchResult;
     } // end of searchFacultyAbstract()
 
     /**
@@ -121,11 +118,10 @@ public class researchDatabase {
      * 
      * @param department
      */
-    public void searchDepartment(String departmentName) {
+    public String searchDepartment(String departmentName) {
         // Print out facultyName, email, department, abstract, and topicTag
         String searchResult = ""; // string containing query results
         String department = ""; // string containing department's information that matched the search
-        int numberRows = 0; // number of results for search found
         String sql = ""; // string to contain sql statement
 
         try {
@@ -146,21 +142,20 @@ public class researchDatabase {
             System.out.println("Error SQLException in searchDepartmentName | Error message: " + sqle);
         } // end of catch
 
-        // get number of results and print the final search result
-        searchResult += "\n" + numberRows + " results.";
+        // print the final search result
         System.out.println(searchResult);
+        return searchResult;
     } // end of searchDepartment
 
     /**
      * Searches the database for a student based on the entered email
      * 
-     * @param email
+     * @param email - a student's email
      */
-    public void searchStudentEmail(String studentEmail) {
+    public String searchStudentEmail(String studentEmail) {
         // Print out studentName, major, email, and interest
         String searchResult = ""; // string containing query results
         String email = ""; // string containing department's information that matched the search
-        int numberRows = 0; // number of results for search found
         String sql = ""; // string to contain sql statement
 
         try {
@@ -181,21 +176,20 @@ public class researchDatabase {
             System.out.println("Error SQLException in searchStudentEmail | Error message: " + sqle);
         } // end of catch
 
-        // get number of results and print the final search result
-        searchResult += "\n" + numberRows + " results.";
+        // print the final search result
         System.out.println(searchResult);
+        return searchResult;
     } // end of searchStudentEmail()
 
     /**
      * Searches the database for a faculty member based on the entered email
      * 
-     * @param email - email entered by a student
+     * @param email - a faculty's email entered by a student
      */
-    public void searchFacultyEmail(String email) {
+    public String searchFacultyEmail(String email) {
         // Print out facultyName, email, department, abstract, and topicTag
         String searchResult = ""; // string containing query results
         String emailString = ""; // string containing department's information that matched the search
-        int numberRows = 0; // number of results for search found
         String sql = ""; // string to contain sql statement
 
         try {
@@ -216,10 +210,10 @@ public class researchDatabase {
             System.out.println("Error SQLException in searchFacultyEmail | Error message: " + sqle);
         } // end of catch
 
-        // get number of results and print the final search result
-        searchResult += "\n" + numberRows + " results.";
+        // print the final search result
         System.out.println(searchResult);
-    }
+        return searchResult;
+    } // end of SearchFacultyEmail()
 
     /**
      * @param email    - email entered by a student user
@@ -284,10 +278,9 @@ public class researchDatabase {
      * 
      * @param name - a student's name
      */
-    public void searchStudentName(String name) {
+    public String searchStudentName(String name) {
         String searchResult = ""; // string containing query results
         String student = ""; // string containing a single student's information that matched the search
-        int numberRows = 0; // number of results for search found
         String sql = ""; // string to contain sql statement
 
         try {
@@ -309,9 +302,9 @@ public class researchDatabase {
             System.out.println("Error SQLException in searchStudentName | Error message: " + sqle);
         } // end of catch
 
-        // get number of results and print the final search result
-        searchResult += "\n" + numberRows + " results.";
+        // print the final search result
         System.out.println(searchResult);
+        return searchResult;
     } // end of searchStudentName()
 
     /**
@@ -319,10 +312,9 @@ public class researchDatabase {
      * 
      * @param - interest a student's interest
      */
-    public void searchStudentInterest(String interest) {
+    public String searchStudentInterest(String interest) {
         String searchResult = ""; // string containing query results
         String student = ""; // string containing a single student's information that matched the search
-        int numberRows = 0; // number of results for search found
         String sql = ""; // string to contain sql statement
 
         try {
@@ -345,10 +337,9 @@ public class researchDatabase {
             System.out.println("Error SQLException in searchStudentName | Error message: " + sqle);
         } // end of catch
 
-        // get number of results and print the final search result
-        searchResult += "\n" + numberRows + " results.";
+        // print the final search result
         System.out.println(searchResult);
-
+        return searchResult;
     } // end of searchStudentInterest()
 
     /**
@@ -356,10 +347,9 @@ public class researchDatabase {
      * 
      * @param major - a student's major
      */
-    public void searchMajor(String major) {
+    public String searchMajor(String major) {
         String searchResult = ""; // string containing query results
         String student = ""; // string containing a single student's information that matched the search
-        int numberRows = 0; // number of results for search found
         String sql = ""; // string to contain sql statement
 
         try {
@@ -381,9 +371,9 @@ public class researchDatabase {
             System.out.println("Error SQLException in searchMajor | Error message: " + sqle);
         } // end of catch
 
-        // get number of results and print the final search result
-        searchResult += "\n" + numberRows + " results.";
+        // print the final search result
         System.out.println(searchResult);
+        return searchResult;
     }// end of searchMajor()
 
     /**
@@ -391,10 +381,9 @@ public class researchDatabase {
      * 
      * @param article - the article that has been entered by the user
      */
-    public void searchArticle(String article) {
+    public String searchArticle(String article) {
         String searchResult = ""; // string containing query results
         String articleResult = ""; // string containing a single article's information that matched the search
-        int numberRows = 0; // number of results for search found
         String sql = ""; // string to contain sql statement
 
         try {
@@ -417,9 +406,9 @@ public class researchDatabase {
             System.out.println("Error SQLException in searchArticle | Error message: " + sqle);
         } // end of catch
 
-        // get number of results and print the final search result
-        searchResult += "\n" + numberRows + " results.";
+        // print the final search result
         System.out.println(searchResult);
+        return searchResult;
     }// end of searchArticle()
 
     /**
@@ -427,10 +416,9 @@ public class researchDatabase {
      * 
      * @param author - the author of an article
      */
-    public void searchAuthor(String author) {
+    public String searchAuthor(String author) {
         String searchResult = ""; // string containing query results
         String authorResult = ""; // string containing a single article's information that matched the search
-        int numberRows = 0; // number of results for search found
         String sql = ""; // string to contain sql statement
 
         try {
@@ -452,9 +440,9 @@ public class researchDatabase {
             System.out.println("Error SQLException in searchArticle | Error message: " + sqle);
         } // end of catch
 
-        // get number of results and print the final search result
-        searchResult += "\n" + numberRows + " results.";
+        // print the final search result
         System.out.println(searchResult);
+        return searchResult;
     } // end of searchAuthor()
 
     /**

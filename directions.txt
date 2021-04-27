@@ -9,19 +9,22 @@ Student Sign in:
 2. Enter "student@gmail.com" when prompted for an email
 3. Enter "student" when prompted for a password
 4. Now a menu with options will be displayed
-    Option1: Enter "How to make a website"
-    Option2: Enter "Web Development"
-    Option3: Enter "Jim Habermas"
-    Option5: Enter "Jim"
-    Option6: "Golisano"
-    Option7: "jimmy@rit.edu"
+    Option1 - Search article by title: Enter "How to make a website"
+    Option2 - Search article by abstract: Enter "Web Development"
+    Option3 - Search article by author(s): Enter "Jim Habermas"
+    Option4 - Search faculty by name: Enter "Jim"
+    Option5 - Search faculty by department: "Golisano"
+    Option6 - Search faculty by email: "jimmy@rit.edu"
 
 Faculty Sign in:
 1. Enter faculty
 2. Enter "faculty@gmail.com" when prompted for an email
 3. Enter "faculty" when prompted for a password
 4. Now a menu with options will be displayed
-    Option1: Enter "Kevin"
-    Option2: Enter "Mathematics"
-    Option3: Enter "php"
-    Option4: Enter "kevin@gmail.com"
+    Option1 - Search student by name: Enter "Kevin"
+    Option2 - Search student by major: Enter "Mathematics"
+    Option3 - Search student by interest: Enter "php"
+    Option4 - Search student by email: Enter "kevin@gmail.com"
+    Option5 - Insert a new faculty member:
+    Option6 - Update article entry: 
+    Option7 - Delete article entry

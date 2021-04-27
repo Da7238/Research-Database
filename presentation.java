@@ -26,11 +26,12 @@ public class presentation extends Application {
    private Scanner scanner = new Scanner(System.in);
 
    private Stage stage;
-   private Scene scene, studentScene, facultyScene;
+   private Scene scene, studentScene, facultyScene, newWindowScene;
    
    private VBox root = new VBox(1);
    private VBox rootStudentMenu = new VBox(1);
    private VBox rootFacultyMenu = new VBox(1);
+   private VBox rootNewWindow = new VBox(1);
    
    private GridPane gridPane;
    private FlowPane flowPane;
@@ -63,6 +64,8 @@ public class presentation extends Application {
    private TextField searchTF5;
    private TextField searchTF6;
    private TextField searchTF7;
+   
+   private TextArea resultTA;
    
    private Button articleSearch;
    private Button aAbstractSearch;
@@ -300,7 +303,7 @@ public class presentation extends Application {
          String result = db.searchStudentEmail(searchTF4.getText());
       });
       insertBtn.setOnAction(e -> {
-         facultySearch();
+         searchResult();
       });
       deleteBtn.setOnAction(e -> {
          facultySearch();
@@ -371,10 +374,24 @@ public class presentation extends Application {
 
 // -------------------------------------------
 
-   // TO BE ASSIGNED
-   // Search bar to look up for author, student, faculty, etc
-   public void searchBar() {
-System.exit(0);
+   // Open a new window to display search result
+   public void searchResult() {
+      stage = new Stage();
+      resultTA = new TextArea();
+      
+      stage.setTitle("Search Result");
+      
+      //resultTA.appendText(db.searchArticle());
+      
+      rootNewWindow.getChildren().addAll(resultTA);
+      
+      // Finally, put everything at center
+      rootNewWindow.setAlignment(Pos.CENTER);
+      
+      // Render a new window page
+      newWindowScene = new Scene(rootNewWindow, 650, 250);
+      stage.setScene(newWindowScene);
+      stage.show();
    }
 
    // TO BE ASSIGNED

@@ -18,7 +18,7 @@ import java.util.Scanner;
 import javax.swing.*;
 
 
-public class presentation extends Application implements EventHandler<ActionEvent> {
+public class presentation extends Application {
    // Use a external java file to perform backend tasks
    researchDatabase db = new researchDatabase();
    
@@ -71,11 +71,9 @@ public class presentation extends Application implements EventHandler<ActionEven
    private Button nameSearch;
    private Button fAbstractSearch;
    private Button departmentSearch;
-   
    private Button studentSearch;
    private Button majorSearch;
    private Button interestSearch;
-   //private Button emailSearch;
 
    private Button searchBtn;
    private Button insertBtn;
@@ -176,6 +174,7 @@ public class presentation extends Application implements EventHandler<ActionEven
       gridPane.setHalignment(labelSearch5, HPos.LEFT);
       gridPane.setHalignment(labelSearch6, HPos.LEFT);
       gridPane.setHalignment(labelSearch7, HPos.LEFT);
+      gridPane.setVgap(10);
       
       // Render a grid panel
       gridPane.addRow(0, labelSearch1, searchTF1, articleSearch);
@@ -248,8 +247,7 @@ public class presentation extends Application implements EventHandler<ActionEven
       studentSearch = new Button("Search");
       majorSearch = new Button("Search");
       interestSearch = new Button("Search");
-      //emailSearch = new Button("Search");
-
+      emailSearch = new Button("Search");
       insertBtn = new Button("Insert");
       deleteBtn = new Button("Delete");
       updateBtn = new Button("Update");
@@ -266,17 +264,17 @@ public class presentation extends Application implements EventHandler<ActionEven
       gridPane.setHalignment(facultyInsert, HPos.LEFT);
       gridPane.setHalignment(facultyDeleteEntry, HPos.LEFT);
       gridPane.setHalignment(facultyUpdateTitle, HPos.LEFT);
+      gridPane.setVgap(10);
       
       // Render a grid panel
       gridPane.addRow(0, labelSearch1, searchTF1, studentSearch);
-      //gridPane.addRow(1, labelSearch2, searchTF2, majorSearch);
+      gridPane.addRow(1, labelSearch2, searchTF2, majorSearch);
       gridPane.addRow(2, labelSearch3, searchTF3, interestSearch);
       gridPane.addRow(3, labelSearch4, searchTF4, emailSearch);
-      gridPane.addRow(4, facultyInsert, searchTF5);
-      gridPane.addRow(5, facultyDeleteEntry, searchTF6);
-      gridPane.addRow(6, facultyUpdateTitle, searchTF7);
+      gridPane.addRow(4, facultyInsert, searchTF5, insertBtn);
+      gridPane.addRow(5, facultyDeleteEntry, searchTF6, deleteBtn);
+      gridPane.addRow(6, facultyUpdateTitle, searchTF7, updateBtn);
       
-      flowPane.getChildren().addAll(insertBtn, deleteBtn);
       rootFacultyMenu.getChildren().addAll(titleLabel, gridPane, flowPane);
       
       // Finally, put everything at center
@@ -301,38 +299,16 @@ public class presentation extends Application implements EventHandler<ActionEven
       emailSearch.setOnAction(e -> {
          String result = db.searchStudentEmail(searchTF4.getText());
       });
-      
-      searchBtn.setOnAction(this);
-      insertBtn.setOnAction(this);
-      updateBtn.setOnAction(this);
-      deleteBtn.setOnAction(this);
+      insertBtn.setOnAction(e -> {
+         facultySearch();
+      });
+      deleteBtn.setOnAction(e -> {
+         facultySearch();
+      });
+      updateBtn.setOnAction(e -> {
+         facultySearch();
+      });
    }
-   
-   
-   // Button pressed events
-   public void handle(ActionEvent evt) {
-      Button btn = (Button)evt.getSource();
-      
-      // Switch to handle button actions and execute a method
-      switch(btn.getText()) {
-         case "Search":
-            studentSearch();
-            break;
-         case "Search Student":
-            facultySearch();
-            break;
-         case "Insert":
-            facultySearch();
-            break;
-         case "Delete":
-            facultySearch();
-            break;
-         case "Update":
-            facultySearch();
-            break;
-      }
-   }
-   
    
    public void login() {
       String email = emailTF.getText();

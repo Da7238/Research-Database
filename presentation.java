@@ -403,8 +403,36 @@ System.exit(0);
 
    // TO BE ASSIGNED
    // View a article page with title, content, and author name
-   public void articlePage() {
-System.exit(0);
+   public void articlePage(String result) {       
+       /*titleLabel = new Label("Results");
+       titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 30px;");
+       
+       labelArticleTitle = new Label("Article Title:");
+       labelTopic = new Label("Topic:");
+       labelDescription = new Label("Description:")
+       labelAuthor = new Label("Author:"); 
+       
+       gridPane = new GridPane();
+       gridPane.setHgap(5); 
+       gridPane.setAlignment(Pos.CENTER);
+       
+       gridPane.add(titleLabel, 0, 0);
+       gridPane.add(labelArticleTitle, 0, 1);
+       gridPane.add(labelTopic, 1, 1);
+       gridPane.add(labelDescription, 2, 1);
+       gridPane.add(labelAuthor, 3, 1);
+       
+       int i = 0;
+       String results[] = result.split("|");*/
+       /*iterate over the results to build entries. Because each result string contains 4 piece of information and
+         splitting it by "|" with an empty value at the start and end of each result, increment by 6 and use array
+         positions 1, 2, 3, and 4.*/
+       /*for(i = 0; i < results.length; i+= 6) {
+           gridPane.addRow(results[i + 1], results[i + 2], results[i + 3], results[i + 4]);
+       }*/
+       
+        
+       System.exit(0);
    }
 
    // TO BE ASSIGNED

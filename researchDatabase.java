@@ -14,6 +14,7 @@ public class researchDatabase {
     private ResultSet rs;
     private String sql;
     private Scanner scanner;
+    public String query;
 
     final String DEFAULT_DRIVER = "com.mysql.cj.jdbc.Driver";
 
@@ -455,6 +456,39 @@ public class researchDatabase {
      * @param email       - the email of a faculty member
      * @return
      */
+     
+   public int updateArticle(String topicID, String title, String authorID, String articleDescription, String articleID) {
+        int result = 0;
+        int primaryKey = Integer.parseInt(articleID);
+        String sql = new String();
+      try {
+         PreparedStatement stmt;
+         
+      
+         sql = "UPDATE article SET topicID = ?, title = ?, authorID = ?, articleDescription = ? WHERE articleID = ? ";
+         
+         query += "\nUPDATE article SET topicID = " + topicID + ", title = " + title + ", authorID = "
+          + authorID + ", articleDescription = " + articleDescription + " WHERE articleID = " + articleID + ";";
+    
+         stmt = conn.prepareStatement(sql);
+         
+         stmt.setString(1, topicID);
+         stmt.setString(2, title);
+         stmt.setString(3, authorID);
+         stmt.setString(4, articleDescription);
+         stmt.setInt(5, primaryKey);
+         
+         result = stmt.executeUpdate();
+      }
+         catch (Exception e) {
+         System.out.println(sql + query);
+         System.out.println("Error whlie trying to update a faculty member.");
+         System.out.println("Error message is --> " + e);
+        } // end of catch
+        return (result);
+      }
+      
+     
     public int insertFaculty(String facultyID, String facultyName, String department, String abstrac, String email, String topicID) {
         int result = 0;
         int primaryKey = Integer.parseInt(facultyID);
@@ -486,6 +520,36 @@ public class researchDatabase {
      * @param inputDesc  - the updated description of an article
      */
     public void updateEntry(String inputTitle, String inputDesc) {
+        int numberRows = 0;
+        int id = 0; // articleID (need to pass from somewhere that is currently viewing a article or
+                    // something)
+
+        // Attempt to create a statement and execute
+        try {
+            stmt = conn.createStatement();
+
+            // Check if user left input(s) empty. If that is the case, it will replace with
+            // Untitled and/or No Description
+            if (inputTitle == null || inputTitle == "") {
+                sql = "UPDATE article SET title = 'Untitled', articleDescription = '" + inputDesc
+                        + "' WHERE articleID = " + id + ";";
+            }
+            if (inputDesc == null || inputDesc == "") {
+                sql = "UPDATE article SET title = '" + inputTitle
+                        + "', articleDescription = 'No Description' WHERE articleID = " + id + ";";
+            } else {
+                sql = "UPDATE article SET title = '" + inputTitle + "', articleDescription = '" + inputDesc
+                        + "' WHERE articleID = " + id + ";";
+            }
+
+            numberRows = stmt.executeUpdate(sql);
+            System.out.println(numberRows + " row(s) updated.");
+        } catch (SQLException sqle) {
+            System.out.println("Error SQLException in deleteEntry | Error message: " + sqle);
+        } // end of catch
+    } // end of updateEntry()
+    
+        public void updateEntry(String inputTitle, String inputDesc, String topicID) {
         int numberRows = 0;
         int id = 0; // articleID (need to pass from somewhere that is currently viewing a article or
                     // something)
@@ -606,7 +670,7 @@ public class researchDatabase {
         System.out.println(
                 "1. Search students by name\n" + "2. Search students by major\n" + "3. Search students by interest\n"
                         + "4. Search students by email\n" + "5. Insert a new faculty member\n"
-                        + "6. Update article entry\n" + "7. Delete article entry\n" + "8. Quit\n");
+                        + "6. Update article entry\n" + "7. Delete article entry\n" + "8. updateAll\n" + "9. Quit\n");
     } // end of faculty_menu()
 
     /**
@@ -626,6 +690,7 @@ public class researchDatabase {
         String interest = "";
         String major = "";
         String topicID = "";
+        
 
         switch (choice) {
         case 1: // student name
@@ -662,7 +727,6 @@ public class researchDatabase {
             System.out.println("Enter faculty topicID: ");
             topicID = scanner.nextLine();
             insertFaculty(ID, name, department, facultyAbstract, email, topicID);
-            
             break;
         case 6: // update entry
             System.out.println("Enter title: ");
@@ -676,7 +740,25 @@ public class researchDatabase {
             title = scanner.nextLine();
             deleteEntry(title);
             break;
-        case 8: // close database
+        case 8: //update all
+        
+            String articleID = "";
+            String authorID = "";
+            String articleDescription = "";   
+            System.out.println("Enter topicID: ");
+            topicID = scanner.nextLine();
+            System.out.println("Enter title: ");
+            title = scanner.nextLine();
+            System.out.println("Enter authorID: ");
+            authorID = scanner.nextLine();
+            System.out.println("Enter articleDesc: ");
+            articleDescription = scanner.nextLine();
+            System.out.println("Enter article ID: ");
+            articleID = scanner.nextLine();
+            updateArticle(topicID, title, authorID, articleDescription, articleID);            
+            break;
+            
+         case 9: // close database
             close();
         default:
             System.out.println("Invalid choice!");

@@ -23,7 +23,7 @@ public class researchDatabase {
     public boolean connect() {
         conn = null;
         String userName = "root";
-        String password = "!Lamar32";
+        String password = "student";
         String url = "jdbc:mysql://localhost/researchDatabase";
 
         try {
@@ -60,12 +60,12 @@ public class researchDatabase {
             sql = "SELECT facultyName, email, d.departmentName, abstract FROM faculty f join department d on (f.departmentID = d.departmentID) WHERE f.facultyName LIKE '%"
                     + name + "%'";
             rs = stmt.executeQuery(sql);
-            searchResult += "Faculty Member\t|\tEmail\t|\tDepartment\t|\tAbstract\n";
+            searchResult += "Search Results for Faculty Name\nFaculty Member  |  Email  |  Department  |  Abstract\n";
 
             // retrieve result set data to put in string
             while (rs.next()) {
-                faculty = rs.getString(1) + "\t|\t" + rs.getString(2) + "\t|\t" + rs.getString(3) + "\t|\t"
-                        + rs.getString(4);
+                faculty = rs.getString(1) + "  |  " + rs.getString(2) + "  |  " + rs.getString(3) + "  |  "
+                        + rs.getString(4) + "\n";
                 searchResult += faculty;
             } // end of while
         } // end of try
@@ -94,12 +94,12 @@ public class researchDatabase {
             sql = "SELECT facultyName, email, d.departmentName, abstract FROM faculty f join department d on (f.departmentID = d.departmentID)  WHERE abstract LIKE '%"
                     + facultyAbstract + "%'";
             rs = stmt.executeQuery(sql);
-            searchResult += "Faculty Member\tEmail\tDepartment\tAbstract\n";
+            searchResult += "Search Results for Faculty Abstract\nFaculty Member  |  Email  |  Department  |  Abstract\n";
 
             // retrieve result set data to put in string
             while (rs.next()) {
-                faculty = "| " + rs.getString(1) + "\t| " + rs.getString(2) + "\t| " + rs.getString(3) + "\t| "
-                        + rs.getString(4) + "\t|\n";
+                faculty = rs.getString(1) + "  |  " + rs.getString(2) + "  |  " + rs.getString(3) + "  |  "
+                        + rs.getString(4) + "\n";
                 searchResult += faculty;
             } // end of while
         } // end of try
@@ -129,11 +129,11 @@ public class researchDatabase {
             sql = "select f.facultyName, f.email, d.departmentName, f.abstract, t.topicTag FROM faculty f JOIN department d on (f.departmentID = d.departmentID) JOIN topic t ON (f.topicID = t.topicID) where d.departmentName LIKE '%"
                     + departmentName + "%'";
             rs = stmt.executeQuery(sql);
-            searchResult += "Faculty Member\tEmail\tDepartment\tAbstract\ttopicTag\n";
+            searchResult += "Search Results for Department\nFaculty Member  |  Email  |  Department  |  Abstract  |  Topic Tag\n";
             // retrieve result set data to put in string
             while (rs.next()) {
-                department = "| " + rs.getString(1) + "\t| " + rs.getString(2) + "\t| " + rs.getString(3) + "\t| "
-                        + rs.getString(4) + "\t| " + rs.getString(5) + "\t|\n";
+                department = rs.getString(1) + "  |  " + rs.getString(2) + "  |  " + rs.getString(3) + "  |  "
+                        + rs.getString(4) + "  |  " + rs.getString(5) + "\n";
                 searchResult += department;
             } // end of while
         } // end of try
@@ -163,11 +163,11 @@ public class researchDatabase {
             sql = "SELECT s.studentName, m.majorName, s.email, i.interestName FROM student s JOIN major m ON (s.majorID = m.majorID) JOIN interest i ON (s.interestID = i.interestID) where s.email LIKE '%"
                     + email + "%'";
             rs = stmt.executeQuery(sql);
-            searchResult += "Student Name\tMajor\tEmail\tinterestName\n";
+            searchResult += "Search Results for Student Email\nStudent Name  |  Major  |  Email  |  interestName\n";
             // retrieve result set data to put in string
             while (rs.next()) {
-                email = "| " + rs.getString(1) + "\t| " + rs.getString(2) + "\t| " + rs.getString(3) + "\t| "
-                        + rs.getString(4) + "\t|\n";
+                email = rs.getString(1) + "  |  " + rs.getString(2) + "  |  " + rs.getString(3) + "  |  "
+                        + rs.getString(4) + "\n";
                 searchResult += email;
             } // end of while
         } // end of try
@@ -197,11 +197,11 @@ public class researchDatabase {
             sql = "SELECT f.facultyName, f.email, d.departmentName, f.abstract, t.topicTag from faculty f join department d on (f.departmentID = d.departmentID) JOIN topic t ON (f.topicID = t.topicID) where f.email LIKE '%"
                     + email + "%'";
             rs = stmt.executeQuery(sql);
-            searchResult += "Faculty Member\tEmail\tDepartment\tAbstract\ttopicTag\n";
+            searchResult += "Search Results for Faculty Email\nFaculty Member  |  Email  |  Department  |  Abstract  |  topicTag\n";
             // retrieve result set data to put in string
             while (rs.next()) {
-                emailString = "| " + rs.getString(1) + "\t| " + rs.getString(2) + "\t| " + rs.getString(3) + "\t| "
-                        + rs.getString(4) + "\t| " + rs.getString(5) + "\t|\n";
+                emailString = rs.getString(1) + "  |  " + rs.getString(2) + "  |  " + rs.getString(3) + "  |  "
+                        + rs.getString(4) + "  |  " + rs.getString(5) + "\n";
                 searchResult += emailString;
             } // end of while
         } // end of try
@@ -289,11 +289,11 @@ public class researchDatabase {
             sql = "SELECT s.studentName, m.majorName, s.email FROM student s JOIN major m ON (s.majorID = m.majorID) WHERE s.studentName LIKE '%"
                     + name + "%'";
             rs = stmt.executeQuery(sql);
-            searchResult += "Student\tMajor\tEmail\n";
+            searchResult += "Search Results for Student Name\nStudent  |  Major  |  Email\n";
 
             // retrieve result set data to put in string
             while (rs.next()) {
-                student = "| " + rs.getString(1) + "\t| " + rs.getString(2) + "\t| " + rs.getString(3) + "\t|\n";
+                student = rs.getString(1) + "  |  " + rs.getString(2) + "  |  " + rs.getString(3) + "\n";
                 searchResult += student;
             } // end of while
         } // end of try
@@ -323,12 +323,12 @@ public class researchDatabase {
             sql = "SELECT s.studentName, m.majorName, s.email, i.interestName FROM student s JOIN major m ON (s.majorID = m.majorID) JOIN interest i ON (s.interestID = i.interestID) WHERE i.interestName LIKE '%"
                     + interest + "%'";
             rs = stmt.executeQuery(sql);
-            searchResult += "Student\tMajor\tEmail\tInterest\n";
+            searchResult += "Search Results for Student Interest\nStudent  |  Major  |  Email  |  Interest\n";
 
             // retrieve result set data to put in string
             while (rs.next()) {
-                student = "| " + rs.getString(1) + "\t| " + rs.getString(2) + "\t| " + rs.getString(3) + "\t| "
-                        + rs.getString(4) + "\t|\n";
+                student = rs.getString(1) + "  |  " + rs.getString(2) + "  |  " + rs.getString(3) + "  |  "
+                        + rs.getString(4) + "\n";
                 searchResult += student;
             } // end of while
         } // end of try
@@ -358,11 +358,11 @@ public class researchDatabase {
             sql = "select s.studentName, m.majorName, s.email from student s join major m on (s.majorID = m.majorID) where m.majorName LIKE '%"
                     + major + "%'";
             rs = stmt.executeQuery(sql);
-            searchResult += "Student\tMajor\tEmail\n";
+            searchResult += "Search Results for Student Major\nStudent  |  Major  |  Email\n";
 
             // retrieve result set data to put in string
             while (rs.next()) {
-                student = "| " + rs.getString(1) + "\t| " + rs.getString(2) + "\t| " + rs.getString(3) + "\t|\n";
+                student = rs.getString(1) + "  |  " + rs.getString(2) + "  |  " + rs.getString(3) + "\n";
                 searchResult += student;
             } // end of while
         } // end of try
@@ -392,12 +392,12 @@ public class researchDatabase {
             sql = "select a.title, t.topicTag, a.articleDescription, aw.authorName from article a join topic t on (a.topicID = t.topicID) join author aw on (a.authorID = aw.authorID) where title LIKE '%"
                     + article + "%'";
             rs = stmt.executeQuery(sql);
-            searchResult += "Title\tTopic\tDescription\tAuthor\n";
+            searchResult += "Search Results for Article\nTitle  |  Topic  |  Description  |  Author\n";
 
             // retrieve result set data to put in string
             while (rs.next()) {
-                articleResult = "| " + rs.getString(1) + "\t| " + rs.getString(2) + "\t| " + rs.getString(3) + "\t| "
-                        + rs.getString(4) + "\t|\n";
+                articleResult = rs.getString(1) + "  |  " + rs.getString(2) + "  |  " + rs.getString(3) + "  |  "
+                        + rs.getString(4) + "\n";
                 searchResult += articleResult;
             } // end of while
         } // end of try
@@ -427,11 +427,11 @@ public class researchDatabase {
             sql = "select a.authorName, a.articlesPublished, art.title FROM author a JOIN article art ON (a.authorID = art.authorID) where a.authorName LIKE '%"
                     + author + "%'";
             rs = stmt.executeQuery(sql);
-            searchResult += "Author\tArticlesPublished\tTitle\n";
+            searchResult += "Search Results for Author\nAuthor  |  ArticlesPublished  |  Title\n";
 
             // retrieve result set data to put in string
             while (rs.next()) {
-                authorResult = "| " + rs.getString(1) + "\t| " + rs.getString(2) + "\t| " + rs.getString(3) + "\t|\n";
+                authorResult = rs.getString(1) + "  |  " + rs.getString(2) + "  |  " + rs.getString(3) + "\n";
                 searchResult += authorResult;
             } // end of while
         } // end of try

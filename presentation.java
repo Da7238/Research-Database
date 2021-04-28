@@ -331,7 +331,7 @@ public class presentation extends Application {
       });
       deleteBtn.setOnAction(e -> {
          db.deleteEntry(deleteTitle.getText());
-         
+         //deleteEntryWindow();
          try {
             alert = new Alert(AlertType.INFORMATION, "Article has deleted.");
             alert.showAndWait();
@@ -512,5 +512,49 @@ public class presentation extends Application {
          }
       });
    }
+   
+   public void deleteEntryWindow() {
+       stage = new Stage();
+       rootNewWindow = new VBox(1);
+       stage.setTitle("Delete entry");
+       
+       titleLabel = new Label("Delete article entry");
+       titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 30px;");
+       
+       labelSearch1 = new Label("Aritcle title");
+       
+       deleteBtn = new Button("Delete"); 
+       
+       deleteTitle = new TextField();
+       
+       gridPane = new GridPane(); 
+       
+       gridPane.addRow(0, labelSearch1, deleteTitle); 
+       gridPane.setHalignment(labelSearch1, HPos.LEFT);
+       
+       rootNewWindow.getChildren().addAll(titleLabel, gridPane);
+       
+       // Finally, put everything at center
+       rootNewWindow.setAlignment(Pos.CENTER);
+       gridPane.setAlignment(Pos.CENTER);
+       
+       newWindowScene = new Scene(rootNewWindow, 800, 250);
+       stage.setScene(newWindowScene);
+       stage.show();
+       
+       deleteBtn.setOnAction(e -> {
+           db.deleteEntry(deleteTitle.getText());
+         
+           try {
+               alert = new Alert(AlertType.INFORMATION, "Article has been deleted.");
+               alert.showAndWait();
+           } //end of try
+           catch (Exception ex) {
+               alert = new Alert(AlertType.ERROR, ex.toString());
+               alert.showAndWait();
+           } //end of catch
+       }); //end of deleteBtn.setOnAction
+
+   }//end of deleteEntryWindow
    
 }

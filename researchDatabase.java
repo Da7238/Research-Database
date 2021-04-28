@@ -23,7 +23,7 @@ public class researchDatabase {
     public boolean connect() {
         conn = null;
         String userName = "root";
-        String password = "student";
+        String password = "!Lamar32";
         String url = "jdbc:mysql://localhost/researchDatabase";
 
         try {

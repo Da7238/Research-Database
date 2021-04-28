@@ -31,7 +31,7 @@ public class presentation extends Application {
    private VBox root = new VBox(1);
    private VBox rootStudentMenu = new VBox(1);
    private VBox rootFacultyMenu = new VBox(1);
-   private VBox rootNewWindow = new VBox(1);
+   private VBox rootNewWindow;
    
    
    private GridPane gridPane;
@@ -201,110 +201,38 @@ public class presentation extends Application {
       articleSearch.setOnAction(e -> {
          String result = db.searchArticle(searchTF1.getText());
          
-         stage = new Stage();
-         resultTA = new TextArea();
-         stage.setTitle("Search Result");
-         resultTA.appendText(result);
-         rootNewWindow.getChildren().addAll(resultTA);
-         
-         // Finally, put everything at center
-         rootNewWindow.setAlignment(Pos.CENTER);
-         
-         // Render a new window page
-         newWindowScene = new Scene(rootNewWindow, 800, 250);
-         stage.setScene(newWindowScene);
-         stage.show();
-         });
+         searchResult(result);
+      });
          
       authorSearch.setOnAction(e -> {
          String result = db.searchAuthor(searchTF3.getText());
          
-         stage = new Stage();
-         resultTA = new TextArea();
-         stage.setTitle("Search Result");
-         resultTA.appendText(result);
-         rootNewWindow.getChildren().addAll(resultTA);
-         
-         // Finally, put everything at center
-         rootNewWindow.setAlignment(Pos.CENTER);
-         
-         // Render a new window page
-         newWindowScene = new Scene(rootNewWindow, 800, 250);
-         stage.setScene(newWindowScene);
-         stage.show();
-          });
+         searchResult(result);
+      });
           
       emailSearch.setOnAction(e -> {
          String result = db.searchFacultyEmail(searchTF4.getText());
          
-         stage = new Stage();
-         resultTA = new TextArea();
-         stage.setTitle("Search Result");
-         resultTA.appendText(result);
-         rootNewWindow.getChildren().addAll(resultTA);
-         
-         // Finally, put everything at center
-         rootNewWindow.setAlignment(Pos.CENTER);
-         
-         // Render a new window page
-         newWindowScene = new Scene(rootNewWindow, 800, 250);
-         stage.setScene(newWindowScene);
-         stage.show();
-         });
+         searchResult(result);
+      });
          
       nameSearch.setOnAction(e -> {
          String result = db.searchFacultyName(searchTF5.getText());
          
-         stage = new Stage();
-         resultTA = new TextArea();
-         stage.setTitle("Search Result");
-         resultTA.appendText(result);
-         rootNewWindow.getChildren().addAll(resultTA);
-         
-         // Finally, put everything at center
-         rootNewWindow.setAlignment(Pos.CENTER);
-         
-         // Render a new window page
-         newWindowScene = new Scene(rootNewWindow, 800, 250);
-         stage.setScene(newWindowScene);
-         stage.show();
-         });
+         searchResult(result);
+      });
          
       fAbstractSearch.setOnAction(e -> {
          String result = db.searchFacultyAbstract(searchTF6.getText());
          
-         stage = new Stage();
-         resultTA = new TextArea();
-         stage.setTitle("Search Result");
-         resultTA.appendText(result);
-         rootNewWindow.getChildren().addAll(resultTA);
-         
-         // Finally, put everything at center
-         rootNewWindow.setAlignment(Pos.CENTER);
-         
-         // Render a new window page
-         newWindowScene = new Scene(rootNewWindow, 800, 250);
-         stage.setScene(newWindowScene);
-         stage.show();
-         });
+         searchResult(result);
+      });
          
       departmentSearch.setOnAction(e -> {
          String result = db.searchDepartment(searchTF7.getText());
          
-         stage = new Stage();
-         resultTA = new TextArea();
-         stage.setTitle("Search Result");
-         resultTA.appendText(result);
-         rootNewWindow.getChildren().addAll(resultTA);
-         
-         // Finally, put everything at center
-         rootNewWindow.setAlignment(Pos.CENTER);
-         
-         // Render a new window page
-         newWindowScene = new Scene(rootNewWindow, 800, 250);
-         stage.setScene(newWindowScene);
-         stage.show();
-         });
+         searchResult(result);
+      });
    }
    
    // Faculty Main Menu
@@ -377,18 +305,26 @@ public class presentation extends Application {
       // Add button behaviors
       studentSearch.setOnAction(e -> {
          String result = db.searchStudentName(searchTF1.getText());
+         
+         searchResult(result);
       });
       majorSearch.setOnAction(e -> {
          String result = db.searchMajor(searchTF2.getText());
+         
+         searchResult(result);
       });
       interestSearch.setOnAction(e -> {
          String result = db.searchStudentInterest(searchTF3.getText());
+         
+         searchResult(result);
       });
       emailSearch.setOnAction(e -> {
          String result = db.searchStudentEmail(searchTF4.getText());
+         
+         searchResult(result);
       });
       insertBtn.setOnAction(e -> {
-         searchResult();
+         String result = db.searchStudentEmail(searchTF4.getText());
       });
       deleteBtn.setOnAction(e -> {
          facultySearch();
@@ -451,33 +387,38 @@ public class presentation extends Application {
       launch(args);
       System.exit(0);
    }
-   
-   
-   
-
-// -------------------------------------------
-
-// -------------------------------------------
 
    // Open a new window to display search result
-   public void searchResult() {
-      stage = new Stage();
-      resultTA = new TextArea();
-      
-      stage.setTitle("Search Result");
-      
-      //resultTA.appendText(db.searchArticle());
-      
-      rootNewWindow.getChildren().addAll(resultTA);
-      
-      // Finally, put everything at center
-      rootNewWindow.setAlignment(Pos.CENTER);
-      
-      // Render a new window page
-      newWindowScene = new Scene(rootNewWindow, 650, 250);
-      stage.setScene(newWindowScene);
-      stage.show();
+   public String searchResult(String result) {
+      try {
+         stage = new Stage();
+         resultTA = new TextArea();
+         rootNewWindow = new VBox(1);
+         stage.setTitle("Search Result");
+         resultTA.appendText(result);
+         rootNewWindow.getChildren().addAll(resultTA);
+            
+         // Finally, put everything at center
+         rootNewWindow.setAlignment(Pos.CENTER);
+            
+         // Render a new window page
+         newWindowScene = new Scene(rootNewWindow, 800, 250);
+         stage.setScene(newWindowScene);
+         stage.show();
+      }
+      catch (Exception ex) {
+         alert = new Alert(AlertType.ERROR, ex.toString());
+         alert.showAndWait();
+      }
+      return result;
    }
+   
+   
+   
+   
+// -------------------------------------------
+
+// -------------------------------------------
 
    // TO BE ASSIGNED
    // View a article page with title, content, and author name

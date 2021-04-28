@@ -33,6 +33,7 @@ public class presentation extends Application {
    private VBox rootFacultyMenu = new VBox(1);
    private VBox rootNewWindow = new VBox(1);
    
+   
    private GridPane gridPane;
    private FlowPane flowPane;
    
@@ -57,6 +58,8 @@ public class presentation extends Application {
    private Label facultyDeleteEntry;
    private Label facultyUpdateTitle;
    
+   private Label articleLabel;
+   
    private TextField searchTF1;
    private TextField searchTF2;
    private TextField searchTF3;
@@ -68,7 +71,6 @@ public class presentation extends Application {
    private TextArea resultTA;
    
    private Button articleSearch;
-   private Button aAbstractSearch;
    private Button authorSearch;
    private Button emailSearch;
    private Button nameSearch;
@@ -149,7 +151,6 @@ public class presentation extends Application {
       
       // Textfields
       searchTF1 = new TextField();
-      searchTF2 = new TextField();
       searchTF3 = new TextField();
       searchTF4 = new TextField();
       searchTF5 = new TextField();
@@ -158,7 +159,6 @@ public class presentation extends Application {
       
       // Button labels
       articleSearch = new Button("Search");
-      aAbstractSearch = new Button("Search");
       authorSearch = new Button("Search");
       emailSearch = new Button("Search");
       nameSearch = new Button("Search");
@@ -171,7 +171,6 @@ public class presentation extends Application {
       
       // Re-align the Label text to the center right.      
       gridPane.setHalignment(labelSearch1, HPos.LEFT);
-      gridPane.setHalignment(labelSearch2, HPos.LEFT);
       gridPane.setHalignment(labelSearch3, HPos.LEFT);
       gridPane.setHalignment(labelSearch4, HPos.LEFT);
       gridPane.setHalignment(labelSearch5, HPos.LEFT);
@@ -181,7 +180,6 @@ public class presentation extends Application {
       
       // Render a grid panel
       gridPane.addRow(0, labelSearch1, searchTF1, articleSearch);
-      gridPane.addRow(1, labelSearch2, searchTF2, aAbstractSearch);
       gridPane.addRow(2, labelSearch3, searchTF3, authorSearch);
       gridPane.addRow(3, labelSearch4, searchTF4, emailSearch);
       gridPane.addRow(4, labelSearch5, searchTF5, nameSearch);
@@ -202,23 +200,110 @@ public class presentation extends Application {
       // Add button behaviors
       articleSearch.setOnAction(e -> {
          String result = db.searchArticle(searchTF1.getText());
+         
+         stage = new Stage();
+         resultTA = new TextArea();
+         stage.setTitle("Search Result");
+         resultTA.appendText(result);
+         rootNewWindow.getChildren().addAll(resultTA);
+         
+         // Finally, put everything at center
+         rootNewWindow.setAlignment(Pos.CENTER);
+         
+         // Render a new window page
+         newWindowScene = new Scene(rootNewWindow, 800, 250);
+         stage.setScene(newWindowScene);
+         stage.show();
          });
-      aAbstractSearch.setOnAction(e -> {
-         });
+         
       authorSearch.setOnAction(e -> {
          String result = db.searchAuthor(searchTF3.getText());
+         
+         stage = new Stage();
+         resultTA = new TextArea();
+         stage.setTitle("Search Result");
+         resultTA.appendText(result);
+         rootNewWindow.getChildren().addAll(resultTA);
+         
+         // Finally, put everything at center
+         rootNewWindow.setAlignment(Pos.CENTER);
+         
+         // Render a new window page
+         newWindowScene = new Scene(rootNewWindow, 800, 250);
+         stage.setScene(newWindowScene);
+         stage.show();
           });
+          
       emailSearch.setOnAction(e -> {
          String result = db.searchFacultyEmail(searchTF4.getText());
+         
+         stage = new Stage();
+         resultTA = new TextArea();
+         stage.setTitle("Search Result");
+         resultTA.appendText(result);
+         rootNewWindow.getChildren().addAll(resultTA);
+         
+         // Finally, put everything at center
+         rootNewWindow.setAlignment(Pos.CENTER);
+         
+         // Render a new window page
+         newWindowScene = new Scene(rootNewWindow, 800, 250);
+         stage.setScene(newWindowScene);
+         stage.show();
          });
+         
       nameSearch.setOnAction(e -> {
          String result = db.searchFacultyName(searchTF5.getText());
+         
+         stage = new Stage();
+         resultTA = new TextArea();
+         stage.setTitle("Search Result");
+         resultTA.appendText(result);
+         rootNewWindow.getChildren().addAll(resultTA);
+         
+         // Finally, put everything at center
+         rootNewWindow.setAlignment(Pos.CENTER);
+         
+         // Render a new window page
+         newWindowScene = new Scene(rootNewWindow, 800, 250);
+         stage.setScene(newWindowScene);
+         stage.show();
          });
+         
       fAbstractSearch.setOnAction(e -> {
          String result = db.searchFacultyAbstract(searchTF6.getText());
+         
+         stage = new Stage();
+         resultTA = new TextArea();
+         stage.setTitle("Search Result");
+         resultTA.appendText(result);
+         rootNewWindow.getChildren().addAll(resultTA);
+         
+         // Finally, put everything at center
+         rootNewWindow.setAlignment(Pos.CENTER);
+         
+         // Render a new window page
+         newWindowScene = new Scene(rootNewWindow, 800, 250);
+         stage.setScene(newWindowScene);
+         stage.show();
          });
+         
       departmentSearch.setOnAction(e -> {
          String result = db.searchDepartment(searchTF7.getText());
+         
+         stage = new Stage();
+         resultTA = new TextArea();
+         stage.setTitle("Search Result");
+         resultTA.appendText(result);
+         rootNewWindow.getChildren().addAll(resultTA);
+         
+         // Finally, put everything at center
+         rootNewWindow.setAlignment(Pos.CENTER);
+         
+         // Render a new window page
+         newWindowScene = new Scene(rootNewWindow, 800, 250);
+         stage.setScene(newWindowScene);
+         stage.show();
          });
    }
    

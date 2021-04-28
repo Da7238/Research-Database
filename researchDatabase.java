@@ -60,12 +60,12 @@ public class researchDatabase {
             sql = "SELECT facultyName, email, d.departmentName, abstract FROM faculty f join department d on (f.departmentID = d.departmentID) WHERE f.facultyName LIKE '%"
                     + name + "%'";
             rs = stmt.executeQuery(sql);
-            searchResult += "Faculty Member\tEmail\tDepartment\tAbstract\n";
+            searchResult += "Faculty Member\t|\tEmail\t|\tDepartment\t|\tAbstract\n";
 
             // retrieve result set data to put in string
             while (rs.next()) {
-                faculty = "| " + rs.getString(1) + "\t| " + rs.getString(2) + "\t| " + rs.getString(3) + "\t| "
-                        + rs.getString(4) + "\t|\n";
+                faculty = rs.getString(1) + "\t|\t" + rs.getString(2) + "\t|\t" + rs.getString(3) + "\t|\t"
+                        + rs.getString(4);
                 searchResult += faculty;
             } // end of while
         } // end of try
@@ -74,7 +74,7 @@ public class researchDatabase {
             System.out.println("Error SQLException in searchStudentName | Error message: " + sqle);
         } // end of catch
           // print the final search result
-        System.out.println(searchResult);
+
         return searchResult;
     } // end of searchFacultyName()
 
@@ -109,7 +109,7 @@ public class researchDatabase {
         } // end of catch
 
         // print the final search result
-        System.out.println(searchResult);
+
         return searchResult;
     } // end of searchFacultyAbstract()
 
@@ -143,7 +143,7 @@ public class researchDatabase {
         } // end of catch
 
         // print the final search result
-        System.out.println(searchResult);
+
         return searchResult;
     } // end of searchDepartment
 
@@ -177,7 +177,7 @@ public class researchDatabase {
         } // end of catch
 
         // print the final search result
-        System.out.println(searchResult);
+
         return searchResult;
     } // end of searchStudentEmail()
 
@@ -211,7 +211,7 @@ public class researchDatabase {
         } // end of catch
 
         // print the final search result
-        System.out.println(searchResult);
+
         return searchResult;
     } // end of SearchFacultyEmail()
 
@@ -303,7 +303,7 @@ public class researchDatabase {
         } // end of catch
 
         // print the final search result
-        System.out.println(searchResult);
+
         return searchResult;
     } // end of searchStudentName()
 
@@ -338,7 +338,7 @@ public class researchDatabase {
         } // end of catch
 
         // print the final search result
-        System.out.println(searchResult);
+
         return searchResult;
     } // end of searchStudentInterest()
 
@@ -372,7 +372,7 @@ public class researchDatabase {
         } // end of catch
 
         // print the final search result
-        System.out.println(searchResult);
+
         return searchResult;
     }// end of searchMajor()
 
@@ -407,7 +407,7 @@ public class researchDatabase {
         } // end of catch
 
         // print the final search result
-        System.out.println(searchResult);
+
         return searchResult;
     }// end of searchArticle()
 
@@ -441,7 +441,7 @@ public class researchDatabase {
         } // end of catch
 
         // print the final search result
-        System.out.println(searchResult);
+
         return searchResult;
     } // end of searchAuthor()
 

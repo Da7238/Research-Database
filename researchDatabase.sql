@@ -41,13 +41,14 @@ INSERT INTO public(publicID, publicName, userName, pubEmail, interestID) VALUES 
 DROP TABLE IF EXISTS topic;
 CREATE TABLE topic (
   topicID INT NOT NULL AUTO_INCREMENT,
-  topicDescribtion VARCHAR(255),
+  topicDescription VARCHAR(255),
   topicTag VARCHAR(20) NOT NULL,
   PRIMARY KEY (topicID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO topic(topicID, topicDescribtion, topicTag) VALUES (1, 'PHP research', 'php');
-INSERT INTO topic(topicID, topicDescribtion, topicTag) VALUES (2, 'Java research', 'java');
+INSERT INTO topic(topicID, topicDescription, topicTag) VALUES (1, 'PHP research', 'php');
+INSERT INTO topic(topicID, topicDescription, topicTag) VALUES (2, 'Java research', 'java');
+INSERT INTO topic(topicID, topicDescription, topicTag) VALUES (3, 'Calculus research', 'calc');
 
 DROP TABLE IF EXISTS major;
 CREATE TABLE major (

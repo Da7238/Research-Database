@@ -455,19 +455,20 @@ public class researchDatabase {
      * @param email       - the email of a faculty member
      * @return
      */
-    public int insertFaculty(String facultyID, String facultyName, String department, String abstrac, String email) {
+    public int insertFaculty(String facultyID, String facultyName, String department, String abstrac, String email, String topicID) {
         int result = 0;
         int primaryKey = Integer.parseInt(facultyID);
         try {
             PreparedStatement stmt2;
 
             stmt2 = conn.prepareStatement(
-                    "INSERT INTO faculty(facultyID, facultyName, department, abstract, email)  VALUES (?,?,?,?,?)");
+                    "INSERT INTO faculty(facultyID, facultyName, departmentID, abstract, email, topicID)  VALUES (?,?,?,?,?,?)");
             stmt2.setInt(1, primaryKey);
             stmt2.setString(2, facultyName);
             stmt2.setString(3, department);
             stmt2.setString(4, abstrac);
             stmt2.setString(5, email);
+            stmt2.setString(6, topicID);
 
             result = stmt2.executeUpdate(); // Performs the update command
         } // end of try
@@ -624,6 +625,7 @@ public class researchDatabase {
         String email = "";
         String interest = "";
         String major = "";
+        String topicID = "";
 
         switch (choice) {
         case 1: // student name
@@ -657,7 +659,10 @@ public class researchDatabase {
             facultyAbstract = scanner.nextLine();
             System.out.println("Enter faculty email: ");
             email = scanner.nextLine();
-            insertFaculty(ID, name, department, facultyAbstract, email);
+            System.out.println("Enter faculty topicID: ");
+            topicID = scanner.nextLine();
+            insertFaculty(ID, name, department, facultyAbstract, email, topicID);
+            
             break;
         case 6: // update entry
             System.out.println("Enter title: ");

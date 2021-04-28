@@ -68,6 +68,16 @@ public class presentation extends Application {
    private TextField searchTF6;
    private TextField searchTF7;
    
+   private TextField facultyID;
+   private TextField facultyName;
+   private TextField department;
+   private TextField abstrac;
+   private TextField email;
+   private TextField topicID;
+   private TextField title;
+   private TextField description;
+   private TextField deleteTitle;
+   
    private TextArea resultTA;
    
    private Button articleSearch;
@@ -255,9 +265,17 @@ public class presentation extends Application {
       searchTF2 = new TextField();
       searchTF3 = new TextField();
       searchTF4 = new TextField();
-      searchTF5 = new TextField();
-      searchTF6 = new TextField();
-      searchTF7 = new TextField();
+      facultyID = new TextField();
+      facultyName = new TextField();
+      department = new TextField();
+      abstrac = new TextField();
+      email = new TextField();
+      topicID = new TextField();
+      title = new TextField();
+      description = new TextField();
+      deleteTitle = new TextField();
+      
+      
       
       // Button labels
       studentSearch = new Button("Search");
@@ -287,9 +305,9 @@ public class presentation extends Application {
       gridPane.addRow(1, labelSearch2, searchTF2, majorSearch);
       gridPane.addRow(2, labelSearch3, searchTF3, interestSearch);
       gridPane.addRow(3, labelSearch4, searchTF4, emailSearch);
-      gridPane.addRow(4, facultyInsert, searchTF5, insertBtn);
-      gridPane.addRow(5, facultyDeleteEntry, searchTF6, deleteBtn);
-      gridPane.addRow(6, facultyUpdateTitle, searchTF7, updateBtn);
+      gridPane.addRow(4, facultyInsert, facultyID, facultyName, department, abstrac, email, topicID, insertBtn);
+      gridPane.addRow(5, facultyDeleteEntry, deleteTitle, deleteBtn);
+      gridPane.addRow(6, facultyUpdateTitle,title, description, updateBtn);
       
       rootFacultyMenu.getChildren().addAll(titleLabel, gridPane, flowPane);
       
@@ -299,7 +317,7 @@ public class presentation extends Application {
       flowPane.setAlignment(Pos.CENTER);
       
       // Render a new window page
-      facultyScene = new Scene(rootFacultyMenu, 600, 450);
+      facultyScene = new Scene(rootFacultyMenu, 2000, 500);
       stage.setScene(facultyScene);
       
       // Add button behaviors
@@ -324,13 +342,13 @@ public class presentation extends Application {
          searchResult(result);
       });
       insertBtn.setOnAction(e -> {
-         String result = db.searchStudentEmail(searchTF4.getText());
+         db.insertFaculty(facultyID.getText(), facultyName.getText(), department.getText(), abstrac.getText(), email.getText(), topicID.getText());
       });
       deleteBtn.setOnAction(e -> {
-         facultySearch();
+         db.deleteEntry(deleteTitle.getText());
       });
       updateBtn.setOnAction(e -> {
-         facultySearch();
+         db.updateEntry(title.getText(), description.getText());
       });
    }
    
@@ -353,35 +371,7 @@ public class presentation extends Application {
          alert.showAndWait();
       }
    }
-   
-
-   // Student Search functionality
-   public void studentSearch() {
-      String studentSearch1 = searchTF1.getText();
-      /*String studentSearch2 = searchTF2.getText();
-      String studentSearch3 = searchTF3.getText();
-      String studentSearch4 = searchTF4.getText();
-      String studentSearch5 = searchTF5.getText();
-      String studentSearch6 = searchTF6.getText();
-      String studentSearch7 = searchTF7.getText();*/
-      String searchArticle = db.searchArticle(studentSearch1);
-   
-   //String searchArticle = db.searchArticle(studentSearch1);
-   }
-   
-   // Faculty Search functionality
-   public void facultySearch() {
-   String facultySearch1 = searchTF1.getText();
-   String facultySearch2 = searchTF2.getText();
-   String facultySearch3 = searchTF3.getText();
-   String facultySearch4 = searchTF4.getText();
-   String facultyInsert = searchTF5.getText();
-   String facultyDeleteEntry = searchTF6.getText();
-   String facultyUpdateTitle = searchTF7.getText();
-   
-   //String facultyDeleteEntry = db.deleteEntry(facultyText6);
-   }
-   
+      
    // Launch the program
    public static void main(String[] args) {
       launch(args);
@@ -413,56 +403,4 @@ public class presentation extends Application {
       return result;
    }
    
-   
-   
-   
-// -------------------------------------------
-
-// -------------------------------------------
-
-   // TO BE ASSIGNED
-   // View a article page with title, content, and author name
-   public void articlePage(String result) {       
-       /*titleLabel = new Label("Results");
-       titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 30px;");
-       
-       labelArticleTitle = new Label("Article Title:");
-       labelTopic = new Label("Topic:");
-       labelDescription = new Label("Description:")
-       labelAuthor = new Label("Author:"); 
-       
-       gridPane = new GridPane();
-       gridPane.setHgap(5); 
-       gridPane.setAlignment(Pos.CENTER);
-       
-       gridPane.add(titleLabel, 0, 0);
-       gridPane.add(labelArticleTitle, 0, 1);
-       gridPane.add(labelTopic, 1, 1);
-       gridPane.add(labelDescription, 2, 1);
-       gridPane.add(labelAuthor, 3, 1);
-       
-       int i = 0;
-       String results[] = result.split("|");*/
-       /*iterate over the results to build entries. Because each result string contains 4 piece of information and
-         splitting it by "|" with an empty value at the start and end of each result, increment by 6 and use array
-         positions 1, 2, 3, and 4.*/
-       /*for(i = 0; i < results.length; i+= 6) {
-           gridPane.addRow(results[i + 1], results[i + 2], results[i + 3], results[i + 4]);
-       }*/
-       
-        
-       System.exit(0);
-   }
-
-   // TO BE ASSIGNED
-   // Edit a article
-   public void editArticlePage() {
-System.exit(0);
-   }
-
-   // TO BE ASSIGNED
-   // Add a faculty
-   public void addFacultyPage() {
-System.exit(0);
-   }
 }

@@ -94,6 +94,8 @@ public class presentation extends Application {
    private Button insertBtn;
    private Button deleteBtn;
    private Button updateBtn;
+   private Button insertWinBtn;
+   private Button updateWinBtn;
    
    // Constructor
    public void start(Stage _stage) throws Exception {
@@ -256,48 +258,33 @@ public class presentation extends Application {
       labelSearch2 = new Label("Search Student By Major");
       labelSearch3 = new Label("Search Student By Interest");
       labelSearch4 = new Label("Search Student By Email");
-      facultyInsert = new Label("Insert Faculty");
       facultyDeleteEntry = new Label("Delete Article By Title");
-      facultyUpdateTitle = new Label("Update Article Title");
       
       // Textfields
       searchTF1 = new TextField();
       searchTF2 = new TextField();
       searchTF3 = new TextField();
       searchTF4 = new TextField();
-      facultyID = new TextField();
-      facultyName = new TextField();
-      department = new TextField();
-      abstrac = new TextField();
-      email = new TextField();
-      topicID = new TextField();
-      title = new TextField();
-      description = new TextField();
       deleteTitle = new TextField();
-      
-      
       
       // Button labels
       studentSearch = new Button("Search");
       majorSearch = new Button("Search");
       interestSearch = new Button("Search");
       emailSearch = new Button("Search");
-      insertBtn = new Button("Insert");
+      insertWinBtn = new Button("Insert New Faculty..");
       deleteBtn = new Button("Delete");
-      updateBtn = new Button("Update");
+      updateWinBtn = new Button("Update Article..");
       
       // Create a new grid and flow
       gridPane = new GridPane();
-      flowPane = new FlowPane(8,8);
       
       // Re-align the Label text to the center right.      
       gridPane.setHalignment(labelSearch1, HPos.LEFT);
       gridPane.setHalignment(labelSearch2, HPos.LEFT);
       gridPane.setHalignment(labelSearch3, HPos.LEFT);
       gridPane.setHalignment(labelSearch4, HPos.LEFT);
-      gridPane.setHalignment(facultyInsert, HPos.LEFT);
       gridPane.setHalignment(facultyDeleteEntry, HPos.LEFT);
-      gridPane.setHalignment(facultyUpdateTitle, HPos.LEFT);
       gridPane.setVgap(10);
       
       // Render a grid panel
@@ -305,19 +292,17 @@ public class presentation extends Application {
       gridPane.addRow(1, labelSearch2, searchTF2, majorSearch);
       gridPane.addRow(2, labelSearch3, searchTF3, interestSearch);
       gridPane.addRow(3, labelSearch4, searchTF4, emailSearch);
-      gridPane.addRow(4, facultyInsert, facultyID, facultyName, department, abstrac, email, topicID, insertBtn);
-      gridPane.addRow(5, facultyDeleteEntry, deleteTitle, deleteBtn);
-      gridPane.addRow(6, facultyUpdateTitle,title, description, updateBtn);
+      gridPane.addRow(4, facultyDeleteEntry, deleteTitle, deleteBtn);
+      gridPane.addRow(5, insertWinBtn, updateWinBtn);
       
-      rootFacultyMenu.getChildren().addAll(titleLabel, gridPane, flowPane);
+      rootFacultyMenu.getChildren().addAll(titleLabel, gridPane);
       
       // Finally, put everything at center
       rootFacultyMenu.setAlignment(Pos.CENTER);
       gridPane.setAlignment(Pos.CENTER);
-      flowPane.setAlignment(Pos.CENTER);
       
       // Render a new window page
-      facultyScene = new Scene(rootFacultyMenu, 2000, 500);
+      facultyScene = new Scene(rootFacultyMenu, 600, 500);
       stage.setScene(facultyScene);
       
       // Add button behaviors
@@ -341,14 +326,23 @@ public class presentation extends Application {
          
          searchResult(result);
       });
-      insertBtn.setOnAction(e -> {
-         db.insertFaculty(facultyID.getText(), facultyName.getText(), department.getText(), abstrac.getText(), email.getText(), topicID.getText());
+      insertWinBtn.setOnAction(e -> {
+         insertFacultyWindow();
       });
       deleteBtn.setOnAction(e -> {
          db.deleteEntry(deleteTitle.getText());
+         
+         try {
+            alert = new Alert(AlertType.INFORMATION, "Article has deleted.");
+            alert.showAndWait();
+         }
+         catch (Exception ex) {
+            alert = new Alert(AlertType.ERROR, ex.toString());
+            alert.showAndWait();
+         }
       });
-      updateBtn.setOnAction(e -> {
-         db.updateEntry(title.getText(), description.getText());
+      updateWinBtn.setOnAction(e -> {
+         updateArticleWindow();
       });
    }
    
@@ -401,6 +395,122 @@ public class presentation extends Application {
          alert.showAndWait();
       }
       return result;
+   }
+   
+   public void updateArticleWindow() {
+      stage = new Stage();
+      rootNewWindow = new VBox(1);
+      stage.setTitle("Update Article");
+      
+      titleLabel = new Label("Update Article");
+      titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 30px;");
+      
+      labelSearch1 = new Label("Title");
+      labelSearch2 = new Label("Description");
+      
+      updateBtn = new Button("Update");
+      
+      title = new TextField();
+      description = new TextField();
+      
+      gridPane = new GridPane();
+      
+      gridPane.addRow(0, labelSearch1, title);
+      gridPane.addRow(1, labelSearch2, description);
+      gridPane.addRow(2, updateBtn);
+      
+      gridPane.setHalignment(labelSearch1, HPos.LEFT);
+      gridPane.setHalignment(labelSearch2, HPos.LEFT);
+      
+      rootNewWindow.getChildren().addAll(titleLabel, gridPane);
+            
+      // Finally, put everything at center
+      rootNewWindow.setAlignment(Pos.CENTER);
+      gridPane.setAlignment(Pos.CENTER);
+            
+      // Render a new window page
+      newWindowScene = new Scene(rootNewWindow, 800, 250);
+      stage.setScene(newWindowScene);
+      stage.show();
+      
+      updateBtn.setOnAction(e -> {
+         db.updateEntry(title.getText(), description.getText());
+         
+         try {
+            alert = new Alert(AlertType.INFORMATION, "Article has updated successfully.");
+            alert.showAndWait();
+         }
+         catch (Exception ex) {
+            alert = new Alert(AlertType.ERROR, ex.toString());
+            alert.showAndWait();
+         }
+      });
+   }
+   
+   public void insertFacultyWindow() {
+      stage = new Stage();
+      rootNewWindow = new VBox(1);
+      stage.setTitle("Insert New Faculty");
+      
+      titleLabel = new Label("Insert New Faculty");
+      titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 30px;");
+      
+      labelSearch1 = new Label("Faculty ID");
+      labelSearch2 = new Label("Faculty Name");
+      labelSearch3 = new Label("Department");
+      labelSearch4 = new Label("Abstract");
+      labelSearch5 = new Label("Email");
+      labelSearch6 = new Label("Topic ID");
+      
+      insertBtn = new Button("Insert");
+      
+      facultyID = new TextField();
+      facultyName = new TextField();
+      department = new TextField();
+      abstrac = new TextField();
+      email = new TextField();
+      topicID = new TextField();
+      
+      gridPane = new GridPane();
+      
+      gridPane.addRow(0, labelSearch1, facultyID);
+      gridPane.addRow(1, labelSearch2, facultyName);
+      gridPane.addRow(2, labelSearch3, department);
+      gridPane.addRow(3, labelSearch4, abstrac);
+      gridPane.addRow(4, labelSearch5, email);
+      gridPane.addRow(5, labelSearch6, topicID);
+      gridPane.addRow(6, insertBtn);
+      
+      gridPane.setHalignment(labelSearch1, HPos.LEFT);
+      gridPane.setHalignment(labelSearch2, HPos.LEFT);
+      gridPane.setHalignment(labelSearch3, HPos.LEFT);
+      gridPane.setHalignment(labelSearch4, HPos.LEFT);
+      gridPane.setHalignment(labelSearch5, HPos.LEFT);
+      gridPane.setHalignment(labelSearch6, HPos.LEFT);
+      
+      rootNewWindow.getChildren().addAll(titleLabel, gridPane);
+            
+      // Finally, put everything at center
+      rootNewWindow.setAlignment(Pos.CENTER);
+      gridPane.setAlignment(Pos.CENTER);
+            
+      // Render a new window page
+      newWindowScene = new Scene(rootNewWindow, 800, 250);
+      stage.setScene(newWindowScene);
+      stage.show();
+      
+      insertBtn.setOnAction(e -> {
+         db.insertFaculty(facultyID.getText(), facultyName.getText(), department.getText(), abstrac.getText(), email.getText(), topicID.getText());
+         
+         try {
+            alert = new Alert(AlertType.INFORMATION, "New faculty has been inserted successfully.");
+            alert.showAndWait();
+         }
+         catch (Exception ex) {
+            alert = new Alert(AlertType.ERROR, ex.toString());
+            alert.showAndWait();
+         }
+      });
    }
    
 }

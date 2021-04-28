@@ -126,7 +126,7 @@ CREATE TABLE student_accounts (
 )   ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO student_accounts(studentID, email, accountPassword) VALUES (1, "kevin@gmail.com", "kevin");
 INSERT INTO student_accounts(studentID, email, accountPassword) VALUES (2, "emily@gmail.com", "emily");
-INSERT INTO student_accounts(studentID, email, accountPassword) VALUES (2, "student@gmail.com", "student");
+INSERT INTO student_accounts(studentID, email, accountPassword) VALUES (3, "student@gmail.com", "student");
 
 DROP TABLE IF EXISTS faculty_accounts;
 CREATE TABLE faculty_accounts (

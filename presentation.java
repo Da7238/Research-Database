@@ -504,7 +504,7 @@ public class presentation extends Application {
       gridPane.setAlignment(Pos.CENTER);
 
       // Render a new window page
-      newWindowScene = new Scene(rootNewWindow, 800, 250);
+      newWindowScene = new Scene(rootNewWindow, 800, 350);
       stage.setScene(newWindowScene);
       stage.show();
 

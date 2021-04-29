@@ -271,7 +271,7 @@ public class presentation extends Application {
       majorSearch = new Button("Search");
       interestSearch = new Button("Search");
       emailSearch = new Button("Search");
-      insertWinBtn = new Button("Insert New Faculty..");
+      insertWinBtn = new Button("Insert New Article..");
       deleteBtn = new Button("Delete");
       updateWinBtn = new Button("Update Article..");
 
@@ -469,7 +469,7 @@ public class presentation extends Application {
       labelSearch3 = new Label("Title");
       labelSearch4 = new Label("Author");
       labelSearch5 = new Label("Article Description");
-      labelSearch6 = new Label("Date Published");
+      labelSearch6 = new Label("Date Published (Enter as 'yyyy-mm-dd')");
 
       insertBtn = new Button("Insert");
 
@@ -513,7 +513,7 @@ public class presentation extends Application {
                description.getText(), datePub.getText());
 
          try {
-            alert = new Alert(AlertType.INFORMATION, "New faculty has been inserted successfully.");
+            alert = new Alert(AlertType.INFORMATION, "New article has been inserted successfully.");
             alert.showAndWait();
          } catch (Exception ex) {
             alert = new Alert(AlertType.ERROR, ex.toString());
@@ -521,49 +521,4 @@ public class presentation extends Application {
          }
       });
    }
-
-   public void deleteEntryWindow() {
-      stage = new Stage();
-      rootNewWindow = new VBox(1);
-      stage.setTitle("Delete entry");
-
-      titleLabel = new Label("Delete article entry");
-      titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 30px;");
-
-      labelSearch1 = new Label("Aritcle title");
-
-      deleteBtn = new Button("Delete");
-
-      deleteTitle = new TextField();
-
-      gridPane = new GridPane();
-
-      gridPane.addRow(0, labelSearch1, deleteTitle);
-      gridPane.setHalignment(labelSearch1, HPos.LEFT);
-
-      rootNewWindow.getChildren().addAll(titleLabel, gridPane);
-
-      // Finally, put everything at center
-      rootNewWindow.setAlignment(Pos.CENTER);
-      gridPane.setAlignment(Pos.CENTER);
-
-      newWindowScene = new Scene(rootNewWindow, 800, 250);
-      stage.setScene(newWindowScene);
-      stage.show();
-
-      deleteBtn.setOnAction(e -> {
-         db.deleteEntry(deleteTitle.getText());
-
-         try {
-            alert = new Alert(AlertType.INFORMATION, "Article has been deleted.");
-            alert.showAndWait();
-         } // end of try
-         catch (Exception ex) {
-            alert = new Alert(AlertType.ERROR, ex.toString());
-            alert.showAndWait();
-         } // end of catch
-      }); // end of deleteBtn.setOnAction
-
-   }// end of deleteEntryWindow
-
 }

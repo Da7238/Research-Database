@@ -24,7 +24,7 @@ public class researchDatabase {
     public boolean connect() {
         conn = null;
         String userName = "root";
-        String password = "student";
+        String password = "GurrenLagann7";
         String url = "jdbc:mysql://localhost/researchDatabase";
 
         try {
@@ -490,30 +490,43 @@ public class researchDatabase {
       }
       
      
-    public int insertFaculty(String facultyID, String facultyName, String department, String abstrac, String email, String topicID) {
+    /**
+     * Inserts an article into the database
+     * 
+     * @param articleID - an article ID
+     * @param topicID   - a topic ID
+     * @param title - the title of the article
+     * @param authorID  - the ID of the article's author
+     * @param description - the description of the article 
+     * @param date - the date the article was published
+     * @return
+     */
+    public int insertArticle(String articleID, String topicID, String articleTitle, String authorID, String articleDescription, String publishDate) {
         int result = 0;
-        int primaryKey = Integer.parseInt(facultyID);
+        int primaryKey = Integer.parseInt(articleID);
+        int numTopicID = Integer.parseInt(topicID);
+        int numAuthorID = Integer.parseInt(authorID);
         try {
             PreparedStatement stmt2;
 
             stmt2 = conn.prepareStatement(
-                    "INSERT INTO faculty(facultyID, facultyName, departmentID, abstract, email, topicID)  VALUES (?,?,?,?,?,?)");
+                    "INSERT INTO article(articleID, topicID, title, authorID, articleDescription, publishDate)  VALUES (?,?,?,?,?,?)");
             stmt2.setInt(1, primaryKey);
-            stmt2.setString(2, facultyName);
-            stmt2.setString(3, department);
-            stmt2.setString(4, abstrac);
-            stmt2.setString(5, email);
-            stmt2.setString(6, topicID);
+            stmt2.setInt(2, numTopicID);
+            stmt2.setString(3, articleTitle);
+            stmt2.setInt(4, numAuthorID);
+            stmt2.setString(5, articleDescription);
+            stmt2.setString(6, publishDate);
 
             result = stmt2.executeUpdate(); // Performs the update command
         } // end of try
         catch (Exception e) {
-            System.out.println("Error whlie trying to insert a faculty member.");
+            System.out.println("Error whlie trying to insert an article.");
             System.out.println("Error message is --> " + e);
         } // end of catch
         return (result); // return the result to presentation layer
-    }// end of insertFaculty()
-
+    }// end of insertArticle()
+    
     /**
      * Updates the fields of an article
      * 
@@ -718,20 +731,21 @@ public class researchDatabase {
             email = scanner.nextLine();
             searchStudentEmail(email);
             break;
-        case 5: // insert faculty
-            System.out.println("Enter faculty ID: ");
-            ID = scanner.nextLine();
-            System.out.println("Enter faculty name: ");
-            name = scanner.nextLine();
-            System.out.println("Enter faculty department: ");
-            department = scanner.nextLine();
-            System.out.println("Enter faculty abstract: ");
-            facultyAbstract = scanner.nextLine();
-            System.out.println("Enter faculty email: ");
-            email = scanner.nextLine();
-            System.out.println("Enter faculty topicID: ");
+        case 5: // insert article
+            System.out.println("Enter article ID: ");
+            articleID = scanner.nextLine();
+            System.out.println("Enter topic ID: ");
             topicID = scanner.nextLine();
-            insertFaculty(ID, name, department, facultyAbstract, email, topicID);
+            System.out.println("Enter article title: ");
+            title = scanner.nextLine();
+            System.out.println("Enter author ID: ");
+            authorID = scanner.nextLine();
+            System.out.println("Enter description: ");
+            articleDescription = scanner.nextLine();
+            System.out.println("Enter date published: ");
+            publishDate = scanner.nextLine();
+            insertArticle(articleID, topicID, title, authorID, articleDescription, publishDate);
+            
             break;
         case 6: // update entry
             System.out.println("Enter title: ");

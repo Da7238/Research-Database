@@ -457,18 +457,18 @@ public class researchDatabase {
      * @return
      */
      
-   public int updateArticle(String topicID, String title, String authorID, String articleDescription, String articleID) {
+   public int updateArticle(String topicID, String title, String authorID, String articleDescription, String publishDate, String articleID) {
         int result = 0;
-        int primaryKey = Integer.parseInt(articleID);
+        int primaryKey = Integer.parseInt(articleID); // primary key declear
         String sql = new String();
       try {
          PreparedStatement stmt;
          
       
-         sql = "UPDATE article SET topicID = ?, title = ?, authorID = ?, articleDescription = ? WHERE articleID = ? ";
+         sql = "UPDATE article SET topicID = ?, title = ?, authorID = ?, articleDescription = ?, publishDate = ? WHERE articleID = ? "; // set the field
          
          query += "\nUPDATE article SET topicID = " + topicID + ", title = " + title + ", authorID = "
-          + authorID + ", articleDescription = " + articleDescription + " WHERE articleID = " + articleID + ";";
+          + authorID + ", articleDescription = " + articleDescription + ", publishDate = " + publishDate + " WHERE articleID = " + articleID + ";";
     
          stmt = conn.prepareStatement(sql);
          
@@ -476,9 +476,10 @@ public class researchDatabase {
          stmt.setString(2, title);
          stmt.setString(3, authorID);
          stmt.setString(4, articleDescription);
-         stmt.setInt(5, primaryKey);
+         stmt.setString(5, publishDate);
+         stmt.setInt(6, primaryKey);
          
-         result = stmt.executeUpdate();
+         result = stmt.executeUpdate();// execute command
       }
          catch (Exception e) {
          System.out.println(sql + query);
@@ -690,6 +691,10 @@ public class researchDatabase {
         String interest = "";
         String major = "";
         String topicID = "";
+        String articleID = "";
+        String authorID = "";
+        String articleDescription = "";   
+        String publishDate = "";
         
 
         switch (choice) {
@@ -741,10 +746,6 @@ public class researchDatabase {
             deleteEntry(title);
             break;
         case 8: //update all
-        
-            String articleID = "";
-            String authorID = "";
-            String articleDescription = "";   
             System.out.println("Enter topicID: ");
             topicID = scanner.nextLine();
             System.out.println("Enter title: ");
@@ -753,9 +754,11 @@ public class researchDatabase {
             authorID = scanner.nextLine();
             System.out.println("Enter articleDesc: ");
             articleDescription = scanner.nextLine();
+            System.out.println("Enter publishDate: ");
+            publishDate = scanner.nextLine();
             System.out.println("Enter article ID: ");
             articleID = scanner.nextLine();
-            updateArticle(topicID, title, authorID, articleDescription, articleID);            
+            updateArticle(topicID, title, authorID, articleDescription,publishDate, articleID);            
             break;
             
          case 9: // close database

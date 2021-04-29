@@ -4,27 +4,59 @@
 -- Weijie Chen
 -- Ben Donahue
 
-Student Sign in:
-1. Enter student
-2. Enter "student@gmail.com" when prompted for an email
-3. Enter "student" when prompted for a password
-4. Now a menu with options will be displayed
-    Option1 - Search article by title: Enter "How to make a website"
-    Option2 - Search article by abstract: Enter "Web Development"
-    Option3 - Search article by author(s): Enter "Jim Habermas"
-    Option4 - Search faculty by name: Enter "Jim"
-    Option5 - Search faculty by department: "Golisano"
-    Option6 - Search faculty by email: "jimmy@rit.edu"
+Go to presentation.java and open the file.
+We have used javafx so you will need to have that set up on whatever IDE 
+you choose to run the application on.
+We ran our code on JGrasp.
 
-Faculty Sign in:
-1. Enter faculty
-2. Enter "faculty@gmail.com" when prompted for an email
-3. Enter "faculty" when prompted for a password
-4. Now a menu with options will be displayed
-    Option1 - Search student by name: Enter "Kevin"
-    Option2 - Search student by major: Enter "Mathematics"
-    Option3 - Search student by interest: Enter "php"
-    Option4 - Search student by email: Enter "kevin@gmail.com"
-    Option5 - Insert a new faculty member:
-    Option6 - Update article entry: 
-    Option7 - Delete article entry
+---------- Student Sign in: ----------
+1. Enter "student@gmail.com" when prompted for an email
+2. Enter "student" when prompted for a password
+3. Now a menu with options will be displayed
+
+    Search article by title: Enter "How to make a website" - then hit the search button
+    
+    Search article by author(s): Enter "Jim Habermas" - then hit the search button
+    
+    Search faculty by email: "jimmy@rit.edu" - then hit the search button
+        
+    Search faculty by name: Enter "Jim" - then hit the search button
+    
+    Search faculty by abstract: Enter "Web Development" - then hit the search button
+    
+    Search faculty by department: "Golisano" - then hit the search button
+    
+
+---------- Faculty Sign in: ----------
+1. Enter "faculty@gmail.com" when prompted for an email
+2. Enter "faculty" when prompted for a password
+3. Now a menu with options will be displayed
+
+    Search student by name: Enter "Kevin"
+    
+    Search student by major: Enter "Mathematics"
+    
+    Search student by interest: Enter "php"
+    
+    Search student by email: Enter "kevin@gmail.com"
+    
+    Delete article entry by article title:
+         Enter "How to be a good coder"
+    
+    Insert a new article entry:
+         Article ID = "5"
+         Topic ID = "3"
+         Title = "How to be good at math"
+         Author(ID) = "2"
+         Article Description = "How to solve complex math problems"
+         Date Published = "2001-02-06"
+    
+    Update article entry (please make sure to fill out all fields in this step even if you do not wish to update them): 
+         Topic ID = "2"
+         Title = "How to be the best coder"
+         AuthorID = "1"
+         Description = "Tips and tricks on how to write better code."
+         Date Published = "2021-02-03"
+         Article ID = "3"
+    
+    

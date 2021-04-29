@@ -405,7 +405,7 @@ public class presentation extends Application {
 
       labelSearch1 = new Label("Topic ID");
       labelSearch2 = new Label("Title");
-      labelSearch3 = new Label("AuthorID");
+      labelSearch3 = new Label("Author ID");
       labelSearch4 = new Label("Description");
       labelSearch5 = new Label("Date Published");
       labelSearch6 = new Label("Article ID");

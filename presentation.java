@@ -467,7 +467,7 @@ public class presentation extends Application {
       labelSearch1 = new Label("Article ID");
       labelSearch2 = new Label("Topic ID");
       labelSearch3 = new Label("Title");
-      labelSearch4 = new Label("Author");
+      labelSearch4 = new Label("Author ID");
       labelSearch5 = new Label("Article Description");
       labelSearch6 = new Label("Date Published (Enter as 'yyyy-mm-dd')");
 

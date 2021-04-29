@@ -24,7 +24,7 @@ public class researchDatabase {
     public boolean connect() {
         conn = null;
         String userName = "root";
-        String password = "GurrenLagann7";
+        String password = "student";
         String url = "jdbc:mysql://localhost/researchDatabase";
 
         try {
@@ -446,6 +446,10 @@ public class researchDatabase {
         return searchResult;
     } // end of searchAuthor()
 
+    /*
+    * Prints all articles in the database; for use to check if an article was successfully added or deleted.
+    * Returns: a string containing the results of the search query
+    */
     public String getArticles() {
         String sql = ""; // string to contain sql statement
         String searchResult = "";

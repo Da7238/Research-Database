@@ -446,6 +446,32 @@ public class researchDatabase {
         return searchResult;
     } // end of searchAuthor()
 
+    public String getArticles() {
+        String sql = ""; // string to contain sql statement
+        String searchResult = "";
+        String articleResult = "";
+        int result = 0;
+        
+        try {
+            stmt = conn.createStatement();
+            sql = "SELECT ar.title, t.topicTag, au.authorID, ar.articleDescription, ar.publishDate FROM article ar JOIN author au ON"
+                + " (ar.authorID = au.authorID) JOIN topic t on (ar.topicID = t.topicID)";
+            rs = stmt.executeQuery(sql);  
+            searchResult += "Title | Topic | Author | Article Description | Publish Date\n"; 
+            while (rs.next()) {
+                articleResult = rs.getString(1) + " | " + rs.getString(2) + " | " + rs.getString(3) + " | " + rs.getString(4)
+                    + " | " + rs.getString(5) + "\n"; 
+                searchResult += articleResult;
+            } // end of while
+        }
+        catch (Exception e) {
+            System.out.println("Error whlie trying to print articles.");
+            System.out.println("Error message is --> " + e);
+
+        }      
+        return searchResult;  
+    }
+
     /**
      * Inserts a faculty member into the database
      * 
@@ -456,7 +482,6 @@ public class researchDatabase {
      * @param email       - the email of a faculty member
      * @return
      */
-     
    public int updateArticle(String topicID, String title, String authorID, String articleDescription, String publishDate, String articleID) {
         int result = 0;
         int primaryKey = Integer.parseInt(articleID); // primary key declear

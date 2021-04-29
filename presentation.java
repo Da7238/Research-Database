@@ -330,9 +330,9 @@ public class presentation extends Application {
       });
       deleteBtn.setOnAction(e -> {
          db.deleteEntry(deleteTitle.getText());
-         // deleteEntryWindow();
+         String result = db.getArticles();
          try {
-            alert = new Alert(AlertType.INFORMATION, "Article has deleted.");
+            alert = new Alert(AlertType.INFORMATION, "Article has deleted.\n" + result);
             alert.showAndWait();
          } catch (Exception ex) {
             alert = new Alert(AlertType.ERROR, ex.toString());
@@ -511,9 +511,10 @@ public class presentation extends Application {
       insertBtn.setOnAction(e -> {
          db.insertArticle(articleID.getText(), topicID.getText(), title.getText(), author.getText(),
                description.getText(), datePub.getText());
+         String result = db.getArticles();
 
          try {
-            alert = new Alert(AlertType.INFORMATION, "New article has been inserted successfully.");
+            alert = new Alert(AlertType.INFORMATION, "New article has been inserted successfully\n." + result);
             alert.showAndWait();
          } catch (Exception ex) {
             alert = new Alert(AlertType.ERROR, ex.toString());
